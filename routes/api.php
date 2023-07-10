@@ -45,18 +45,18 @@ Route::post('/post-news', [NewsController::class, 'postNews']);
 Route::get('/latest-news', [NewsController::class, 'getNews']);
 
 
-Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::post('/permission-create', [PermissionController::class, 'permissionCreate'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/permission-list', [PermissionController::class, 'listPermission'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/permission/{id}', [PermissionController::class, 'getPermission'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::put('/permission-update/{id}', [PermissionController::class, 'updatePermission'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::delete('/permission-delete/{id}', [PermissionController::class, 'deletePermission'])->middleware(['auth:sanctum', 'ability:Admin']);
+Route::post('/sending-key', [SendingKeyController::class, 'sendingKey']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::post('/permission-create', [PermissionController::class, 'permissionCreate']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/permission-list', [PermissionController::class, 'listPermission']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/permission/{id}', [PermissionController::class, 'getPermission']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::put('/permission-update/{id}', [PermissionController::class, 'updatePermission']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::delete('/permission-delete/{id}', [PermissionController::class, 'deletePermission']);//->middleware(['auth:sanctum', 'ability:Admin']);
 
-Route::post('/key-create', [KeyController::class, 'keyCreate'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/key-list', [KeyController::class, 'listKey'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/key/{id}', [KeyController::class, 'getKey'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::delete('/key-delete/{id}', [KeyController::class, 'deleteKey'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/key-permission-list', [KeyController::class, 'permissionKeyList'])->middleware(['auth:sanctum', 'ability:Admin']);
+Route::post('/key-create', [KeyController::class, 'keyCreate']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/key-list', [KeyController::class, 'listKey']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/key/{id}', [KeyController::class, 'getKey']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::delete('/key-delete/{id}', [KeyController::class, 'deleteKey']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/key-permission-list', [KeyController::class, 'permissionKeyList']);//->middleware(['auth:sanctum', 'ability:Admin']);
 
-Route::get('/users', [UsersController::class, 'getAllUsers'])->middleware(['auth:sanctum', 'ability:Admin']);
-Route::get('/user/{id}', [UsersController::class, 'getSingleUser'])->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/users', [UsersController::class, 'getAllUsers']);//->middleware(['auth:sanctum', 'ability:Admin']);
+Route::get('/user/{id}', [UsersController::class, 'getSingleUser']);//->middleware(['auth:sanctum', 'ability:Admin']);
