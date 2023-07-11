@@ -43,6 +43,9 @@ Route::prefix('report')->group(function () {
 
 Route::post('/post-news', [NewsController::class, 'postNews']);
 Route::get('/latest-news', [NewsController::class, 'getNews']);
+Route::get('/news/{id}', [NewsController::class, 'getSingleNews']);
+Route::put('/news/{id}', [NewsController::class, 'updateSingleNews']);
+Route::delete('/news/{id}', [NewsController::class, 'deleteNews']);
 
 
 Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->middleware(['auth:sanctum', 'ability:Admin']);
