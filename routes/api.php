@@ -41,11 +41,11 @@ Route::prefix('report')->group(function () {
     Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc']);
 });
 
-Route::post('/post-news', [NewsController::class, 'postNews']);
+Route::post('/post-news', [NewsController::class, 'postNews'])->middleware(['auth:sanctum', 'ability:dcm']);
 Route::get('/latest-news', [NewsController::class, 'getNews']);
 Route::get('/news/{id}', [NewsController::class, 'getSingleNews']);
-Route::put('/news/{id}', [NewsController::class, 'updateSingleNews']);
-Route::delete('/news/{id}', [NewsController::class, 'deleteNews']);
+Route::post('/news/{id}', [NewsController::class, 'updateSingleNews'])->middleware(['auth:sanctum', 'ability:dcm']);
+Route::delete('/news/{id}', [NewsController::class, 'deleteNews'])->middleware(['auth:sanctum', 'ability:dcm']);
 
 
 Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->middleware(['auth:sanctum', 'ability:Admin']);

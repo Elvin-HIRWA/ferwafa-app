@@ -77,7 +77,7 @@ class NewsController extends Controller
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $news = News::where("id", $id);
+        $news = News::where("id", $id)->first();
 
         if (!$news) {
             throw new Exception('news not found');
@@ -99,24 +99,26 @@ class NewsController extends Controller
 
         $newsImage->save();
 
-        return response()->json(['success' => true]);
+        return response()->json(['message' => ['updated successfully']]);
     }
 
 
     public function deleteNews($id)
     {
-        $news = News::where("id", $id);
+        $news = News::where("id", $id)->first();
 
         if (!$news) {
             throw new Exception('news not found');
         }
 
-        $newsImage = NewsUrl::where('news_id', $news->id);
+        $newsImage = NewsUrl::where('news_id', $news->id)->first();
 
         Storage::delete($newsImage->image_url);
 
         $newsImage->delete();
 
         $news->delete();
+
+        return response()->json(['message' => ['deleted successfully']]);
     }
 }
