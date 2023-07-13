@@ -73,4 +73,46 @@ class ReportController extends Controller
             }
         }
     }
+
+    public function updateReport(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            "title" => "required|string|max:255",
+            "reportFile" =>  'file|max:5000|mimes:pdf',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $report = Report::find($id);
+
+        if (!$report) {
+            return response()->json(['message' => 'report not found']);
+        }
+
+        Storage::delete($report->url);
+
+        $path = $request->reportFile->store('report');
+
+        $report->title = $request->title;
+        $report->url = $path;
+        $report->save();
+
+        return response()->json(['message' => 'updated successfully']);
+    }
+
+    public function deleteReport($id)
+    {
+        $report = Report::find($id);
+
+        if (!$report) {
+            return response()->json(['message' => 'report not found']);
+        }
+
+        Storage::delete($report->url);
+        $report->delete();
+
+        return response()->json(['message' => 'deleted successfully']);
+    }
 }

@@ -39,6 +39,8 @@ Route::prefix('report')->group(function () {
     Route::get('/list', [ReportController::class, 'get']);
     Route::get('/get/{id}', [ReportController::class, 'getSingle']);
     Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc']);
+    Route::post('/update/{id}', [ReportController::class, 'updateReport']);
+    Route::delete('/delete/{id}', [ReportController::class, 'deleteReport']);
 });
 
 Route::post('/post-news', [NewsController::class, 'postNews'])->middleware(['auth:sanctum', 'ability:dcm']);
