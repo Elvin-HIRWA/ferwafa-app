@@ -34,8 +34,8 @@ class SendSignUpKey extends Mailable
     public function build()
     {
         return $this
-            ->from('vangainganzo@muzik.com', 'Vanga Inganzo')
-            ->subject('Signup to Vanga Inganzo')
+            ->from('contact@ferwafa.rw', 'Ferwafa')
+            ->subject('Signup to Ferwafa')
             ->markdown('mail.SendSignUpKey')
             ->with([
                 'name' => $this->email,
