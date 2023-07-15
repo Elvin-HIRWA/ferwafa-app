@@ -21,6 +21,7 @@ class NewsController extends Controller
             "caption" => "required|string|max:255",
             "description" => "required|string",
             "is_top" => "boolean",
+            "statusID" => "required|integer|in:1,2,3",
             "image" => "file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
@@ -37,6 +38,7 @@ class NewsController extends Controller
             "title" => $request->title,
             "caption" => $request->caption,
             "description" => $request->description,
+            "statusID" => $request->statusID,
             "is_top" => $request->is_top
         ]);
 
@@ -50,12 +52,16 @@ class NewsController extends Controller
     }
 
 
-    public function getNews()
+    public function getNewsForAdmin()
     {
-        $news = DB::select('SELECT a.*,b.image_url FROM 
+        $news = DB::select(
+            'SELECT a.*,b.image_url,c.name FROM 
                                 News AS a
                                 JOIN NewsUrl AS b
-                                ON b.news_id = a.id');
+                                ON b.news_id = a.id
+                                JOIN NewsStatus AS c
+                                ON a.statusID = c.id'
+        );
 
         $result = [];
 
@@ -66,6 +72,36 @@ class NewsController extends Controller
                 "caption" => $value->caption,
                 "description" => $value->description,
                 "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
+                "image_url" => $value->image_url
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return response()->json($result);
+    }
+    public function getNews()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN NewsStatus AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = 1');
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
                 "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
                 "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
                 "image_url" => $value->image_url
@@ -90,6 +126,7 @@ class NewsController extends Controller
             "caption" => "required|string|max:255",
             "description" => "required|string",
             "is_top" => "boolean",
+            "statusID" => "required|integer|in:1,2,3",
             "image" => "file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
@@ -108,6 +145,7 @@ class NewsController extends Controller
         $news->caption = $request->caption;
         $news->description = $request->description;
         $news->is_top = $request->is_top;
+        $news->statusID = $request->statusID;
         $news->save();
 
         $path = $request->image->store('newsImages');

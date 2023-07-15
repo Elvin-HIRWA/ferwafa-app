@@ -53,6 +53,7 @@ Route::prefix('report')->group(function () {
 
 Route::post('/post-news', [NewsController::class, 'postNews'])->middleware(['auth:sanctum', 'ability:dcm']);
 Route::get('/latest-news', [NewsController::class, 'getNews']);
+Route::get('/all-news', [NewsController::class, 'getNewsForAdmin'])->middleware(['auth:sanctum', 'ability:dcm']);
 Route::get('/news/{id}', [NewsController::class, 'getSingleNews']);
 Route::post('/news/{id}', [NewsController::class, 'updateSingleNews'])->middleware(['auth:sanctum', 'ability:dcm']);
 Route::delete('/news/{id}', [NewsController::class, 'deleteNews'])->middleware(['auth:sanctum', 'ability:dcm']);

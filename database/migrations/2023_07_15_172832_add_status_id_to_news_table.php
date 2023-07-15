@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('News', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->text('caption');
-            $table->text('description');
-            $table->unsignedBigInteger('statusID');
-            $table->boolean('is_top')->default(false);
-            $table->timestamps();
-
+        Schema::table('News', function (Blueprint $table) {
+            $table->unsignedBigInteger('StatusID');
 
             $table->foreign('statusID')->references('id')->on('NewsStatus')
                 ->onDelete('restrict')
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('News');
+        Schema::table('News', function (Blueprint $table) {
+            $table->dropColumn('StatusID');
+        });
     }
 };
