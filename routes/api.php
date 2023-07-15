@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\KeyController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PermissionController;
@@ -32,6 +33,13 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('committe')->group(function () {
+    Route::post('/create', [CommitteController::class, 'createCommitte']);
+    Route::get('/list', [CommitteController::class, 'listAllCommitte']);
+    Route::post('/update/{id}', [CommitteController::class, 'updateCommitte']);
+    Route::delete('/delete/{id}', [CommitteController::class, 'deleteCommitte']);
 });
 
 Route::prefix('report')->group(function () {
