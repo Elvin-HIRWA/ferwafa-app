@@ -68,7 +68,7 @@ class NewsController extends Controller
                 "is_top" => $value->is_top,
                 "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
                 "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
-                "image_url" => $value->is_top
+                "image_url" => $value->image_url
             ];
             array_push($result, $singleNews);
         }
