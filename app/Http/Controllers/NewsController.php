@@ -7,6 +7,7 @@ use App\Models\NewsUrl;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,7 +51,10 @@ class NewsController extends Controller
 
     public function getNews()
     {
-        $result = News::all();
+        $result = DB::select('SELECT a.*,b.image_url FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id');
 
         return response()->json($result);
     }
