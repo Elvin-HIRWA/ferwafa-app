@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\NewsUrl;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -51,10 +52,26 @@ class NewsController extends Controller
 
     public function getNews()
     {
-        $result = DB::select('SELECT a.*,b.image_url FROM 
+        $news = DB::select('SELECT a.*,b.image_url FROM 
                                 News AS a
                                 JOIN NewsUrl AS b
                                 ON b.news_id = a.id');
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
+                "image_url" => $value->is_top
+            ];
+            array_push($result, $singleNews);
+        }
 
         return response()->json($result);
     }
