@@ -364,40 +364,6 @@
                 </div>
                 <!-- Single Team Tabs -->
             </section>
-            <!-- End Section Area -  Content Central -->
-            <!-- Newsletter -->
-            <div class="section-newsletter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-center">
-                                <h2>
-                                    Enter your e-mail and
-                                    <span class="text-resalt">subscribe</span> to our
-                                    newsletter.
-                                </h2>
-                                <p>
-                                    you can enter you email in other to subscribe in our website
-                                    and you will receive latest new whenever it is uploaded
-                                </p>
-                            </div>
-                            <form action="#!" id="newsletterForm">
-                                <div class="row">
-                                    <div class="col-md-6 subscribe-home">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span><input class="form-control" name="email" placeholder="Your  Email" required="required" type="email" /><span class="input-group-btn"><button class="btn btn-primary" name="subscribe" type="submit">
-                                                    SIGN UP
-                                                </button></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <div id="result-newsletter"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Newsletter -->
         </section>
         <!-- End Section Area -  Content Central -->
         <!-- footer-->
