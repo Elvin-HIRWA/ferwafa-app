@@ -51,7 +51,6 @@ class NewsController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-
     public function getNewsForAdmin()
     {
         $news = DB::select(
@@ -82,6 +81,49 @@ class NewsController extends Controller
 
         return response()->json($result);
     }
+
+    public function getNewsImage($fileName)
+    {
+        if (Storage::exists('newsImages/' . $fileName)) { {
+                return response()->file(storage_path('/app/newsImages/' . $fileName));
+            }
+        }
+    }
+
+    public function allNews()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN NewsStatus AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = 1
+                                ORDER BY created_at DESC');
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'all_news',
+            ["result" => $result]
+        );
+    }
     public function getNews()
     {
         $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
@@ -90,11 +132,14 @@ class NewsController extends Controller
                                 ON b.news_id = a.id
                                 JOIN NewsStatus AS c
                                 ON a.statusID = c.id
-                                WHERE  c.id = 1');
+                                WHERE  c.id = 1
+                                ORDER BY created_at DESC
+                                LIMIT 4');
 
         $result = [];
 
         foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
             $singleNews = [
                 "id" => $value->id,
                 "title" => $value->title,
@@ -102,21 +147,33 @@ class NewsController extends Controller
                 "description" => $value->description,
                 "is_top" => $value->is_top,
                 "status" => $value->name,
-                "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
-                "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
-                "image_url" => $value->image_url
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
             ];
             array_push($result, $singleNews);
         }
 
-        return response()->json($result);
+        return view('home', ["result" => $result]);
     }
 
     public function getSingleNews($id)
     {
         $result = News::where('id', $id)->first();
-
-        return response()->json($result);
+        $newsUrls = NewsUrl::where('news_id', $id)->get();
+        $urls = [];
+        foreach ($newsUrls as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $newsUrl = [
+                'url' => $fileUrl,
+                'image_caption' => $value->image_caption
+            ];
+            array_push($urls, $newsUrl);
+        }
+        return view('single_news', [
+            'result' => $result,
+            'url' => $urls
+        ]);
     }
 
     public function updateSingleNews(Request $request, $id)
@@ -160,7 +217,6 @@ class NewsController extends Controller
 
         return response()->json(['message' => ['updated successfully']]);
     }
-
 
     public function deleteNews($id)
     {

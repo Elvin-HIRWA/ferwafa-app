@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [NewsController::class, 'getNews']);
+Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->name('news.images.show');
+Route::get('/all-news', [NewsController::class, 'allNews']);
+Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name('single.news');
