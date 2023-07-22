@@ -96,7 +96,7 @@
                 <li class="current">
                     <a href="#">Resources</a>
                     <ul class="sub-current">
-                        <li><a href="/report/">Report</a></li>
+                        <li><a href="{{ route('report') }}">Report</a></li>
                         <li><a href="/document/">Documents</a></li>
                         <li>
                             <a href="javascript:void(0);">Rules &amp; Regulations</a>
@@ -140,7 +140,7 @@
         <!-- Menu-->
         <ul class="" id="">
             <li class=""><a href="/">Home</a></li>
-            <li class=""><a href="/about/">About</a></li>
+            <li class=""><a href="{{ route('about') }}">About</a></li>
             <li class="">
                 <a href="javascript:void(0);">Competitions</a>
                 <ul class="#">
@@ -199,7 +199,7 @@
             <li class="javascript:void(0);">
                 <a href="#">Resources</a>
                 <ul class="#">
-                    <li><a href="/report/">Report</a></li>
+                    <li><a href="{{ route('report') }}">Report</a></li>
                     <li><a href="/document/">Documents</a></li>
                     <li>
                         <a href="">Rules &amp; Regulations</a>

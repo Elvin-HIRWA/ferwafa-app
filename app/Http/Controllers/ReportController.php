@@ -51,7 +51,8 @@ class ReportController extends Controller
             ];
             array_push($finalReport, $report);
         }
-        return response()->json($finalReport);
+        return view('report', ['reports' => $finalReport]);
+        // response()->json($finalReport);
     }
 
     public function getSingle($id)
