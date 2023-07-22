@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [NewsController::class, 'getNews']);
 Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->name('news.images.show');
-Route::get('/all-news', [NewsController::class, 'allNews']);
+Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
 Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name('single.news');
