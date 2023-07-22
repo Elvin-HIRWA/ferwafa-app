@@ -93,154 +93,22 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 text-center">
                         <h3 class="committee-title">Our Executive Committee</h3>
                     </div>
+                    @foreach($committe as $value)
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="staff-card">
                             <div class="staff-image">
                                 <img class="people" src="../static/img/staff/alphonse.jpeg" /><img class="pattern" src="/static/img/background/pattern.png" />
                             </div>
                             <div class="staff-desc">
-                                <h6 class="staff-name">MUNYANTWALI Alphonse</h6>
-                                <p class="staff-position">President</p>
+                                <h6 class="staff-name">{{$value['name']}}</h6>
+                                <p class="staff-position">{{$value['position']}}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/vp1.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">HABYARIMANA MATIKU Marcel</h6>
-                                <p class="staff-position">
-                                    1st Vice President in charge of Administration and Finance
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/vp2.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">MUGISHA Richard</h6>
-                                <p class="staff-position">
-                                    2nd Vice President in charge of Technical Development
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/financecomssioner.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">RUGAMBWA Jean Marie</h6>
-                                <p class="staff-position">Finance Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/rwakunda.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">Rwakunda Quinta</h6>
-                                <p class="staff-position">
-                                    Marketing and Sponsorship Commissioner
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/championscomissioner.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">TURATSINZE Amani Evariste</h6>
-                                <p class="staff-position">Competitions Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/hamdan.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">HABIMANA Hamdan</h6>
-                                <p class="staff-position">
-                                    Technical matters and Development of Football commissioner
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/womenfootballcommissioner.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">MUNYANKAKA Ancille</h6>
-                                <p class="staff-position">Women's Football Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/securitycommissioner.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">RURANGIRWA Louis</h6>
-                                <p class="staff-position">
-                                    Security and Safety Commissioner
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/legalcomissioner.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">GASARABWE Claudine</h6>
-                                <p class="staff-position">Legal Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/doctor.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">Dr. GATSINZI Herbert</h6>
-                                <p class="staff-position">Medical Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="staff-card">
-                            <div class="staff-image">
-                                <img class="people" src="../static/img/staff/nationalteams.jpg" /><img class="pattern" src="/static/img/background/pattern.png" />
-                            </div>
-                            <div class="staff-desc">
-                                <h6 class="staff-name">NGENDAHAYO Vedaste</h6>
-                                <p class="staff-position">National Teams Commissioner</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-        <!-- End White Section -->
-        <!-- Newsletter -->
-        <!-- End Newsletter -->
     </section>
     @include('footer')
 </body>

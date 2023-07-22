@@ -37,7 +37,7 @@
             <!-- Menu-->
             <ul class="sf-menu" id="menu">
                 <li class="current"><a href="/">Home</a></li>
-                <li class="current"><a href="/about/">About</a></li>
+                <li class="current"><a href="{{route('about')}}">About</a></li>
                 <li class="current">
                     <a href="">Competitions</a>
                     <ul class="sub-current">

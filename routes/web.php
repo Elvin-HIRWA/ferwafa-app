@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,4 @@ Route::get('/', [NewsController::class, 'getNews']);
 Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->name('news.images.show');
 Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
 Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name('single.news');
+Route::get('/about', [CommitteController::class, 'listAllCommitte'])->name('about');

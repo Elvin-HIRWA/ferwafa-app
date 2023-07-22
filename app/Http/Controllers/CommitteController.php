@@ -37,8 +37,9 @@ class CommitteController extends Controller
     public function listAllCommitte()
     {
         $committe = Committe::all();
-
-        return response()->json($committe);
+        return view('about', [
+            'committe' => $committe
+        ]);
     }
 
     public function updateCommitte(Request $request, $id)
