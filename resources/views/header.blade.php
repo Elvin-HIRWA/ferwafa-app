@@ -106,7 +106,7 @@
                             </ul>
                         </li>
                         <li><a href="/circular/">Circular</a></li>
-                        <li><a href="/gallery/">Gallery</a></li>
+                        <li><a href="{{ route('gallery.images') }}">Gallery</a></li>
                     </ul>
                 </li>
                 <li class="current">
@@ -209,7 +209,7 @@
                         </ul>
                     </li>
                     <li><a href="/circular/">Circular</a></li>
-                    <li><a href="/gallery/">Gallery</a></li>
+                    <li><a href="{{ route('gallery.images') }}">Gallery</a></li>
                 </ul>
             </li>
             <li class="">
