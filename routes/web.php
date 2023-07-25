@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
@@ -29,9 +30,19 @@ Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->nam
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
 Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form.login');
-Route::get('/admin', [AdminController::class, 'adminView']);
-Route::get('/news-view', [NewsController::class, 'getNewsForAdmin'])->name('news.view');
+Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
+Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
+
+Route::get('/event-view', [AdminController::class, 'getEventsForAdmin'])->name('events.view');
+Route::get('/create-event', [AdminController::class, 'createEventsView'])->name('events.create');
+Route::post('/post-event', [EventController::class, 'createEvent'])->name('post.event');
+Route::get('/event-file/{fileName}', [EventController::class, 'getEventImage'])->name('events.images.show');
+Route::get('/all-events', [EventController::class, 'allEvents'])->name('all.events');
+Route::get('/single-event/{id}', [EventController::class, 'getSingleEvent'])->name('single.event');
+
+
+Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
 
 Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');

@@ -32,6 +32,10 @@ class ReportController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+    public function getReport()
+    {
+        return view('admin.reportlist');
+    }
 
     public function get()
     {

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
 
-            $table->foreign('statusID')->references('id')->on('NewsStatus')
+            $table->foreign('statusID')->references('id')->on('Status')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });

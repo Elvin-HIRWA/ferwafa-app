@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Status', function (Blueprint $table) {
+        Schema::create('Event', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
+            $table->text('description');
+            $table->integer('event_date');
+            $table->unsignedBigInteger('statusID');
             $table->timestamps();
+
+            $table->foreign('statusID')->references('id')->on('Status')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Status');
+        Schema::dropIfExists('Event');
     }
 };

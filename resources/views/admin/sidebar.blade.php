@@ -213,12 +213,12 @@
             <ul class="sidebar-menu">
                 <li class="menu-header">Main</li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('dashboard.view')}}" class="nav-link">
                         <i class="far fa-envelope"></i><span>Dashboard</span>
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('events.view')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Events</span>
                     </a>
                 </li>
@@ -228,7 +228,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('reports.view') }}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Reports</span>
                     </a>
                 </li>

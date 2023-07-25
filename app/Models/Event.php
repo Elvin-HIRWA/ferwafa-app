@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NewsStatus extends Model
+class Event extends Model
 {
     use HasFactory;
 
-    protected $table = 'NewsStatus';
+    protected $table = 'Event';
+
+    protected $fillable = ['name', 'description', 'statusID', 'event_date'];
 }
