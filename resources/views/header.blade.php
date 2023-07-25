@@ -132,6 +132,9 @@
                         <li><a href="#">Whistleblowers</a></li>
                     </ul>
                 </li>
+                <li class="">
+                    <a href="{{ route('form.login') }}">Login</a>
+                </li>
             </ul>
             <!-- End Menu-->
         </div>
@@ -234,6 +237,9 @@
                     <li><a href="#">Information</a></li>
                     <li><a href="#">Whistleblowers</a></li>
                 </ul>
+            </li>
+            <li class="">
+                <a href="{{ route('form.login') }}">Login</a>
             </li>
         </ul>
         <!-- End Menu-->

@@ -16,39 +16,45 @@ class NewsController extends Controller
 {
     public function postNews(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        // $validation = Validator::make($request->all(), [
+        $request->validate([
             "title" => "required|string",
             "caption" => "required|string|max:255",
             "description" => "required|string",
-            "is_top" => "boolean",
-            "statusID" => "required|integer|in:1,2,3",
-            "image" => "file|max:5000|mimes:png,jpg,jpeg"
-
+            "is_top" => "required|boolean",
+            "statusID" => "required|in:1,2,3",
+            "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
         ]);
 
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        // if ($validation->fails()) {
+        //     return redirect('/create-news')
+        //         ->with('errors', $validation->errors()->all());
+        //     // response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        // }
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {}
+
+        DB::transaction(function () use ($request) {
+
+            $news = News::create([
+                "title" => $request->title,
+                "caption" => $request->caption,
+                "description" => $request->description,
+                "statusID" => $request->statusID,
+                "is_top" => $request->is_top
+            ]);
+
             $path = $request->image->store('newsImages');
-        }
+            NewsUrl::create([
+                "image_url" => $path,
+                // "image_caption" => $request->image_caption,
+                "news_id" => $news->id
+            ]);
+        });
 
-        $news = News::create([
-            "title" => $request->title,
-            "caption" => $request->caption,
-            "description" => $request->description,
-            "statusID" => $request->statusID,
-            "is_top" => $request->is_top
-        ]);
 
-        NewsUrl::create([
-            "image_url" => $path,
-            // "image_caption" => $request->image_caption,
-            "news_id" => $news->id
-        ]);
-
-        return response()->json(['message' => 'success']);
+        return redirect('/news-view')
+            ->with('message', 'News has been created!');
     }
 
     public function getNewsForAdmin()
@@ -79,7 +85,9 @@ class NewsController extends Controller
             array_push($result, $singleNews);
         }
 
-        return response()->json($result);
+        return view('admin.newslist', [
+            'news' => $result
+        ]);
     }
 
     public function getNewsImage($fileName)

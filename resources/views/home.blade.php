@@ -64,7 +64,7 @@
                                 <h5>
                                     <a href="{{ route('single.news',$news['id'])}}">{{ $news['title']}}</a>
                                 </h5>
-                                <span class="data-info">{{ $news['created_at']}}</span>
+                                <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
                                 <p>
                                     {{$news['caption']}}
                                 </p>

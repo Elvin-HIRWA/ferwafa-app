@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
+    public function loginForm()
+    {
+        return view('login');
+    }
     public function createAccount(Request $request)
     {
 
@@ -87,11 +91,7 @@ class AuthenticationController extends Controller
         $permissionname = $permissions[0]->permissionname;
         $token = Auth::user()->createToken('token', [$permissionname])->plainTextToken;
 
-        return \response()->json([
-            "token" => $token,
-            "permissionName" => $permissionname,
-            "userID" => Auth::id()
-        ]);
+        return redirect('/admin');
     }
 
     public function logout()
