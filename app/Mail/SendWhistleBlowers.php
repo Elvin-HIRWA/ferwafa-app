@@ -9,28 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class sendInfo extends Mailable
+class SendWhistleBlowers extends Mailable
 {
-    public string $name;
-    public string $email;
-    public string $subjects;
-    public string $content;
-
+    public string $message;
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        $name,
-        $email,
-        $subjects,
-        $content
-    ) {
-        $this->name = $name;
-        $this->email = $email;
-        $this->subjects = $subjects;
-        $this->content = $content;
+    public function __construct($message)
+    {
+        $this->message = $message;
     }
 
     /**
@@ -39,8 +28,8 @@ class sendInfo extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: $this->email,
-            subject: $this->subjects,
+            from: 'no-reply@gmail.com',
+            subject: 'Whistle Blowing',
         );
     }
 
@@ -50,12 +39,9 @@ class sendInfo extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.sendinfo',
+            markdown: 'mail.Whistle',
             with: [
-                'name' => $this->name,
-                'email' => $this->email,
-                'subject' => $this->subjects,
-                'content' => $this->content
+                'message' => $this->message
             ]
         );
     }

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\sendInfo;
+use App\Mail\SendWhistleBlowers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -24,7 +27,7 @@ class ContactController extends Controller
             "name" => "required|string",
             "email" => "required|email:rfc,dns",
             "subject" => "required|string",
-            "Content" => "required|string"
+            "content" => "required|string"
         ]);
 
         Mail::to('ferwafa@yahoo.fr')->send(new sendInfo(
@@ -33,5 +36,20 @@ class ContactController extends Controller
             $request->subject,
             $request->content
         ));
+
+        return redirect('/information');
+    }
+
+    public function sendWhistleblowers(Request $request)
+    {
+        $request->validate([
+            "message" => "required|string"
+        ]);
+
+        Mail::to('ferwafa@yahoo.fr')->send(new SendWhistleBlowers(
+            $request->message
+        ));
+
+        return redirect('/whistleblowers');
     }
 }

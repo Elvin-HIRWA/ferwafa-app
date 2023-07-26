@@ -35,9 +35,6 @@ Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.vie
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
 
-Route::get('/information', [ContactController::class, 'information'])->name('information');
-Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
-
 Route::get('/event-view', [AdminController::class, 'getEventsForAdmin'])->name('events.view');
 Route::get('/create-event', [AdminController::class, 'createEventsView'])->name('events.create');
 Route::post('/post-event', [EventController::class, 'createEvent'])->name('post.event');
@@ -52,4 +49,7 @@ Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
 
 
-Route::post('/send-information',[ContactController::class, 'sendInfo']);
+Route::post('/send-information', [ContactController::class, 'sendInfo'])->name('post.send.info');
+Route::post('/send-whistleblowers', [ContactController::class, 'sendWhistleblowers'])->name('post.send.whistle');
+Route::get('/information', [ContactController::class, 'information'])->name('information');
+Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
