@@ -35,6 +35,9 @@ Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.vie
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
 
+Route::get('/information', [ContactController::class, 'information'])->name('information');
+Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
+
 Route::get('/event-view', [AdminController::class, 'getEventsForAdmin'])->name('events.view');
 Route::get('/create-event', [AdminController::class, 'createEventsView'])->name('events.create');
 Route::post('/post-event', [EventController::class, 'createEvent'])->name('post.event');

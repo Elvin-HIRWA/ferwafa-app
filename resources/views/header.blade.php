@@ -128,8 +128,8 @@
                 <li class="current">
                     <a href="#">Contact</a>
                     <ul class="sub-current">
-                        <li><a href="#">Information</a></li>
-                        <li><a href="#">Whistleblowers</a></li>
+                        <li><a href="{{ route('information') }}">Information</a></li>
+                        <li><a href="{{ route('whistleblowers') }}">Whistleblowers</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -234,7 +234,7 @@
             <li class="">
                 <a href="#">Contact</a>
                 <ul class="#">
-                    <li><a href="#">Information</a></li>
+                    <li><a href="{{ route('information') }}">Information</a></li>
                     <li><a href="#">Whistleblowers</a></li>
                 </ul>
             </li>
