@@ -44,6 +44,7 @@ Route::get('/single-event/{id}', [EventController::class, 'getSingleEvent'])->na
 
 
 Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
+Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
 
 Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');

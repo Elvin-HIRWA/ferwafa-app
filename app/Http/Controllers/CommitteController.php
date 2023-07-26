@@ -34,6 +34,14 @@ class CommitteController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+    public function getComitteImageDoc($fileName)
+    {
+        if (Storage::exists('committe/' . $fileName)) { {
+                return response()->file(storage_path('/app/committe/' . $fileName));
+            }
+        }
+    }
+
     public function listAllCommitte()
     {
         $committe = Committe::all();
