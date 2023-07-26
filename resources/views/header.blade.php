@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <img alt="" style="width: 700px; height: 200px; margin-left: 550px" class="img-responsive banner-image" src="./static/img/federation/banner.png" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
+                        <img alt="" style="width: 700px; height: 200px; margin-left: 550px; right: 0" class="img-responsive banner-image" src="./static/img/federation/banner.png" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </div>
@@ -128,8 +128,8 @@
                 <li class="current">
                     <a href="#">Contact</a>
                     <ul class="sub-current">
-                        <li><a href="#">Information</a></li>
-                        <li><a href="#">Whistleblowers</a></li>
+                        <li><a href="{{ route('information') }}">Information</a></li>
+                        <li><a href="{{ route('whistleblowers') }}">Whistleblowers</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -234,7 +234,7 @@
             <li class="">
                 <a href="#">Contact</a>
                 <ul class="#">
-                    <li><a href="#">Information</a></li>
+                    <li><a href="{{ route('information') }}">Information</a></li>
                     <li><a href="#">Whistleblowers</a></li>
                 </ul>
             </li>
