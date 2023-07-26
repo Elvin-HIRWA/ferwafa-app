@@ -247,6 +247,11 @@
                         <i class="fas fa-envelope"></i><span>Executive Committee</span>
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Partners</span>
+                    </a>
+                </li>
             </ul>
         </aside>
     </div>
