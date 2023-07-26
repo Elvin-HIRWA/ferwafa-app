@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
+use App\Models\Document;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,17 +16,19 @@ class ReportController extends Controller
         $validation = Validator::make($request->all(), [
             "title" => "required|string|max:255",
             "reportFile" =>  'file|max:5000|mimes:pdf',
+            "typeID" => 'required|integer'
         ]);
 
         if ($validation->fails()) {
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $path = $request->reportFile->store('report');
+        $path = $request->reportFile->store('documents');
 
-        Report::create([
+        Document::create([
             'title' => $request->title,
-            'url' => $path
+            'url' => $path,
+            'type_id' => $request->typeID
         ]);
 
         return response()->json(['message' => 'success']);
@@ -40,7 +42,7 @@ class ReportController extends Controller
     public function get()
     {
 
-        $reports = Report::all();
+        $reports = Document::where('type_id', 1);
 
         $finalReport = [];
 
@@ -61,7 +63,7 @@ class ReportController extends Controller
 
     public function getSingle($id)
     {
-        $report = Report::where('id', $id)->first();
+        $report = Document::where('type_id', 1)->where('id', $id)->first();
 
         if (!$report) {
             throw new Exception('report not found');
@@ -73,8 +75,8 @@ class ReportController extends Controller
 
     public function getReportDoc($fileName)
     {
-        if (Storage::exists('report/' . $fileName)) { {
-                return response()->file(storage_path('/app/report/' . $fileName));
+        if (Storage::exists('documents/' . $fileName)) { {
+                return response()->file(storage_path('/app/documents/' . $fileName));
             }
         }
     }
@@ -90,7 +92,7 @@ class ReportController extends Controller
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $report = Report::find($id);
+        $report = Document::where('type_id', 1)->where('id', $id)->first();
 
         if (!$report) {
             return response()->json(['message' => 'report not found']);
@@ -98,7 +100,7 @@ class ReportController extends Controller
 
         Storage::delete($report->url);
 
-        $path = $request->reportFile->store('report');
+        $path = $request->reportFile->store('documents');
 
         $report->title = $request->title;
         $report->url = $path;
@@ -109,7 +111,7 @@ class ReportController extends Controller
 
     public function deleteReport($id)
     {
-        $report = Report::find($id);
+        $report = Document::where('id', $id)->where('type_id', 1)->first();
 
         if (!$report) {
             return response()->json(['message' => 'report not found']);
