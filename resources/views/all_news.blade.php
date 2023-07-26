@@ -14,8 +14,8 @@
 </head>
 
 <body>
+    @include('header')
     <div id="layout">
-        @include('header')
         <div class="section-title big-title" style="background: url(../static/img/background/footballnew.jpg)">
             <div class="container">
                 <div class="row">
@@ -67,12 +67,8 @@
                 </div>
             </div>
         </section>
-        <script>
-            document.getElementById("currentYear").textContent =
-                new Date().getFullYear();
-        </script>
     </div>
-    <script src="/static/CACHE/js/output.037fb98d23ee.js"></script>
+    @include('footer');
 </body>
 
 </html>
