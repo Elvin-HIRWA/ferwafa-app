@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
@@ -46,3 +47,6 @@ Route::get('/report-view', [ReportController::class, 'getReport'])->name('report
 
 Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
+
+
+Route::post('/send-information',[ContactController::class, 'sendInfo']);
