@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
@@ -33,6 +34,9 @@ Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
+
+Route::get('/information', [ContactController::class, 'information'])->name('information');
+Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
 
 Route::get('/event-view', [AdminController::class, 'getEventsForAdmin'])->name('events.view');
 Route::get('/create-event', [AdminController::class, 'createEventsView'])->name('events.create');
