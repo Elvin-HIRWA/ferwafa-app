@@ -45,8 +45,24 @@ class CommitteController extends Controller
     public function listAllCommitte()
     {
         $committe = Committe::all();
+
+        $finalCommitte = [];
+
+        foreach ($committe as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $committeMember = [
+                "id" => $value->id,
+                "name" => $value->name,
+                "position" => $value->position,
+                "created_at" => $value->created_at,
+                "updataed_at" => $value->updated_at,
+                "url" => $fileUrl
+            ];
+            array_push($finalCommitte, $committeMember);
+        }
+
         return view('about', [
-            'committe' => $committe
+            'committe' => $finalCommitte
         ]);
     }
 
