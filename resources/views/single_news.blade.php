@@ -275,24 +275,7 @@
                             <img alt="" src="{{ route('news.images.show', $url[0]['url'])}}" style="width: 100%; height: 100%" />
                         </div>
                         <div class="col-lg-7">
-                            <p>
-                                {{ $result['description']}}
-                            </p>
-
-                            <ul>
-                                <li>
-                                    Find the full speech delivered by President Kagame
-                                    <a href="https://www.youtube.com/watch?v=ivRgMkyrico" target="_blank">here</a>
-                                </li>
-                                <li>
-                                    View and download photos of the 73rd FIFA congress
-                                    <a href="https://www.flickr.com/photos/govrw/albums/72177720306753197/with/52751196023/" target="_blank">here</a>
-                                </li>
-                            </ul>
-                            <p>
-                                Src:
-                                <a href="https://www.gov.rw/blog-detail/rwanda-hosts-the-73th-fifa-congress" target="_blank">Rwanda Gov</a>
-                            </p>
+                            {!! $result['description']!!}
                         </div>
                     </div>
                 </div>
