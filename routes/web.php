@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/home', function(){
+    return view('home');
+});
 Route::get('/', [NewsController::class, 'getNews']);
 Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->name('news.images.show');
 Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
@@ -30,7 +33,7 @@ Route::get('/report', [ReportController::class, 'get'])->name('report');
 Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->name('report.doc');
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
-Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form.login');
+Route::get('/login-form', [AuthenticationController::class, 'loginForm'])->name('form.login');
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
@@ -54,3 +57,7 @@ Route::post('/send-information', [ContactController::class, 'sendInfo'])->name('
 Route::post('/send-whistleblowers', [ContactController::class, 'sendWhistleblowers'])->name('post.send.whistle');
 Route::get('/information', [ContactController::class, 'information'])->name('information');
 Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

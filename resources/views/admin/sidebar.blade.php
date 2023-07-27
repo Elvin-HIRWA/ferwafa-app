@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/app.min.css">
     <!-- Template CSS -->
@@ -39,7 +53,7 @@
             </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
+            <!-- <li class="dropdown dropdown-list-toggle">
                 <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fas fa-envelope"></i>
                     <span class="badge headerBadge1"> 6 </span>
                 </a>
@@ -116,8 +130,8 @@
                         <a href="#">View All <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-            </li>
-            <li class="dropdown dropdown-list-toggle">
+            </li> -->
+            <!-- <li class="dropdown dropdown-list-toggle">
                 <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg"><i class="fas fa-bell bell"></i>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
@@ -175,8 +189,8 @@
                         <a href="#">View All <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-            </li>
-            <li class="dropdown">
+            </li> -->
+            <!-- <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                     <img alt="image" src="../assets/assets/img/user.png" class="user-img-radious-style" />
                     <span class="d-sm-none d-lg-inline-block"></span></a>
@@ -199,7 +213,24 @@
                         Logout
                     </a>
                 </div>
+            </li> -->
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             </li>
+
         </ul>
     </nav>
     <div class="main-sidebar sidebar-style-2">

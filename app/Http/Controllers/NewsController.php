@@ -120,7 +120,7 @@ class NewsController extends Controller
             array_push($result, $singleNews);
         }
 
-        return view('home', ["result" => $result]);
+        return view('homePage', ["result" => $result]);
     }
 
     public function getSingleNews($id)
