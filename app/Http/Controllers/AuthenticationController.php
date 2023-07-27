@@ -19,21 +19,17 @@ class AuthenticationController extends Controller
     public function createAccount(Request $request)
     {
 
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "key" => "required|string|min:10",
             "name" => "required|string|max:255",
             "email" => "required|email:rfc,dns",
             "password" => "required|string|min:6|confirmed"
         ]);
 
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $key = Key::where("value", $request->key)->first();
 
         if (!$key) {
-            return \response()->json(["errors" => ["Key not found"]], Response::HTTP_NOT_FOUND);
+            return redirect()->back()->with('fail', 'Key not found');
         }
 
         $user = User::create([
@@ -43,38 +39,36 @@ class AuthenticationController extends Controller
             'name' => $request->name
         ]);
 
-        $permissions = User::getUserPermission($user->id);
+        // $permissions = User::getUserPermission($user->id);
 
-        $permissionname = $permissions[0]->permissionname;
-        $token = $user->createToken('token', [$permissionname])->plainTextToken;
+        // $permissionname = $permissions[0]->permissionname;
+        // $token = $user->createToken('token', [$permissionname])->plainTextToken;
 
-        return \response()->json([
-            "token" => $token,
-            "permissionName" => $permissionname,
-            "userID" => $user->id
-        ]);
+        return redirect()->back()->with('success', 'Registered successfully');
+        // \response()->json([
+        //     "token" => $token,
+        //     "permissionName" => $permissionname,
+        //     "userID" => $user->id
+        // ]);
     }
 
     public function signin(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        // dd('here');
+        $request->validate([
             "email" => "required|email:rfc,dns",
             "password" => "required|string|min:6"
         ]);
 
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $user = User::where("email", $request->email)->first();
 
         if (!$user) {
-            return \response()->json(["errors" => ["User not found"]], Response::HTTP_NOT_FOUND);
+            return redirect()->back()->with('fail', 'User not found');
         }
 
 
         if (!Hash::check($request->password, $user->password)) {
-            return \response()->json(["errors" => ["Invalid credentials"]], Response::HTTP_FORBIDDEN);
+            return redirect()->back()->with('fail', 'Invalid credentials');
         }
 
         Auth::attempt([
@@ -82,16 +76,16 @@ class AuthenticationController extends Controller
             "password" => $request->password
         ]);
 
-        Auth::user()->tokens()->delete();
+        // Auth::user()->tokens()->delete();
 
-        $id = Auth::id();
+        // $id = Auth::id();
 
-        $permissions = User::getUserPermission($id);
+        // $permissions = User::getUserPermission($id);
 
-        $permissionname = $permissions[0]->permissionname;
-        $token = Auth::user()->createToken('token', [$permissionname])->plainTextToken;
+        // $permissionname = $permissions[0]->permissionname;
+        // $token = Auth::user()->createToken('token', [$permissionname])->plainTextToken;
 
-        return redirect('/admin');
+        return redirect()->route('dashboard.view')->with('success','Logged In Successfully');
     }
 
     public function logout()
@@ -104,8 +98,14 @@ class AuthenticationController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function registerForm()
+    public function registerForm(Request $request)
     {
-        return view('register');
+        $email = $request->email;
+        $token = $request->token;
+
+        return view('register', [
+            'email' => $email,
+            'token' => $token
+        ]);
     }
 }

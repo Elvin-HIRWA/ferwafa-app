@@ -23,21 +23,36 @@
                                 <h4>Login</h4>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('signin') }}">
                                     @csrf
+
+                                    @if(Session::get('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success')}}
+                                    </div>
+                                    @endif
+                                    @if(Session::get('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail')}}
+                                    </div>
+                                    @endif
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                                         @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <span style="color: red;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="control-label">Password</label>
                                         <input id="password" type="password" class="form-control" name="password" tabindex="2">
                                         @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <span style="color: red;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                     <div class="form-group">

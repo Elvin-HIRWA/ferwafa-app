@@ -133,7 +133,7 @@
                     </ul>
                 </li>
                 <li class="">
-                    <a href="{{ route('form.login') }}">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                 </li>
             </ul>
             <!-- End Menu-->
@@ -239,7 +239,7 @@
                 </ul>
             </li>
             <li class="">
-                <a href="{{ route('form.login') }}">Login</a>
+                <a href="{{ route('login') }}">Login</a>
             </li>
         </ul>
         <!-- End Menu-->

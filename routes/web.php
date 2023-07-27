@@ -43,9 +43,8 @@ Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->nam
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
 
-Route::get('/login-form', [AuthenticationController::class, 'loginForm'])->name('form.login');
-Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form.login');
-Route::get('/register', [AuthenticationController::class, 'registerForm'])->name('register.login');
+Route::get('/registers', [AuthenticationController::class, 'registerForm'])->name('register.login');
+Route::post('/create-account', [AuthenticationController::class, 'createAccount'])->name('create.account');
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
@@ -63,7 +62,7 @@ Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->name('
 Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
 Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
 
-// Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
+Route::post('/signin', [AuthenticationController::class, 'signin'])->name('signin');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
 
 
