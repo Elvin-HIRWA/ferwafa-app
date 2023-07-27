@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\NewsUrl;
+use App\Models\Partner;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -120,7 +121,26 @@ class NewsController extends Controller
             array_push($result, $singleNews);
         }
 
-        return view('home', ["result" => $result]);
+        $partners = Partner::all();
+
+        $finalPartners = [];
+
+        foreach ($partners as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $partner = [
+                "id" => $value->id,
+                "link" => $value->name,
+                "created_at" => $value->created_at,
+                "updataed_at" => $value->updated_at,
+                "url" => $fileUrl
+            ];
+            array_push($finalPartners, $partner);
+        }
+
+        return view('home', [
+            "result" => $result,
+            'partners' => $finalPartners
+        ]);
     }
 
     public function getSingleNews($id)

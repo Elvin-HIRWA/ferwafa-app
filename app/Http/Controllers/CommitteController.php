@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CommitteController extends Controller
 {
+    public function addMember()
+    {
+        return view('admin.create-committe');
+    }
     public function createCommitte(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -31,7 +35,8 @@ class CommitteController extends Controller
             "image_url" => $path
         ]);
 
-        return response()->json(['message' => 'success']);
+        return redirect('/committe')
+            ->with('message', 'Member is added successfully');
     }
 
     public function getComitteImageDoc($fileName)
@@ -40,6 +45,30 @@ class CommitteController extends Controller
                 return response()->file(storage_path('/app/committe/' . $fileName));
             }
         }
+    }
+
+    public function listCommitte()
+    {
+        $committe = Committe::all();
+
+        $finalCommitte = [];
+
+        foreach ($committe as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $committeMember = [
+                "id" => $value->id,
+                "name" => $value->name,
+                "position" => $value->position,
+                "created_at" => $value->created_at,
+                "updataed_at" => $value->updated_at,
+                "url" => $fileUrl
+            ];
+            array_push($finalCommitte, $committeMember);
+        }
+
+        return view('admin.committe', [
+            'committes' => $finalCommitte
+        ]);
     }
 
     public function listAllCommitte()
@@ -108,5 +137,8 @@ class CommitteController extends Controller
         Storage::delete($committe->image_url);
 
         $committe->delete();
+
+        return redirect('/committe')
+            ->with('message', 'Member is deleted');
     }
 }
