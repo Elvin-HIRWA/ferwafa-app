@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
+    public function addDocument()
+    {
+        $types = DocumentType::all();
+        // dd($types);
+        return view('admin.create-document',[
+            "types" => $types
+        ]);
+    }
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -31,12 +41,34 @@ class ReportController extends Controller
             'type_id' => $request->typeID
         ]);
 
-        return response()->json(['message' => 'success']);
+        return redirect('/report-view')
+            ->with('message', 'document is added successfully');
     }
 
     public function getReport()
     {
-        return view('admin.reportlist');
+        $reports = DB::select('SELECT a.id, a.title, a.url,b.name 
+                            FROM Document AS a
+                                JOIN DocumentType AS b
+                                ON b.id = a.type_id
+                                ORDER BY a.created_at DESC');
+
+
+        $final = [];
+
+        foreach($reports as $report){
+            $array = preg_split("#/#",$report->url);
+            array_push($final, [
+                "id" => $report->id,
+                "title" => $report->title,
+                "type" => $report->name,
+                "url" => $array[1]
+            ]);
+        }
+
+        return view('admin.reportlist',[
+            "reports" => $final
+        ]);
     }
 
     public function get()
@@ -58,7 +90,6 @@ class ReportController extends Controller
             array_push($finalReport, $report);
         }
         return view('report', ['reports' => $finalReport]);
-        // response()->json($finalReport);
     }
 
     public function getSingle($id)
@@ -120,6 +151,7 @@ class ReportController extends Controller
         Storage::delete($report->url);
         $report->delete();
 
-        return response()->json(['message' => 'deleted successfully']);
+        return redirect('/report-view')
+            ->with('message', 'document deleted successfully');
     }
 }

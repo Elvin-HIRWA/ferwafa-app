@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('events.create') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.doc') }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Report
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,21 +41,34 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Title</th>
-                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
                                     </tr>
+                                    @foreach($reports as $key => $report)
                                     <tr>
-                                        <td class="text-truncate">
-                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
-                                                <li class="team-member team-member-sm">
-                                                    <img class="rounded-circle" src="#" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td>Test </td>
-                                        <td>Test</td>
+                                        <td>{{ $key+1}} </td>
+                                        <td>{{ $report['title']}} </td>
+                                        <td>{{ $report['type']}}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div>
+                                                    <a href="{{ route('report.doc', $report['url']) }}" target="_blank" class="btn btn-outline-success">Open</a>
+                                                </div> &nbsp;
+                                                <div>
+                                                    <form action="{{ route('delete.report', $report['id']) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                          </td>
                                     </tr>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
