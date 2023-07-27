@@ -7,8 +7,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SendingKeyController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,11 +32,20 @@ Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->na
 Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
 Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name('single.news');
 Route::get('/about', [CommitteController::class, 'listAllCommitte'])->name('about');
+
+Route::get('/committe', [CommitteController::class, 'listCommitte'])->name('committe');
+Route::get('/add-committe', [CommitteController::class, 'addMember'])->name('add.committe');
+Route::post('/create', [CommitteController::class, 'createCommitte'])->name('create.committe');
+Route::delete('/delete/{id}', [CommitteController::class, 'deleteCommitte'])->name('delete.committe');
+
 Route::get('/report', [ReportController::class, 'get'])->name('report');
 Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->name('report.doc');
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
+
 Route::get('/login-form', [AuthenticationController::class, 'loginForm'])->name('form.login');
+Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form.login');
+Route::get('/register', [AuthenticationController::class, 'registerForm'])->name('register.login');
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
@@ -45,11 +57,13 @@ Route::get('/event-file/{fileName}', [EventController::class, 'getEventImage'])-
 Route::get('/all-events', [EventController::class, 'allEvents'])->name('all.events');
 Route::get('/single-event/{id}', [EventController::class, 'getSingleEvent'])->name('single.event');
 
+Route::get('/send-key', [SendingKeyController::class, 'sendKey'])->name('send.key');
+Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->name('sending.key');
 
 Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
 Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
 
-Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
+// Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
 
 
@@ -58,6 +72,16 @@ Route::post('/send-whistleblowers', [ContactController::class, 'sendWhistleblowe
 Route::get('/information', [ContactController::class, 'information'])->name('information');
 Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->name('whistleblowers');
 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/users', [UsersController::class, 'getUsers'])->name('users.view');
+
+
+Route::get('/parteners', [PartnerController::class, 'listPartner'])->name('partner');
+Route::get('/add-partener', [PartnerController::class, 'addPartner'])->name('add.partner');
+Route::post('/create-partener', [PartnerController::class, 'createPartner'])->name('create.partner');
+Route::delete('/delete-partner/{id}', [PartnerController::class, 'deletePartner'])->name('delete.partner');
+Route::get('/partner-doc/{fileName}', [PartnerController::class, 'getPartnerImageDoc'])->name('partner.doc');
