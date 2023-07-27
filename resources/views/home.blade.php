@@ -95,25 +95,12 @@
                                                 <div class="col-md-4"></div>
                                             </div>
                                         </div>
-                                        <ul class="sponsors-carousel" style="margin-bottom: 200px; margin-top: 150px;">
+                                        <ul class="sponsors-carousel" style="margin-bottom:100px; margin-top: 150px;">
+                                            @foreach($partners as $partner)
                                             <li>
-                                                <a target="_blank" href="https://www.gov.rw/"><img alt="" class="commercial-partner" src="./static/img/partner/rwanda.svg" /></a>
+                                                <a target="_blank" href="{{$partner['link']}}"><img alt="" class="commercial-partner" src="{{ route('partner.doc', $partner['url']) }}" /></a>
                                             </li>
-                                            <li>
-                                                <a target="_blank" href="https://www.minisports.gov.rw/"><img alt="" class="commercial-partner" src="./static/img/partner/images.jpeg" /></a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://www.fifa.com/fifaplus/en"><img alt="" class="commercial-partner" src="./static/img/partner/fifa.png" /></a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://www.cafonline.com/"><img alt="" class="commercial-partner" src="./static/img/partner/cafu.jpg" /></a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://olympics.com/ioc/rwanda"><img alt="" class="commercial-partner" src="./static/img/partner/images.png" /></a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://bralirwa.co.rw/"><img alt="" class="commercial-partner" src="./static/img/partner/primus.png" /></a>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <!-- Tab One - Sumary -->

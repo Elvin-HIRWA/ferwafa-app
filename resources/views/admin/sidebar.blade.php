@@ -217,11 +217,11 @@
                         <i class="far fa-envelope"></i><span>Dashboard</span>
                     </a>
                 </li>
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a href="{{ route('events.view')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Events</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="dropdown">
                     <a href="{{ route('news.view')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>News</span>
@@ -229,27 +229,32 @@
                 </li>
                 <li class="dropdown">
                     <a href="{{ route('reports.view') }}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Reports</span>
+                        <i class="fas fa-envelope"></i><span>Documents</span>
                     </a>
                 </li>
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Permissions</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('users.view')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Users</span>
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('committe')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Executive Committee</span>
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('partner')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Partners</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>
             </ul>

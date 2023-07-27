@@ -14,6 +14,15 @@ class UsersController extends Controller
         return response()->json($users);
     }
 
+    public function getUsers(UserService $service)
+    {
+        $users = $service->getAllUsers();
+
+        return view('admin.users', [
+            "users" => $users
+        ]);
+    }
+
     public function getSingleUser($id,UserService $service)
     {
         $user = $service->getSingleUser($id);

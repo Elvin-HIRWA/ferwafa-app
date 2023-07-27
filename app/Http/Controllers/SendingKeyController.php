@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class SendingKeyController extends Controller
 {
+    public function sendKey()
+    {
+        $keys = Key::getKeyWithTheirPermission();
+
+        return view('admin.sendKey', [
+            "keys" => $keys
+        ]);
+    }
     public function sendingKey(Request $request, SendingKeyService $services)
     {
         $validation = Validator::make($request->all(), [

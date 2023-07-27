@@ -103,4 +103,9 @@ class AuthenticationController extends Controller
             'message' => 'Tokens Revoked'
         ], Response::HTTP_OK);
     }
+
+    public function registerForm()
+    {
+        return view('register');
+    }
 }
