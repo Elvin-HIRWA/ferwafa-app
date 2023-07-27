@@ -34,11 +34,35 @@ class CommitteController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+    public function getComitteImageDoc($fileName)
+    {
+        if (Storage::exists('committe/' . $fileName)) { {
+                return response()->file(storage_path('/app/committe/' . $fileName));
+            }
+        }
+    }
+
     public function listAllCommitte()
     {
         $committe = Committe::all();
+
+        $finalCommitte = [];
+
+        foreach ($committe as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $committeMember = [
+                "id" => $value->id,
+                "name" => $value->name,
+                "position" => $value->position,
+                "created_at" => $value->created_at,
+                "updataed_at" => $value->updated_at,
+                "url" => $fileUrl
+            ];
+            array_push($finalCommitte, $committeMember);
+        }
+
         return view('about', [
-            'committe' => $committe
+            'committe' => $finalCommitte
         ]);
     }
 

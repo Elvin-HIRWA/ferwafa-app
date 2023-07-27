@@ -97,7 +97,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="staff-card">
                             <div class="staff-image">
-                                <img class="people" src="../static/img/staff/alphonse.jpeg" /><img class="pattern" src="/static/img/background/pattern.png" />
+                                <img class="people" src="{{ route('comitte.doc', $value['url'])}}" /><img class="pattern" src="/static/img/background/pattern.png" />
                             </div>
                             <div class="staff-desc">
                                 <h6 class="staff-name">{{$value['name']}}</h6>
