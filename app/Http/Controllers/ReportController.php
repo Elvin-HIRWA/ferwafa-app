@@ -13,14 +13,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['get','getSingle','getReportDoc']]);
+    }
+
     public function addDocument()
     {
         $types = DocumentType::all();
-        // dd($types);
         return view('admin.create-document',[
             "types" => $types
         ]);
     }
+
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [

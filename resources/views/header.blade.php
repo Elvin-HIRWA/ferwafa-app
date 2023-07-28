@@ -132,9 +132,11 @@
                         <li><a href="{{ route('whistleblowers') }}">Whistleblowers</a></li>
                     </ul>
                 </li>
+                @if (!Auth::check())
                 <li class="">
                     <a href="{{ route('login') }}">Login</a>
                 </li>
+                @endif
             </ul>
             <!-- End Menu-->
         </div>

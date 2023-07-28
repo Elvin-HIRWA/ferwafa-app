@@ -10,10 +10,17 @@ use Illuminate\Support\Facades\Validator;
 
 class CommitteController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['getComitteImageDoc','listAllCommitte']]);
+    }
+
     public function addMember()
     {
         return view('admin.create-committe');
     }
+
     public function createCommitte(Request $request)
     {
         $validation = Validator::make($request->all(), [

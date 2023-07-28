@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getNewsImage', 'allNews', 'getNews', 'getSingleNews',]]);
+    }
+
     public function postNews(Request $request)
     {
         if (Gate::allows('is-admin')) {

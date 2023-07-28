@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class KeyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function keyCreate(Request $request, KeyService $service)
     {
         $validation = Validator::make($request->all(), [

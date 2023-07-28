@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function permissionCreate(Request $request, PermissionService $service)
     {
         $validation = Validator::make($request->all(), [

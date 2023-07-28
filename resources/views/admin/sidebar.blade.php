@@ -82,15 +82,17 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="menu-header">Main</li>
+                @can('is-admin')
                 <li class="dropdown">
                     <a href="{{ route('dashboard.view')}}" class="nav-link">
                         <i class="far fa-envelope"></i><span>Dashboard</span>
                     </a>
                 </li>
+
                 {{-- <li class="dropdown">
                     <a href="{{ route('events.view')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Events</span>
-                    </a>
+                <i class="fas fa-envelope"></i><span>Events</span>
+                </a>
                 </li> --}}
                 <li class="dropdown">
                     <a href="{{ route('news.view')}}" class="nav-link">
@@ -102,6 +104,7 @@
                         <i class="fas fa-envelope"></i><span>Documents</span>
                     </a>
                 </li>
+
                 {{-- <li class="dropdown">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Permissions</span>
@@ -127,6 +130,35 @@
                         <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>
+                @else
+                @can('is-dcm')
+                {{-- <li class="dropdown">
+                    <a href="{{ route('events.view')}}" class="nav-link">
+                <i class="fas fa-envelope"></i><span>Events</span>
+                </a>
+                </li> --}}
+                <li class="dropdown">
+                    <a href="{{ route('news.view')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>News</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('reports.view') }}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Documents</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('committe')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Executive Committee</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Gallery</span>
+                    </a>
+                </li>
+                @endcan
+                @endcan
             </ul>
         </aside>
     </div>

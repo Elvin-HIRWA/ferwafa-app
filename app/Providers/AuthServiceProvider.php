@@ -45,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-competition-manager', function ($user) {
             $arrayOfUsersAndTheirPermissions = DB::selectOne(
                 "SELECT u.email as userEmail, p.name as `permissionName`
-                FROM User AS u 
+                FROM users AS u 
                 INNER JOIN KeyPermission AS k  
                 ON u.keyID = k.id 
                 INNER JOIN Permission AS p 
@@ -64,7 +64,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-dcm', function ($user) {
             $arrayOfUsersAndTheirPermissions = DB::selectOne(
                 "SELECT u.email as userEmail, p.name as `permissionName`
-                FROM User AS u 
+                FROM users AS u 
                 INNER JOIN KeyPermission AS k  
                 ON u.keyID = k.id 
                 INNER JOIN Permission AS p 
@@ -83,7 +83,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-hr', function ($user) {
             $arrayOfUsersAndTheirPermissions = DB::selectOne(
                 "SELECT u.email as userEmail, p.name as `permissionName`
-                FROM User AS u 
+                FROM users AS u 
                 INNER JOIN KeyPermission AS k  
                 ON u.keyID = k.id 
                 INNER JOIN Permission AS p 

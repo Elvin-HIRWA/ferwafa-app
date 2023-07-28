@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PartnerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getPartnerImageDoc']]);
+    }
+
+
     public function addPartner()
     {
         return view('admin.create-partner');
     }
+
     public function createPartner(Request $request)
     {
         $validation = Validator::make($request->all(), [
