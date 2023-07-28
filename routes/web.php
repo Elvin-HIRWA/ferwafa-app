@@ -36,7 +36,8 @@ Route::post('/create', [CommitteController::class, 'createCommitte'])->name('cre
 Route::delete('/delete/{id}', [CommitteController::class, 'deleteCommitte'])->name('delete.committe');
 
 Route::get('/report', [ReportController::class, 'get'])->name('report');
-Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->name('report.doc');
+Route::get('/document/{fileName}', [ReportController::class, 'getReportDoc'])->name('report.doc');
+
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
 Route::get('/login', [AuthenticationController::class, 'loginForm'])->name('form.login');
@@ -56,6 +57,8 @@ Route::get('/send-key', [SendingKeyController::class, 'sendKey'])->name('send.ke
 Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->name('sending.key');
 
 Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
+Route::get('/add-doc', [ReportController::class, 'addDocument'])->name('add.doc');
+
 Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
 
 Route::post('/signin', [AuthenticationController::class, 'signin'])->name('login');
@@ -75,3 +78,6 @@ Route::get('/add-partener', [PartnerController::class, 'addPartner'])->name('add
 Route::post('/create-partener', [PartnerController::class, 'createPartner'])->name('create.partner');
 Route::delete('/delete-partner/{id}', [PartnerController::class, 'deletePartner'])->name('delete.partner');
 Route::get('/partner-doc/{fileName}', [PartnerController::class, 'getPartnerImageDoc'])->name('partner.doc');
+
+Route::post('/create', [ReportController::class, 'create'])->name('create.report');
+Route::delete('/report-delete/{id}', [ReportController::class, 'deleteReport'])->name('delete.report');
