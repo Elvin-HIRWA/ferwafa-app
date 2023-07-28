@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,36 +18,40 @@ class NewsController extends Controller
 {
     public function postNews(Request $request)
     {
-        $request->validate([
-            "title" => "required|string",
-            "caption" => "required|string|max:255",
-            "description" => "required|string",
-            "is_top" => "required|boolean",
-            "statusID" => "required|in:1,2,3",
-            "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
-        ]);
+        if (Gate::allows('is-admin')) {
 
-        DB::transaction(function () use ($request) {
-
-            $news = News::create([
-                "title" => $request->title,
-                "caption" => $request->caption,
-                "description" => $request->description,
-                "statusID" => $request->statusID,
-                "is_top" => $request->is_top
+            $request->validate([
+                "title" => "required|string",
+                "caption" => "required|string|max:255",
+                "description" => "required|string",
+                "is_top" => "required|boolean",
+                "statusID" => "required|in:1,2,3",
+                "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
             ]);
 
-            $path = $request->image->store('newsImages');
-            NewsUrl::create([
-                "image_url" => $path,
-                // "image_caption" => $request->image_caption,
-                "news_id" => $news->id
-            ]);
-        });
+            DB::transaction(function () use ($request) {
 
+                $news = News::create([
+                    "title" => $request->title,
+                    "caption" => $request->caption,
+                    "description" => $request->description,
+                    "statusID" => $request->statusID,
+                    "is_top" => $request->is_top
+                ]);
 
-        return redirect('/news-view')
-            ->with('message', 'News has been created!');
+                $path = $request->image->store('newsImages');
+                NewsUrl::create([
+                    "image_url" => $path,
+                    // "image_caption" => $request->image_caption,
+                    "news_id" => $news->id
+                ]);
+            });
+
+            return redirect('/news-view')
+                ->with('message', 'News has been created!');
+        } else {
+            return response()->json(['message' => 'not allowed']);
+        }
     }
 
     public function getNewsImage($fileName)

@@ -50,7 +50,7 @@ class User extends Authenticatable
     {
         $user = DB::select(
             "SELECT u.email as userEmail, p.name as `permissionName`
-            FROM User u 
+            FROM users u 
             INNER JOIN `KeyPermission` k  
             ON u.keyID = k.id 
             INNER JOIN Permission p 
@@ -63,12 +63,12 @@ class User extends Authenticatable
     public static function getUserPermission(int $userId): array
     {
         $userPermission = DB::select('SELECT Permission.id AS id, Permission.name AS permissionname 
-        FROM User
+        FROM users
         INNER JOIN KeyPermission 
-        ON User.keyId=KeyPermission.id 
+        ON users.keyId=KeyPermission.id 
         INNER JOIN Permission
         ON KeyPermission.permissionId=Permission.id 
-        WHERE User.id =?', [$userId]);
+        WHERE users.id =?', [$userId]);
 
         return $userPermission;
     }

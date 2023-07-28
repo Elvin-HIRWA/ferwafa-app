@@ -39,9 +39,9 @@ class AuthenticationController extends Controller
             'name' => $request->name
         ]);
 
-        // $permissions = User::getUserPermission($user->id);
+        $permissions = User::getUserPermission($user->id);
 
-        // $permissionname = $permissions[0]->permissionname;
+        $permissionname = $permissions[0]->permissionname;
         // $token = $user->createToken('token', [$permissionname])->plainTextToken;
 
         return redirect()->back()->with('success', 'Registered successfully');

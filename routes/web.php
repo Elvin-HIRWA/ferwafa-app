@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\ContactController;
@@ -24,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/home', function(){
+
+Route::get('/home', function () {
     return view('home');
 });
 Route::get('/', [NewsController::class, 'getNews']);
@@ -43,8 +48,8 @@ Route::get('/report/{fileName}', [ReportController::class, 'getReportDoc'])->nam
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
 
-Route::get('/registers', [AuthenticationController::class, 'registerForm'])->name('register.login');
-Route::post('/create-account', [AuthenticationController::class, 'createAccount'])->name('create.account');
+// Route::get('/registers', [AuthenticationController::class, 'registerForm'])->name('register.login');
+// Route::post('/create-account', [AuthenticationController::class, 'createAccount'])->name('create.account');
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
@@ -62,7 +67,7 @@ Route::post('/sending-key', [SendingKeyController::class, 'sendingKey'])->name('
 Route::get('/report-view', [ReportController::class, 'getReport'])->name('reports.view');
 Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
 
-Route::post('/signin', [AuthenticationController::class, 'signin'])->name('signin');
+// Route::post('/signin', [AuthenticationController::class, 'signin'])->name('signin');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
 
 
@@ -73,6 +78,7 @@ Route::get('/whistleblowers', [ContactController::class, 'whistleblowers'])->nam
 
 
 Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

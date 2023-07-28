@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            // $table->unsignedBigInteger('keyID'); //foreign key from the key
+            $table->unsignedBigInteger('keyID'); //foreign key from the key
             $table->rememberToken();
             $table->timestamps();
 
 
 
-            // $table->foreign('keyID')->references('id')->on('KeyPermission')
-            //  ->onDelete('restrict')
-            //    ->onUpdate('cascade');
+            $table->foreign('keyID')->references('id')->on('KeyPermission')
+             ->onDelete('restrict')
+               ->onUpdate('cascade');
         });
     }
 
