@@ -38,8 +38,14 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
+
                                             <form method="POST" action="{{ route('post.news') }}" enctype="multipart/form-data">
                                                 @csrf
+                                                @if (session()->has('message'))
+                                                <div style="color: red;">
+                                                    {{ session()->get('message') }}
+                                                </div>
+                                                @endif
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                                                     <div class="col-sm-12 col-md-7">
@@ -66,9 +72,9 @@
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">status</label>
                                                     <div class="col-sm-12 col-md-7">
                                                         <select name="statusID" class="form-control selectric">
-                                                            <option value="1">publish</option>
-                                                            <option value="2">draft</option>
-                                                            <option value="3">unpublish</option>
+                                                            @foreach($statuses as $status)
+                                                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>

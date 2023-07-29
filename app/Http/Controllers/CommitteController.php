@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Committe;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,11 +20,20 @@ class CommitteController extends Controller
 
     public function addMember()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         return view('admin.create-committe');
     }
 
     public function createCommitte(Request $request)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $validation = Validator::make($request->all(), [
             "name" => "required|string",
             "position" => "required|string|max:255",
@@ -56,6 +67,11 @@ class CommitteController extends Controller
 
     public function listCommitte()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $committe = Committe::all();
 
         $finalCommitte = [];
@@ -104,6 +120,11 @@ class CommitteController extends Controller
 
     public function updateCommitte(Request $request, $id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $validation = Validator::make($request->all(), [
             "name" => "required|string",
             "position" => "required|string|max:255",
@@ -135,6 +156,11 @@ class CommitteController extends Controller
 
     public function deleteCommitte($id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+        
         $committe = Committe::find($id);
 
         if (!$committe) {

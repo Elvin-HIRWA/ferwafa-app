@@ -81,7 +81,6 @@
                 </a>
             </div>
             <ul class="sidebar-menu">
-                <li class="menu-header">Main</li>
                 @can('is-admin')
                 <li class="dropdown">
                     <a href="{{ route('dashboard.view')}}" class="nav-link">

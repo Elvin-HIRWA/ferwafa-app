@@ -7,6 +7,8 @@ use App\Models\Key;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,6 +26,8 @@ class RegisterController extends Controller
     */
     use RegistersUsers;
 
+
+    protected $userPermission;
     /**
      * Where to redirect users after registration.
      *
@@ -78,5 +82,25 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'keyID' => $key->id
         ]);
+    }
+
+    private function registered(Request $request)
+    {
+        $userPermission = DB::table('users')
+            ->select('Permission.name')
+            ->join('KeyPermission', 'users.keyID', '=', 'KeyPermission.id')
+            ->join('Permission', 'KeyPermission.permissionID', '=', 'Permission.id')
+            ->where('email', $request->email)
+            ->first();
+
+        if ($userPermission->name == 'admin') {
+            return redirect('/admin');
+        } elseif ($userPermission->name == 'dcm') {
+            return redirect('/news-view');
+        } elseif ($userPermission->name == 'competition-manager') {
+            return redirect('/news-view');
+        } else {
+            return redirect('/admin');
+        }
     }
 }

@@ -40,7 +40,7 @@ Route::get('/about', [CommitteController::class, 'listAllCommitte'])->name('abou
 
 Route::get('/committe', [CommitteController::class, 'listCommitte'])->name('committe');
 Route::get('/add-committe', [CommitteController::class, 'addMember'])->name('add.committe');
-Route::post('/create', [CommitteController::class, 'createCommitte'])->name('create.committe');
+Route::post('/create-committe', [CommitteController::class, 'createCommitte'])->name('create.committe');
 Route::delete('/delete/{id}', [CommitteController::class, 'deleteCommitte'])->name('delete.committe');
 
 Route::get('/report', [ReportController::class, 'get'])->name('report');

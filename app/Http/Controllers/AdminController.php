@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 {
@@ -15,7 +18,16 @@ class AdminController extends Controller
 
     public function createNewsView()
     {
-        return view('admin.create-news');
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $statuses = Status::all();
+
+        return view('admin.create-news', [
+            "statuses" => $statuses
+        ]);
     }
     public function adminView()
     {
@@ -24,6 +36,11 @@ class AdminController extends Controller
 
     public function getNewsForAdmin()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $news = DB::select(
             'SELECT a.*,b.image_url,c.name FROM 
                                 News AS a
@@ -58,6 +75,11 @@ class AdminController extends Controller
 
     public function getEventsForAdmin()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $events = DB::select(
             'SELECT a.*,b.image_url,c.name AS statusName
                                  FROM 
@@ -67,7 +89,7 @@ class AdminController extends Controller
                                 JOIN Status AS c
                                 ON a.statusID = c.id'
         );
-        
+
         $result = [];
 
         foreach ($events as $value) {
@@ -84,7 +106,7 @@ class AdminController extends Controller
             ];
             array_push($result, $singleEvent);
         }
-        
+
         return view('admin.eventlist', [
             'events' => $result
         ]);
@@ -92,6 +114,11 @@ class AdminController extends Controller
 
     public function createEventsView()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         return view('admin.create-events');
     }
 }

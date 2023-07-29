@@ -8,6 +8,8 @@ use App\Services\PermissionService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
@@ -19,6 +21,11 @@ class PermissionController extends Controller
 
     public function permissionCreate(Request $request, PermissionService $service)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $validation = Validator::make($request->all(), [
             "name" => "required|string",
         ]);
@@ -35,6 +42,10 @@ class PermissionController extends Controller
 
     public function listPermission(PermissionService $service)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $results = $service->listPermission();
 
         return Response()->json($results, 200);
@@ -43,6 +54,10 @@ class PermissionController extends Controller
 
     public function getPermission($id, PermissionService $service)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $results = $service->getPermission($id);
 
         return Response()->json($results);
@@ -51,6 +66,10 @@ class PermissionController extends Controller
 
     public function updatePermission(Request $request, PermissionService $service)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $validation = Validator::make($request->all(), [
             "name" => "required|string",
         ]);
@@ -73,6 +92,10 @@ class PermissionController extends Controller
 
     public function deletePermission($id, PermissionService $service)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
 
         $key = Permission::find($id);
 

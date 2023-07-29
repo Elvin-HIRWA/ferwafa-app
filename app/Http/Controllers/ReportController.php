@@ -7,7 +7,9 @@ use App\Models\DocumentType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,28 +17,34 @@ class ReportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['get','getSingle','getReportDoc']]);
+        $this->middleware('auth', ['except' => ['get', 'getSingle', 'getReportDoc']]);
     }
 
     public function addDocument()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $types = DocumentType::all();
-        return view('admin.create-document',[
+        return view('admin.create-document', [
             "types" => $types
         ]);
     }
 
     public function create(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $request->validate([
             "title" => "required|string|max:255",
             "reportFile" =>  'file|max:5000|mimes:pdf',
             "typeID" => 'required|integer'
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $path = $request->reportFile->store('documents');
 
@@ -52,6 +60,11 @@ class ReportController extends Controller
 
     public function getReport()
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $reports = DB::select('SELECT a.id, a.title, a.url,b.name 
                             FROM Document AS a
                                 JOIN DocumentType AS b
@@ -61,8 +74,8 @@ class ReportController extends Controller
 
         $final = [];
 
-        foreach($reports as $report){
-            $array = preg_split("#/#",$report->url);
+        foreach ($reports as $report) {
+            $array = preg_split("#/#", $report->url);
             array_push($final, [
                 "id" => $report->id,
                 "title" => $report->title,
@@ -71,7 +84,7 @@ class ReportController extends Controller
             ]);
         }
 
-        return view('admin.reportlist',[
+        return view('admin.reportlist', [
             "reports" => $final
         ]);
     }
@@ -79,7 +92,14 @@ class ReportController extends Controller
     public function get()
     {
 
-        $reports = Document::where('type_id', 1);
+        $reports = DB::select(
+            'SELECT a.* FROM
+                    Document AS a 
+                    JOIN DocumentType AS b
+                    ON a.type_id = b.id
+                    WHERE b.name = ?',
+            ['report']
+        );
 
         $finalReport = [];
 
@@ -94,15 +114,17 @@ class ReportController extends Controller
             ];
             array_push($finalReport, $report);
         }
+
         return view('report', ['reports' => $finalReport]);
     }
 
     public function getSingle($id)
     {
-        $report = Document::where('type_id', 1)->where('id', $id)->first();
+
+        $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            throw new Exception('report not found');
+            return redirect()->back()->with('fail', 'report not found');
         }
 
         return response()->json($report);
@@ -119,6 +141,11 @@ class ReportController extends Controller
 
     public function updateReport(Request $request, $id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $validation = Validator::make($request->all(), [
             "title" => "required|string|max:255",
             "reportFile" =>  'file|max:5000|mimes:pdf',
@@ -128,7 +155,7 @@ class ReportController extends Controller
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $report = Document::where('type_id', 1)->where('id', $id)->first();
+        $report = Document::where('id', $id)->first();
 
         if (!$report) {
             return response()->json(['message' => 'report not found']);
@@ -147,7 +174,12 @@ class ReportController extends Controller
 
     public function deleteReport($id)
     {
-        $report = Document::where('id', $id)->where('type_id', 1)->first();
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $report = Document::where('id', $id)->first();
 
         if (!$report) {
             return response()->json(['message' => 'report not found']);

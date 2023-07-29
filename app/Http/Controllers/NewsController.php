@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -23,40 +24,39 @@ class NewsController extends Controller
 
     public function postNews(Request $request)
     {
-        if (Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+        $request->validate([
+            "title" => "required|string",
+            "caption" => "required|string|max:255",
+            "description" => "required|string",
+            "is_top" => "required|boolean",
+            "statusID" => "required|in:1,2,3",
+            "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
+        ]);
 
-            $request->validate([
-                "title" => "required|string",
-                "caption" => "required|string|max:255",
-                "description" => "required|string",
-                "is_top" => "required|boolean",
-                "statusID" => "required|in:1,2,3",
-                "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
+        DB::transaction(function () use ($request) {
+
+            $news = News::create([
+                "title" => $request->title,
+                "caption" => $request->caption,
+                "description" => $request->description,
+                "statusID" => $request->statusID,
+                "is_top" => $request->is_top
             ]);
 
-            DB::transaction(function () use ($request) {
+            $path = $request->image->store('newsImages');
+            NewsUrl::create([
+                "image_url" => $path,
+                // "image_caption" => $request->image_caption,
+                "news_id" => $news->id
+            ]);
+        });
 
-                $news = News::create([
-                    "title" => $request->title,
-                    "caption" => $request->caption,
-                    "description" => $request->description,
-                    "statusID" => $request->statusID,
-                    "is_top" => $request->is_top
-                ]);
-
-                $path = $request->image->store('newsImages');
-                NewsUrl::create([
-                    "image_url" => $path,
-                    // "image_caption" => $request->image_caption,
-                    "news_id" => $news->id
-                ]);
-            });
-
-            return redirect('/news-view')
-                ->with('message', 'News has been created!');
-        } else {
-            return response()->json(['message' => 'not allowed']);
-        }
+        return redirect('/news-view')
+            ->with('message', 'News has been created!');
     }
 
     public function getNewsImage($fileName)
@@ -174,6 +174,10 @@ class NewsController extends Controller
 
     public function updateSingleNews(Request $request, $id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $validation = Validator::make($request->all(), [
             "title" => "required|string",
             "caption" => "required|string|max:255",
@@ -183,6 +187,10 @@ class NewsController extends Controller
             "image" => "file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
+
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            return redirect('/create-news')->with('message', 'Not allowed');
+        }
 
         if ($validation->fails()) {
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -216,6 +224,11 @@ class NewsController extends Controller
 
     public function deleteNews($id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $news = News::where("id", $id)->first();
 
         if (!$news) {

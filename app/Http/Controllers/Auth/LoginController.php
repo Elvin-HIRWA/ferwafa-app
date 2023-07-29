@@ -57,7 +57,7 @@ class LoginController extends Controller
         } elseif ($userPermission->name == 'competition-manager') {
             return redirect('/news-view');
         } else {
-            return redirect('/');
+            return redirect('/admin');
         }
     }
 }
