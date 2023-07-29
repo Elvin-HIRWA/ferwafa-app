@@ -103,4 +103,14 @@ class RegisterController extends Controller
             return redirect('/admin');
         }
     }
+
+    public function showRegistrationForm(Request $request)
+    {
+        $email = $request->email;
+        $token = $request->token;
+        return view('auth.register', [
+            'email' => $email,
+            'token' => $token
+        ]);
+    }
 }
