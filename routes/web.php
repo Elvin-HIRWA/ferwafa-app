@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
@@ -69,8 +70,6 @@ Route::get('/report-view', [ReportController::class, 'getReport'])->name('report
 Route::get('/add-doc', [ReportController::class, 'addDocument'])->name('add.doc');
 
 Route::get('/commite-doc/{fileName}', [CommitteController::class, 'getComitteImageDoc'])->name('comitte.doc');
-
-// Route::post('/signin', [AuthenticationController::class, 'signin'])->name('signin');
 Route::post('/post-news', [NewsController::class, 'postNews'])->name('post.news');
 
 
@@ -96,3 +95,5 @@ Route::get('/partner-doc/{fileName}', [PartnerController::class, 'getPartnerImag
 
 Route::post('/create', [ReportController::class, 'create'])->name('create.report');
 Route::delete('/report-delete/{id}', [ReportController::class, 'deleteReport'])->name('delete.report');
+
+Route::get('/document', [DocumentController::class, 'showDocumentPage'])->name('document.page.show');

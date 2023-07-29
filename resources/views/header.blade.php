@@ -97,7 +97,7 @@
                     <a href="#">Resources</a>
                     <ul class="sub-current">
                         <li><a href="{{ route('report') }}">Report</a></li>
-                        <li><a href="/document/">Documents</a></li>
+                        <li><a href="{{ route('document.page.show') }}">Documents</a></li>
                         <li>
                             <a href="javascript:void(0);">Rules &amp; Regulations</a>
                             <ul class="sub-current">
@@ -205,7 +205,7 @@
                 <a href="#">Resources</a>
                 <ul class="#">
                     <li><a href="{{ route('report') }}">Report</a></li>
-                    <li><a href="/document/">Documents</a></li>
+                    <li><a href="{{ route('document.page.show') }}">Documents</a></li>
                     <li>
                         <a href="">Rules &amp; Regulations</a>
                         <ul class="#">
