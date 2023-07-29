@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getImages', 'displayGalleryImage']]);
+    }
     /**
      * Display a listing of the resource.
      */

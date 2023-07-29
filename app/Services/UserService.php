@@ -17,7 +17,7 @@ class UserService
                          a.email,
                          c.name as permissionName,
                          a.created_at as createdDate
-                         FROM User as a
+                         FROM users as a
                          JOIN KeyPermission as b
                          ON a.keyID = b.id
                          JOIN Permission AS c

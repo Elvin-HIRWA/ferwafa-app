@@ -25,142 +25,46 @@
 
 <body>
     @include('admin.sidebar')
-    {{-- <div class="main-content">
-        <section class="section">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Create News</h4>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card-body">
-                                            <form method="POST" action="{{ route('post.news') }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="title" class="form-control">
-                                                        @error('title')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Caption</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="caption" class="form-control">
-                                                        @error('caption')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">status</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <select name="statusID" class="form-control selectric">
-                                                            <option value="1">publish</option>
-                                                            <option value="2">draft</option>
-                                                            <option value="3">unpublish</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Is Top News</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <select name="is_top" class="form-control selectric">
-                                                            <option value="0">False</option>
-                                                            <option value="1">True</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Select Image</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="file" name="image" class="form-control">
-                                                        @error('image')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <textarea name="description" class="summernote-simple"></textarea>
-                                                        @error('description')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
 
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <button class="btn btn-primary">Publish</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <form method="POST" action="{{ route('sending.key') }}">
+                            @csrf
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="section-title">Email</div>
+                                    <div class="form-group">
+                                        <input name="email" type="email" class="form-control" required>
+                                        @error('email')
+                                        <div style="color: red;">
+                                            {{ $message }}
                                         </div>
+                                        @enderror
+                                    </div>
+                                    <div class="section-title">Select Permission</div>
+                                    <div class="form-group">
+                                        <select name="key" class="form-control select2">
+                                            @foreach($keys as $key)
+                                            <option value="{{$key->id}}">{{$key->permissionName}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button name="login" type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            Send
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
-    </div> --}}
-
-    <div class="main-content">
-      <section class="section">
-        <div class="section-body">
-          <div class="row">
-            <div class="col-12 col-md-12 col-lg-12">
-              <form method="POST" action="{{ route('sending.key') }}">
-                @csrf
-                <div class="card">
-                <div class="card-body">
-                  <div class="section-title">Email</div>
-                  <div class="form-group">
-                    <input v-model="email" type="email" class="form-control" required>
-                  </div>
-                  <div class="section-title">Select Permission</div>
-                  <div class="form-group">
-                    <select v-model="keyValue" class="form-control select2">
-                      @foreach($keys as $key)
-                      <option  value="{{$key->keyValue}}">{{$key->permissionName}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                  <button
-                    name="login"
-                    type="submit"
-                    class="btn btn-primary btn-lg btn-block"
-                    tabindex="4"
-                  >
-                    Send
-                  </button>
-                </div>
-                </div>
-              </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
 
 

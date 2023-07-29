@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/app.min.css">
     <!-- Template CSS -->
@@ -39,188 +53,45 @@
             </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
-                <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fas fa-envelope"></i>
-                    <span class="badge headerBadge1"> 6 </span>
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
                 </a>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                    <div class="dropdown-header">
-                        Messages
-                        <div class="float-right">
-                            <a href="#">Mark All As Read</a>
-                        </div>
-                    </div>
-                    <div class="dropdown-list-content dropdown-list-message">
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-1.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">John Deo</span>
-                                <span class="time messege-text">Please check your mail !!</span>
-                                <span class="time">2 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-2.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">Sarah Smith</span>
-                                <span class="time messege-text">Request for leave application</span>
-                                <span class="time">5 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-5.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">Jacob Ryan</span>
-                                <span class="time messege-text">Your payment invoice is generated.</span>
-                                <span class="time">12 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-4.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">Lina Smith</span>
-                                <span class="time messege-text">hii John, I have upload doc related to task.</span>
-                                <span class="time">30 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-3.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">Jalpa Joshi</span>
-                                <span class="time messege-text">Please do as specify. Let me know if you have any query.</span>
-                                <span class="time">1 Days Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-avatar text-white">
-                                <img alt="image" src="../assets/assets/img/users/user-2.png" class="rounded-circle" />
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">Sarah Smith</span>
-                                <span class="time messege-text">Client Requirements</span>
-                                <span class="time">2 Days Ago</span>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                    </div>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </li>
-            <li class="dropdown dropdown-list-toggle">
-                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg"><i class="fas fa-bell bell"></i>
-                </a>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                    <div class="dropdown-header">
-                        Notifications
-                        <div class="float-right">
-                            <a href="#">Mark All As Read</a>
-                        </div>
-                    </div>
-                    <div class="dropdown-list-content dropdown-list-icons">
-                        <a href="#" class="dropdown-item dropdown-item-unread">
-                            <span class="dropdown-item-icon bg-primary text-white">
-                                <i class="fas fa-code"></i>
-                            </span>
-                            <span class="dropdown-item-desc">
-                                Template update is available now! <span class="time">2 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-icon bg-info text-white">
-                                <i class="far fa-user"></i>
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <b>You</b> and <b>Dedik Sugiharto</b> are now friends
-                                <span class="time">10 Hours Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-icon bg-success text-white">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <span class="dropdown-item-desc">
-                                <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
-                                <span class="time">12 Hours Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-icon bg-danger text-white">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </span>
-                            <span class="dropdown-item-desc">
-                                Low disk space. Let's clean it! <span class="time">17 Hours Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-icon bg-info text-white">
-                                <i class="fas fa-bell"></i>
-                            </span>
-                            <span class="dropdown-item-desc">
-                                Welcome to Otika template! <span class="time">Yesterday</span>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" src="../assets/assets/img/user.png" class="user-img-radious-style" />
-                    <span class="d-sm-none d-lg-inline-block"></span></a>
-                <div class="dropdown-menu dropdown-menu-right pullDown">
-                    <div class="dropdown-title">Hello Sarah Smith</div>
-                    <a href="profile.html" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Profile
-                    </a>
-                    <a href="timeline.html" class="dropdown-item has-icon">
-                        <i class="fas fa-bolt"></i>
-                        Activities
-                    </a>
-                    <a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i>
-                        Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="auth-login.html" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
+
         </ul>
     </nav>
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="index.html">
+                <a href="{{ url('/') }}">
                     <img alt="image" src="./static/img/federation/ferwafa.png" class="header-logo" />
                     <span class="logo-name">Ferwafa</span>
                 </a>
             </div>
             <ul class="sidebar-menu">
-                <li class="menu-header">Main</li>
+                @can('is-admin')
                 <li class="dropdown">
                     <a href="{{ route('dashboard.view')}}" class="nav-link">
                         <i class="far fa-envelope"></i><span>Dashboard</span>
                     </a>
                 </li>
+
                 {{-- <li class="dropdown">
                     <a href="{{ route('events.view')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Events</span>
-                    </a>
+                <i class="fas fa-envelope"></i><span>Events</span>
+                </a>
                 </li> --}}
                 <li class="dropdown">
                     <a href="{{ route('news.view')}}" class="nav-link">
@@ -232,6 +103,7 @@
                         <i class="fas fa-envelope"></i><span>Documents</span>
                     </a>
                 </li>
+
                 {{-- <li class="dropdown">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Permissions</span>
@@ -257,6 +129,35 @@
                         <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>
+                @else
+                @can('is-dcm')
+                {{-- <li class="dropdown">
+                    <a href="{{ route('events.view')}}" class="nav-link">
+                <i class="fas fa-envelope"></i><span>Events</span>
+                </a>
+                </li> --}}
+                <li class="dropdown">
+                    <a href="{{ route('news.view')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>News</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('reports.view') }}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Documents</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('committe')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Executive Committee</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Gallery</span>
+                    </a>
+                </li>
+                @endcan
+                @endcan
             </ul>
         </aside>
     </div>

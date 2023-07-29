@@ -44,7 +44,7 @@
                                         <th>#</th>
                                         <th>name</th>
                                         <th>email</th>
-                                        <th>status</th>
+                                        <th>Permission</th>
                                         <th>since</th>
                                         <th>Action</th>
                                     </tr>

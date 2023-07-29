@@ -20,6 +20,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        @if (session()->has('message'))
+                        <div class="badge badge-success">
+                            {{ session()->get('message') }}
+                        </div>
+                        @endif
                         <div class="card-header">
                             <h4>Available News</h4>
                             <div class="card-header-form">
@@ -37,6 +42,7 @@
                                 </form>
                             </div>
                         </div>
+
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped">

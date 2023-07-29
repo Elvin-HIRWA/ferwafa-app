@@ -6,13 +6,25 @@ use App\Models\Event;
 use App\Models\EventUrl;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['getEventImage','allEvents','getSingleEvent']]);
+    }
+
     public function createEvent(Request $request)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $request->validate([
             "name" => "required|string",
             "description" => "required|string",

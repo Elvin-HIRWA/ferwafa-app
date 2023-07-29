@@ -5,17 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PartnerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getPartnerImageDoc']]);
+    }
+
+
     public function addPartner()
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         return view('admin.create-partner');
     }
+
     public function createPartner(Request $request)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $validation = Validator::make($request->all(), [
             "link" => "required|string",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg,svg"
@@ -47,6 +66,11 @@ class PartnerController extends Controller
 
     public function listPartner()
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $partners = Partner::all();
 
         $finalPartners = [];
@@ -70,6 +94,11 @@ class PartnerController extends Controller
 
     public function updatePartner(Request $request, $id)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $validation = Validator::make($request->all(), [
             "link" => "required|string",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg,svg"
@@ -99,6 +128,11 @@ class PartnerController extends Controller
 
     public function deletePartner($id)
     {
+        if (!Gate::allows('is-admin')) {
+            Auth::logout();
+            return redirect('/');
+        }
+        
         $partner = Partner::find($id);
 
         if (!$partner) {

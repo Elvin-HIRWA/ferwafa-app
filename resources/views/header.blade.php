@@ -132,9 +132,11 @@
                         <li><a href="{{ route('whistleblowers') }}">Whistleblowers</a></li>
                     </ul>
                 </li>
+                @if (!Auth::check())
                 <li class="">
-                    <a href="{{ route('form.login') }}">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                 </li>
+                @endif
             </ul>
             <!-- End Menu-->
         </div>
@@ -239,7 +241,7 @@
                 </ul>
             </li>
             <li class="">
-                <a href="{{ route('form.login') }}">Login</a>
+                <a href="{{ route('login') }}">Login</a>
             </li>
         </ul>
         <!-- End Menu-->

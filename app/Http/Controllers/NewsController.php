@@ -9,14 +9,25 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getNewsImage', 'allNews', 'getNews', 'getSingleNews',]]);
+    }
+
     public function postNews(Request $request)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $request->validate([
             "title" => "required|string",
             "caption" => "required|string|max:255",
@@ -43,7 +54,6 @@ class NewsController extends Controller
                 "news_id" => $news->id
             ]);
         });
-
 
         return redirect('/news-view')
             ->with('message', 'News has been created!');
@@ -137,7 +147,7 @@ class NewsController extends Controller
             array_push($finalPartners, $partner);
         }
 
-        return view('home', [
+        return view('homePage', [
             "result" => $result,
             'partners' => $finalPartners
         ]);
@@ -164,6 +174,10 @@ class NewsController extends Controller
 
     public function updateSingleNews(Request $request, $id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $validation = Validator::make($request->all(), [
             "title" => "required|string",
             "caption" => "required|string|max:255",
@@ -173,6 +187,10 @@ class NewsController extends Controller
             "image" => "file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
+
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            return redirect('/create-news')->with('message', 'Not allowed');
+        }
 
         if ($validation->fails()) {
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -206,6 +224,11 @@ class NewsController extends Controller
 
     public function deleteNews($id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
         $news = News::where("id", $id)->first();
 
         if (!$news) {
