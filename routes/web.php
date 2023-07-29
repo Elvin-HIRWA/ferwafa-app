@@ -97,3 +97,9 @@ Route::post('/create', [ReportController::class, 'create'])->name('create.report
 Route::delete('/report-delete/{id}', [ReportController::class, 'deleteReport'])->name('delete.report');
 
 Route::get('/document', [DocumentController::class, 'showDocumentPage'])->name('document.page.show');
+Route::get('/games-rules', [DocumentController::class, 'showGameRules'])->name('laws.page.show');
+Route::get('/additional-rules', [DocumentController::class, 'showAdditionalGameRules'])->name('rules.page.show');
+Route::get('/circular', [DocumentController::class, 'showCircularPage'])->name('circular.page.show');
+Route::get('/tender', [DocumentController::class, 'showTendersPage'])->name('tender.page.show');
+Route::get('/jobs', [DocumentController::class, 'showJobsPage'])->name('jobs.page.show');
+Route::get('/other-career', [DocumentController::class, 'showOtherCareerPage'])->name('career.page.show');

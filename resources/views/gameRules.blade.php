@@ -10,6 +10,7 @@
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="/static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
     <script src="http://127.0.0.1:35729/livereload.js"></script>
 </head>
 
@@ -19,13 +20,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="banner-title-main">Document</h1>
+                    <h1 class="banner-title-main">Game Rules</h1>
                 </div>
                 <div class="col-md-4">
                     <div class="breadcrumbs">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li>Document</li>
+                            <li>Game Rules</li>
                         </ul>
                     </div>
                 </div>
@@ -34,17 +35,17 @@
     </div>
 
     <section class="section-report">
-        <h3 class="main-report-title">Documents</h3>
+        <h3 class="main-report-title">Game Rules</h3>
         <div class="report-container">
-            @foreach($documents as $document)
+            @foreach($gameRules as $gameRule)
             <div class="report">
                 <div class="report-image">
                     <a><img alt="" src="/static/img/icons/document.png" /></a>
                     <a><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
                 </div>
                 <div class="report-title">
-                    <a href="{{ route('report.doc', $document['url'])}}" target="_blank">
-                        <p>{{ $document['title'] }}</p>
+                    <a href="{{ route('report.doc', $gameRule['url'])}}" target="_blank">
+                        <p>{{ $gameRule['title'] }}</p>
                     </a>
                 </div>
             </div>

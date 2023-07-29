@@ -19,13 +19,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="banner-title-main">Document</h1>
+                    <h1 class="banner-title-main">Circular</h1>
                 </div>
                 <div class="col-md-4">
                     <div class="breadcrumbs">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li>Document</li>
+                            <li>Circular</li>
                         </ul>
                     </div>
                 </div>
@@ -34,17 +34,17 @@
     </div>
 
     <section class="section-report">
-        <h3 class="main-report-title">Documents</h3>
+        <h3 class="main-report-title">Circular</h3>
         <div class="report-container">
-            @foreach($documents as $document)
+            @foreach($circularDocuments as $circularDocument)
             <div class="report">
                 <div class="report-image">
                     <a><img alt="" src="/static/img/icons/document.png" /></a>
                     <a><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
                 </div>
                 <div class="report-title">
-                    <a href="{{ route('report.doc', $document['url'])}}" target="_blank">
-                        <p>{{ $document['title'] }}</p>
+                    <a href="{{ route('report.doc', $circularDocument['url'])}}" target="_blank">
+                        <p>{{ $circularDocument['title'] }}</p>
                     </a>
                 </div>
             </div>

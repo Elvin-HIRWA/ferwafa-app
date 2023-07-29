@@ -101,11 +101,11 @@
                         <li>
                             <a href="javascript:void(0);">Rules &amp; Regulations</a>
                             <ul class="sub-current">
-                                <li><a href="/games-rules/">Laws of The Games</a></li>
-                                <li><a href="/additional-rules/">Others</a></li>
+                                <li><a href="{{ route('laws.page.show') }}">Laws of The Games</a></li>
+                                <li><a href="{{ route('rules.page.show') }}">Others</a></li>
                             </ul>
                         </li>
-                        <li><a href="/circular/">Circular</a></li>
+                        <li><a href="{{ route('circular.page.show') }}">Circular</a></li>
                         <li><a href="{{ route('gallery.images') }}">Gallery</a></li>
                     </ul>
                 </li>
@@ -120,9 +120,9 @@
                 <li class="current">
                     <a href="#">Career</a>
                     <ul class="sub-current">
-                        <li><a href="#">Jobs</a></li>
-                        <li><a href="/tender/">Tenders</a></li>
-                        <li><a href="#">Others</a></li>
+                        <li><a href="{{ route('jobs.page.show') }}">Jobs</a></li>
+                        <li><a href="{{ route('tender.page.show') }}">Tenders</a></li>
+                        <li><a href="{{ route('career.page.show') }}">Others</a></li>
                     </ul>
                 </li>
                 <li class="current">
@@ -209,11 +209,11 @@
                     <li>
                         <a href="">Rules &amp; Regulations</a>
                         <ul class="#">
-                            <li><a href="/games-rules/">Laws of The Game</a></li>
-                            <li><a href="/additional-rules/">Others</a></li>
+                            <li><a href="{{ route('laws.page.show') }}">Laws of The Game</a></li>
+                            <li><a href="{{ route('rules.page.show') }}">Others</a></li>
                         </ul>
                     </li>
-                    <li><a href="/circular/">Circular</a></li>
+                    <li><a href="{{ route('circular.page.show') }}">Circular</a></li>
                     <li><a href="{{ route('gallery.images') }}">Gallery</a></li>
                 </ul>
             </li>
@@ -228,9 +228,9 @@
             <li class="">
                 <a href="#">Career</a>
                 <ul class="#">
-                    <li><a href="#">Jobs</a></li>
-                    <li><a href="/tender/">Tenders</a></li>
-                    <li><a href="#">Others</a></li>
+                    <li><a href="{{ route('jobs.page.show') }}">Jobs</a></li>
+                    <li><a href="{{ route('tender.page.show') }}">Tenders</a></li>
+                    <li><a href="{{ route('career.page.show') }}">Others</a></li>
                 </ul>
             </li>
             <li class="">

@@ -4,7 +4,7 @@
 <head>
     <!-- Basic -->
     <meta charset="utf-8" />
-    <title>Home</title>
+    <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
     <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
