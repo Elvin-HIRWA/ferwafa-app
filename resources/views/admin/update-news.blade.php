@@ -31,7 +31,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create News</h4>
+                            <h4>Update News</h4>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -39,8 +39,9 @@
                                     <div class="col-12">
                                         <div class="card-body">
 
-                                            <form method="POST" action="{{ route('post.news') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('news.page.update',$result->id) }}" enctype="multipart/form-data">
                                                 @csrf
+                                                @method('PUT')
                                                 @if (session()->has('message'))
                                                 <div style="color: red;">
                                                     {{ session()->get('message') }}
@@ -49,7 +50,7 @@
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="title" class="form-control">
+                                                        <input type="text" name="title" value="{{$result->title }}" class="form-control">
                                                         @error('title')
                                                         <div style="color: red;">
                                                             {{ $message }}
@@ -60,7 +61,7 @@
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Caption</label>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="caption" class="form-control">
+                                                        <input type="text" name="caption" value="{{$result->caption }}" class="form-control">
                                                         @error('caption')
                                                         <div style="color: red;">
                                                             {{ $message }}
@@ -101,7 +102,7 @@
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <textarea name="description" class="summernote-simple"></textarea>
+                                                        <textarea name="description" class="summernote-simple">{{ $result->description}}</textarea>
                                                         @error('description')
                                                         <div style="color: red;">
                                                             {{ $message }}
@@ -113,7 +114,7 @@
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <button class="btn btn-primary">Publish</button>
+                                                        <button class="btn btn-primary">Update</button>
                                                     </div>
                                                 </div>
                                             </form>

@@ -37,6 +37,7 @@ Route::get('/', [NewsController::class, 'getNews']);
 Route::get('/news-file/{fileName}', [NewsController::class, 'getNewsImage'])->name('news.images.show');
 Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
 Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name('single.news');
+Route::delete('/news/{id}', [NewsController::class, 'deleteNews'])->name('news.delete');
 Route::get('/about', [CommitteController::class, 'listAllCommitte'])->name('about');
 
 Route::get('/committe', [CommitteController::class, 'listCommitte'])->name('committe');
@@ -103,3 +104,7 @@ Route::get('/circular', [DocumentController::class, 'showCircularPage'])->name('
 Route::get('/tender', [DocumentController::class, 'showTendersPage'])->name('tender.page.show');
 Route::get('/jobs', [DocumentController::class, 'showJobsPage'])->name('jobs.page.show');
 Route::get('/other-career', [DocumentController::class, 'showOtherCareerPage'])->name('career.page.show');
+
+
+Route::put('/news/{id}', [NewsController::class, 'updateSingleNews'])->name('news.page.update');
+Route::get('/update-news/{id}', [NewsController::class, 'editSingleNews'])->name('news.page.edit');

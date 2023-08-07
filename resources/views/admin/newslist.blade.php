@@ -50,8 +50,11 @@
                                         <th>Image</th>
                                         <th>title</th>
                                         <th>Created Date</th>
+                                        <th>Top News</th>
                                         <th>Status</th>
                                         <th>Action</th>
+                                        <th> </th>
+
                                     </tr>
                                     @foreach($news as $item)
                                     <tr>
@@ -64,10 +67,20 @@
                                         </td>
                                         <td>{{$item['title']}} </td>
                                         <td>{{ date('jS M Y', strtotime($item['created_at'])) }}</td>
+                                        <td>{{ $item['is_top'] }}</td>
                                         <td>
                                             <div class="badge badge-success">{{ $item['status']}}</div>
                                         </td>
-                                        <td><a href="#" class="btn btn-outline-primary">Detail</a></td>
+                                        <td>
+                                            <a href="{{ route('news.page.edit', $item['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('news.delete', $item['id']) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>

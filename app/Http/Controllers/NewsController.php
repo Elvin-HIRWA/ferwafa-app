@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\NewsUrl;
 use App\Models\Partner;
+use App\Models\Status;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -172,6 +173,30 @@ class NewsController extends Controller
         ]);
     }
 
+    public function editSingleNews()
+    {
+
+        $id = 13;
+        $result = News::where('id', $id)->first();
+        $newsUrls = NewsUrl::where('news_id', $id)->get();
+        $urls = [];
+        foreach ($newsUrls as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $newsUrl = [
+                'url' => $fileUrl,
+                'image_caption' => $value->image_caption
+            ];
+            array_push($urls, $newsUrl);
+        }
+        $statuses = Status::all();
+
+        return view('admin.update-news', [
+            'result' => $result,
+            'url' => $urls,
+            'statuses' => $statuses
+        ]);
+    }
+
     public function updateSingleNews(Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
@@ -187,10 +212,6 @@ class NewsController extends Controller
             "image" => "file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
-
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
-            return redirect('/create-news')->with('message', 'Not allowed');
-        }
 
         if ($validation->fails()) {
             return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -243,6 +264,7 @@ class NewsController extends Controller
 
         $news->delete();
 
-        return response()->json(['message' => ['deleted successfully']]);
+        return redirect('/news-view')
+            ->with('message', ' deleted successfully');
     }
 }
