@@ -76,7 +76,7 @@
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
                 <a href="{{ url('/') }}">
-                    <img alt="image" src="./static/img/federation/ferwafa.png" class="header-logo" />
+                    <img alt="image" src="{{asset('static/img/federation/ferwafa.png')}}" class="header-logo" />
                     <span class="logo-name">Ferwafa</span>
                 </a>
             </div>

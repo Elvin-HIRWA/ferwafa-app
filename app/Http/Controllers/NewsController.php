@@ -173,10 +173,8 @@ class NewsController extends Controller
         ]);
     }
 
-    public function editSingleNews()
+    public function editSingleNews($id)
     {
-
-        $id = 13;
         $result = News::where('id', $id)->first();
         $newsUrls = NewsUrl::where('news_id', $id)->get();
         $urls = [];
