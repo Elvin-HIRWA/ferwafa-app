@@ -45,6 +45,7 @@
                                         <th>Title</th>
                                         <th>Type</th>
                                         <th>Action</th>
+                                        <th> </th>
                                     </tr>
                                     @foreach($reports as $key => $report)
                                     <tr>
@@ -55,27 +56,27 @@
                                             <div class="row">
                                                 <div>
                                                     <a href="{{ route('report.doc', $report['url']) }}" target="_blank" class="btn btn-outline-success">Open</a>
-                                                </div> &nbsp;
-                                                <div>
-                                                    <form action="{{ route('delete.report', $report['id']) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger">Delete</button>
-                                                    </form>
                                                 </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <form action="{{ route('delete.report', $report['id']) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                </form>
                                             </div>
-                                          </td>
-                                    </tr>
-                                    @endforeach
-                                </table>
                             </div>
+                            </td>
+                            </tr>
+                            @endforeach
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
     </div>
     <script type="module" src="/src/main.js"></script>
     <script src="./assets/js/app.min.js"></script>
