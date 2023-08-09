@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Committe;
+use App\Models\Document;
+use App\Models\Event;
+use App\Models\Gallery;
+use App\Models\News;
+use App\Models\Partner;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,7 +37,20 @@ class AdminController extends Controller
     }
     public function adminView()
     {
-        return view('admin.admin');
+        $news = News::count();
+        $events = Event::count();
+        $commites = Committe::count();
+        $docs = Document::count();
+        $gallery = Gallery::count();
+        $partners = Partner::count();
+        return view('admin.admin', [
+            'numberOfNews' => $news,
+            'numberOfEvents' => $events,
+            'numberOfcommitte' => $commites,
+            'numberOfDocs' => $docs,
+            'numberOfPhotos' => $gallery,
+            'numberOfPartners' => $partners
+        ]);
     }
 
     public function getNewsForAdmin()
@@ -59,7 +78,7 @@ class AdminController extends Controller
                 "title" => $value->title,
                 "caption" => $value->caption,
                 "description" => $value->description,
-                "is_top" => $value->is_top == 1 ? 'True':'False',
+                "is_top" => $value->is_top == 1 ? 'True' : 'False',
                 "status" => $value->name,
                 "created_at" => Carbon::parse($value->created_at)->format('Y-m-d'),
                 "updated_at" => Carbon::parse($value->updated_at)->format('Y-m-d'),
