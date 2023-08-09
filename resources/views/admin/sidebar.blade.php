@@ -125,7 +125,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>

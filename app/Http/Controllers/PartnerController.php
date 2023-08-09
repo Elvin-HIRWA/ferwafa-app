@@ -21,7 +21,7 @@ class PartnerController extends Controller
 
     public function addPartner()
     {
-        if (!Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
             Auth::logout();
             return redirect('/');
         }
@@ -31,7 +31,7 @@ class PartnerController extends Controller
 
     public function createPartner(Request $request)
     {
-        if (!Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
             Auth::logout();
             return redirect('/');
         }
@@ -66,7 +66,7 @@ class PartnerController extends Controller
 
     public function listPartner()
     {
-        if (!Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
             Auth::logout();
             return redirect('/');
         }
@@ -92,47 +92,62 @@ class PartnerController extends Controller
         ]);
     }
 
+    public function editPartner($id)
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+        $partner = Partner::find($id);
+
+        if (!$partner) {
+            return redirect()->back()->with('failed', 'Partner not found');
+        }
+
+        return view('admin.update-partner', [
+            'partner' => $partner
+        ]);
+    }
+
+
     public function updatePartner(Request $request, $id)
     {
-        if (!Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
             Auth::logout();
             return redirect('/');
         }
 
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "link" => "required|string",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg,svg"
 
         ]);
 
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $partner = Partner::find($id);
 
         if (!$partner) {
-            return response()->json(["errors" => "Partner not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect()->back()->with('fail', 'Partner not found');
         }
 
         Storage::delete($partner->image_url);
+        $path = $request->image->store('partner');
 
-        $path = $request->image->store('Partner');
-        $partner->link = $request->name;
+        $partner->link = $request->link;
         $partner->image_url = $path;
         $partner->save();
 
-        return response()->json(['message' => ['updated successfully']]);
+        return redirect('/parteners')
+            ->with('message', 'updated successfully');
     }
 
 
     public function deletePartner($id)
     {
-        if (!Gate::allows('is-admin')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
             Auth::logout();
             return redirect('/');
         }
-        
+
         $partner = Partner::find($id);
 
         if (!$partner) {
@@ -144,6 +159,6 @@ class PartnerController extends Controller
         $partner->delete();
 
         return redirect('/parteners')
-            ->with('message', 'Member is deleted');
+            ->with('message', 'deleted successfully');
     }
 }

@@ -15,7 +15,7 @@ class CommitteController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['getComitteImageDoc','listAllCommitte']]);
+        $this->middleware('auth', ['except' => ['getComitteImageDoc', 'listAllCommitte']]);
     }
 
     public function addMember()
@@ -118,6 +118,24 @@ class CommitteController extends Controller
         ]);
     }
 
+    public function editCommitte($id)
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $committe = Committe::find($id);
+
+        if (!$committe) {
+            return redirect()->back()->with('fail', 'member not found');
+        }
+
+        return view('admin.update-committe', [
+            'committe' => $committe
+        ]);
+    }
+
     public function updateCommitte(Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
@@ -125,21 +143,17 @@ class CommitteController extends Controller
             return redirect('/');
         }
 
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required|string",
             "position" => "required|string|max:255",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
 
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $committe = Committe::find($id);
 
         if (!$committe) {
-            return response()->json(["errors" => "committe not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect()->back()->with('fail', 'member not found');
         }
 
         Storage::delete($committe->image_url);
@@ -150,7 +164,8 @@ class CommitteController extends Controller
         $committe->image_url = $path;
         $committe->save();
 
-        return response()->json(['message' => ['updated successfully']]);
+        return redirect('/committe')
+            ->with('message', 'updated successfully');
     }
 
 
@@ -160,7 +175,7 @@ class CommitteController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        
+
         $committe = Committe::find($id);
 
         if (!$committe) {

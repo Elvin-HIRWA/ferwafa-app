@@ -43,33 +43,29 @@
                                     <tr>
                                         <th>Image</th>
                                         <th>link</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                     @foreach ($partners as $partner)
-                                        <tr>
-                                            <td class="text-truncate">
-                                                <ul class="list-unstyled order-list m-b-0 m-b-0">
-                                                    <li class="team-member team-member-sm">
-                                                        <img class="rounded-circle"
-                                                            src="{{ route('partner.doc', $partner['url']) }}"
-                                                            alt="user" data-toggle="tooltip" title=""
-                                                            data-original-title="Wildan Ahdian" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td><a href="{{ $partner['link'] }}"
-                                                    target="_blank">{{ $partner['link'] }}</a> </td>
-                                            <td>
-                                              {{-- <a href="#" class="btn btn-outline-success">Edit</a> --}}
-                                                <form action="{{ route('delete.partner', $partner['id']) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit"
-                                                        class="btn btn-outline-danger">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-truncate">
+                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                                <li class="team-member team-member-sm">
+                                                    <img class="rounded-circle" src="{{ route('partner.doc', $partner['url']) }}" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td><a href="{{ $partner['link'] }}" target="_blank">{{ $partner['link'] }}</a> </td>
+                                        <td>
+                                            <a href="{{ route('partner.page.edit', $partner['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('delete.partner', $partner['id']) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </table>
                             </div>

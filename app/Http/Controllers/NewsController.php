@@ -175,6 +175,10 @@ class NewsController extends Controller
 
     public function editSingleNews($id)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $result = News::where('id', $id)->first();
         $newsUrls = NewsUrl::where('news_id', $id)->get();
         $urls = [];

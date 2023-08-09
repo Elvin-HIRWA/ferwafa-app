@@ -49,11 +49,18 @@ Route::delete('/delete/{id}', [CommitteController::class, 'deleteCommitte'])->na
 Route::get('/report', [ReportController::class, 'get'])->name('report');
 Route::get('/document/{fileName}', [ReportController::class, 'getReportDoc'])->name('report.doc');
 
+
 Route::get('/gallery', [GalleryController::class, 'getImages'])->name('gallery.images');
 Route::get('/gallery/{fileName}', [GalleryController::class, 'displayGalleryImage'])->name('gallery.doc');
+Route::get('/gallery-view', [GalleryController::class, 'galleryList'])->name('admin.gallery.list');
+Route::get('/add-photo', [GalleryController::class, 'addGallery'])->name('post.photo.view');
+Route::post('/create-photo', [GalleryController::class, 'createGallery'])->name('post.photo');
 
-// Route::get('/registers', [AuthenticationController::class, 'registerForm'])->name('register.login');
-// Route::post('/create-account', [AuthenticationController::class, 'createAccount'])->name('create.account');
+Route::get('/edit-gallery/{id}', [GalleryController::class, 'edit'])->name('edit.gallery');
+Route::put('/update-gallery/{id}', [GalleryController::class, 'update'])->name('update.photo');
+Route::delete('/delete-gallery/{id}', [GalleryController::class, 'destroy'])->name('delete.photo');
+
+
 Route::get('/admin', [AdminController::class, 'adminView'])->name('dashboard.view');
 Route::get('/news-view', [AdminController::class, 'getNewsForAdmin'])->name('news.view');
 Route::get('/create-news', [AdminController::class, 'createNewsView'])->name('news.create');
@@ -109,6 +116,12 @@ Route::get('/other-career', [DocumentController::class, 'showOtherCareerPage'])-
 
 Route::put('/update-report/{id}', [ReportController::class, 'updateReport'])->name('update.report');
 Route::get('/edit-report/{id}', [ReportController::class, 'editReport'])->name('document.page.edit');
+
+Route::put('/update-committe/{id}', [CommitteController::class, 'updateCommitte'])->name('update.committe');
+Route::get('/edit-committe/{id}', [CommitteController::class, 'editCommitte'])->name('committe.page.edit');
+
+Route::put('/update-partner/{id}', [PartnerController::class, 'updatePartner'])->name('update.partner');
+Route::get('/edit-partner/{id}', [PartnerController::class, 'editPartner'])->name('partner.page.edit');
 
 
 Route::put('/news/{id}', [NewsController::class, 'updateSingleNews'])->name('news.page.update');
