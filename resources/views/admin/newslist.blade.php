@@ -52,8 +52,7 @@
                                         <th>Created Date</th>
                                         <th>Top News</th>
                                         <th>Status</th>
-                                        <th>Action</th>
-                                        <th> </th>
+                                        <th colspan="2">Action</th>
 
                                     </tr>
                                     @foreach($news as $item)
@@ -81,6 +80,7 @@
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                                             </form>
                                         </td>
+
                                     </tr>
                                     @endforeach
                                 </table>

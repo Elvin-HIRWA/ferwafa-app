@@ -66,10 +66,10 @@ class ReportController extends Controller
         }
 
         $reports = DB::select('SELECT a.id, a.title, a.url,b.name 
-                            FROM Document AS a
-                                JOIN DocumentType AS b
-                                ON b.id = a.type_id
-                                ORDER BY a.created_at DESC');
+                                FROM Document AS a
+                                    JOIN DocumentType AS b
+                                    ON b.id = a.type_id
+                                    ORDER BY a.created_at DESC');
 
 
         $final = [];
@@ -94,10 +94,10 @@ class ReportController extends Controller
 
         $reports = DB::select(
             'SELECT a.* FROM
-                    Document AS a 
-                    JOIN DocumentType AS b
-                    ON a.type_id = b.id
-                    WHERE b.name = ?',
+                        Document AS a 
+                        JOIN DocumentType AS b
+                        ON a.type_id = b.id
+                        WHERE b.name = ?',
             ['report']
         );
 
@@ -139,6 +139,26 @@ class ReportController extends Controller
         }
     }
 
+    public function editReport($id)
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $report = Document::where('id', $id)->first();
+        $types = DocumentType::all();
+
+        if (!$report) {
+            return redirect()->back()->with('fail', 'report not found');
+        }
+
+        return view('admin.update-document', [
+            'report' => $report,
+            'types' => $types
+        ]);
+    }
+
     public function updateReport(Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
@@ -146,19 +166,16 @@ class ReportController extends Controller
             return redirect('/');
         }
 
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "title" => "required|string|max:255",
             "reportFile" =>  'file|max:5000|mimes:pdf',
+            "typeID" => 'required|integer'
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            return response()->json(['message' => 'report not found']);
+            return redirect()->back()->with('fail', 'report not found');
         }
 
         Storage::delete($report->url);
@@ -169,7 +186,8 @@ class ReportController extends Controller
         $report->url = $path;
         $report->save();
 
-        return response()->json(['message' => 'updated successfully']);
+        return redirect('/report-view')
+            ->with('message', 'document is updated successfully');
     }
 
     public function deleteReport($id)
@@ -182,7 +200,7 @@ class ReportController extends Controller
         $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            return response()->json(['message' => 'report not found']);
+            return redirect()->back()->with('fail', 'report not found');
         }
 
         Storage::delete($report->url);

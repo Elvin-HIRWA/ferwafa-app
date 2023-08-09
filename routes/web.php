@@ -17,6 +17,7 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\UsersController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/users', [UsersController::class, 'getUsers'])->name('users.view');
+Route::delete('/user/{id}', [UsersController::class, 'deleteSingleUser'])->name('users.delete');
 
 
 Route::get('/parteners', [PartnerController::class, 'listPartner'])->name('partner');
@@ -104,6 +106,9 @@ Route::get('/circular', [DocumentController::class, 'showCircularPage'])->name('
 Route::get('/tender', [DocumentController::class, 'showTendersPage'])->name('tender.page.show');
 Route::get('/jobs', [DocumentController::class, 'showJobsPage'])->name('jobs.page.show');
 Route::get('/other-career', [DocumentController::class, 'showOtherCareerPage'])->name('career.page.show');
+
+Route::put('/update-report/{id}', [ReportController::class, 'updateReport'])->name('update.report');
+Route::get('/edit-report/{id}', [ReportController::class, 'editReport'])->name('document.page.edit');
 
 
 Route::put('/news/{id}', [NewsController::class, 'updateSingleNews'])->name('news.page.update');

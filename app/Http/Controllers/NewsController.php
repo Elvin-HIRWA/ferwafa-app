@@ -238,7 +238,8 @@ class NewsController extends Controller
 
         $newsImage->save();
 
-        return response()->json(['message' => ['updated successfully']]);
+        return redirect('/news-view')
+            ->with('message', 'updated successfully');
     }
 
     public function deleteNews($id)
@@ -263,6 +264,6 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect('/news-view')
-            ->with('message', ' deleted successfully');
+            ->with('message', 'deleted successfully');
     }
 }
