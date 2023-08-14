@@ -46,7 +46,7 @@
                                         <th>email</th>
                                         <th>Permission</th>
                                         <th>since</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                     @foreach($users as $key => $user)
                                     <tr>
@@ -57,7 +57,16 @@
                                             <div class="badge badge-success">{{ $user['status']}}</div>
                                         </td>
                                         <td>{{ date('jS M Y', strtotime($user['since'])) }}</td>
-                                        <td><a href="#" class="btn btn-outline-primary">Detail</a></td>
+                                        <td>
+                                            <div>
+                                                <form action="{{ route('users.delete', $user['id']) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                </form>
+
+                                            </div>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>

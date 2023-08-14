@@ -45,34 +45,32 @@
                                         <th>Name</th>
                                         <th>Title</th>
                                         <th>Created Date</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                     @foreach ($committes as $committe)
-                                        <tr>
-                                            <td class="text-truncate">
-                                                <ul class="list-unstyled order-list m-b-0 m-b-0">
-                                                    <li class="team-member team-member-sm">
-                                                        <img class="rounded-circle"
-                                                            src="{{ route('comitte.doc', $committe['url']) }}"
-                                                            alt="user" data-toggle="tooltip" title=""
-                                                            data-original-title="Wildan Ahdian" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>{{ $committe['name'] }} </td>
-                                            <td>{{ $committe['position'] }} </td>
-                                            <td>{{ date('jS M Y', strtotime($committe['created_at'])) }}</td>
-                                            <td>
-                                                {{-- <a href="#" class="btn btn-outline-success">Edit</a> --}}
-                                                <form action="{{ route('delete.committe', $committe['id']) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                    type="submit"
-                                                    class="btn btn-outline-danger">Delete</button>
-                                                </form> 
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-truncate">
+                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                                <li class="team-member team-member-sm">
+                                                    <img class="rounded-circle" src="{{ route('comitte.doc', $committe['url']) }}" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ $committe['name'] }} </td>
+                                        <td>{{ $committe['position'] }} </td>
+                                        <td>{{ date('jS M Y', strtotime($committe['created_at'])) }}</td>
+                                        <td>
+                                            <a href="{{ route('committe.page.edit', $committe['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            {{-- <a href="#" class="btn btn-outline-success">Edit</a> --}}
+                                            <form action="{{ route('delete.committe', $committe['id']) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </table>
                             </div>

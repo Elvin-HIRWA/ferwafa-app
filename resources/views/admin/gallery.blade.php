@@ -20,13 +20,18 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        @if (session()->has('message'))
+                        <div class="badge badge-success">
+                            {{ session()->get('message') }}
+                        </div>
+                        @endif
                         <div class="card-header">
-                            <h4>Available Reports</h4>
+                            <h4>Available Photos</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.doc') }}" class="btn btn-primary">
-                                            <i class="far fa-user"> &nbsp;</i>Add Report
+                                        <a href="{{ route('post.photo.view') }}" class="btn btn-primary">
+                                            <i class="far fa-user"> &nbsp;</i>Add Photo
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="text" class="form-control" placeholder="Search" />
@@ -37,39 +42,39 @@
                                 </form>
                             </div>
                         </div>
+
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>Type</th>
-                                        <th colspan="3">Action</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Created Date</th>
+                                        <th colspan="2">Action</th>
+
                                     </tr>
-                                    @foreach($reports as $key => $report)
+                                    @foreach($galleries as $item)
                                     <tr>
-                                        <td>{{ $key+1}} </td>
-                                        <td>{{ $report['title']}} </td>
-                                        <td>{{ $report['type']}}</td>
+                                        <td class="text-truncate">
+                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                                <li class="team-member team-member-sm">
+                                                    <img class="rounded-circle" src="{{ route('gallery.doc', $item['url']) }}" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{$item['name']}} </td>
+                                        <td>{{ date('jS M Y', strtotime($item['created_at'])) }}</td>
                                         <td>
+                                            <a href="{{ route('edit.gallery', $item['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('delete.photo', $item['id']) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
+                                        </td>
 
-                                            <div>
-                                                <a href="{{ route('report.doc', $report['url']) }}" target="_blank" class="btn btn-outline-success">Open</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <form action="{{ route('delete.report', $report['id']) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                                </form>
-
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('document.page.edit', $report['id']) }}" class="btn btn-outline-primary">Edit</a>
-                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>

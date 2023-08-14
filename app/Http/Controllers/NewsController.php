@@ -173,10 +173,12 @@ class NewsController extends Controller
         ]);
     }
 
-    public function editSingleNews()
+    public function editSingleNews($id)
     {
-
-        $id = 13;
+        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+            Auth::logout();
+            return redirect('/');
+        }
         $result = News::where('id', $id)->first();
         $newsUrls = NewsUrl::where('news_id', $id)->get();
         $urls = [];
@@ -240,7 +242,8 @@ class NewsController extends Controller
 
         $newsImage->save();
 
-        return response()->json(['message' => ['updated successfully']]);
+        return redirect('/news-view')
+            ->with('message', 'updated successfully');
     }
 
     public function deleteNews($id)
@@ -265,6 +268,6 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect('/news-view')
-            ->with('message', ' deleted successfully');
+            ->with('message', 'deleted successfully');
     }
 }
