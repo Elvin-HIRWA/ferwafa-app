@@ -10,4 +10,6 @@ class Status extends Model
     use HasFactory;
 
     protected $table = 'Status';
+
+    protected $fillable = ['name'];
 }

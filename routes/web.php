@@ -18,7 +18,10 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\UsersController;
+use App\Models\Day;
+use App\Models\Status;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -159,3 +162,14 @@ Route::get('/men-first-division-d27', [CompetitionController::class, 'menFirstDi
 Route::get('/men-first-division-d28', [CompetitionController::class, 'menFirstDivisionD28'])->name('men.first-division-d28');
 Route::get('/men-first-division-d29', [CompetitionController::class, 'menFirstDivisionD29'])->name('men.first-division-d29');
 Route::get('/men-first-division-d30', [CompetitionController::class, 'menFirstDivisionD30'])->name('men.first-division-d30');
+
+
+Route::get('/create', function () {
+    Status::create([
+        'name' => 'unpublished',
+    ]);
+});
+
+Route::get('/days', [CompetitionController::class, 'listDays']);
+
+Route::get('/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');

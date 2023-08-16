@@ -2,10 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Day;
 use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
+    public function listDays()
+    {
+        $days = Day::all();
+
+        return view('competition-menus', [
+            'days' => $days
+        ]);
+    }
+
+    public function show($id)
+    {
+        $days = Day::all();
+        $day = Day::find($id);
+
+        return view('days.fixtures', [
+            'day' => $day,
+            'days' => $days
+        ]);
+    }
     public function menFirstDivisionTable()
     {
         return view('menFirstDivisionTable');

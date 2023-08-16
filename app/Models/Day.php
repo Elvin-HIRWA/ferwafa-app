@@ -11,5 +11,5 @@ class Day extends Model
 
     protected $table = 'Day';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','abbreviation'];
 }

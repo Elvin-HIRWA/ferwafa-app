@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('Day', function (Blueprint $table) {
             $table->id();
             $table->string('name'); //Day1 up to Day30
+            $table->string('abbreviation');
             $table->timestamps();
         });
     }
