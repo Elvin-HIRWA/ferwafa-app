@@ -139,20 +139,10 @@
                                                 <td style="width: 30%; text-align: center; vertical-align: middle;">APR
                                                     FC</td>
                                             </tr>
-                                            {{-- <tr>
-                        <td>AMAGAJU</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                      </tr>
-                      <tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            {{-- <div class="col-12 col-md-12 col-lg-7 p-0">
-                  <div id="map" class="contact-map"></div>
-                </div> --}}
                         </div>
                     </div>
                 </div>

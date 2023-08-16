@@ -8,8 +8,8 @@
     <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link href="{{asset('static/CACHE/css/output.718a7af03b3d.css')}}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{{asset('static/img/federation/ferwafa.png')}}" rel="shortcut icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <script src="http://127.0.0.1:35729/livereload.js"></script>
@@ -23,12 +23,12 @@
                     <div class="col">
                         <div class="logo">
                             <a href="/" title="Return Home"><img alt="Logo" class="logo_img"
-                                    src="./static/img/federation/ferwafa.png" /></a>
+                                    src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
                         </div>
                     </div>
                     <div class="col">
                         <img alt="" style="width: 700px; height: 200px; margin-left: 550px; right: 0"
-                            class="img-responsive banner-image" src="./static/img/federation/banner.png" /><a
+                            class="img-responsive banner-image" src="{{asset('static/img/federation/banner.png')}}" /><a
                             class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
