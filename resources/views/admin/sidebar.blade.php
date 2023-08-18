@@ -129,6 +129,11 @@
                         <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Seasons</span>
+                    </a>
+                </li>
                 @else
                 @can('is-dcm')
                 {{-- <li class="dropdown">
@@ -152,8 +157,15 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Gallery</span>
+                    </a>
+                </li>
+                @endcan
+                @can(is-competition-manager)
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Seasons</span>
                     </a>
                 </li>
                 @endcan

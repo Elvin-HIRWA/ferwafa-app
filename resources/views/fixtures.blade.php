@@ -41,7 +41,7 @@
                     <div class="card card-primary">
                         <div class="row m-0">
                             <div class="col-12 col-md-12 col-lg-12 p-0">
-                                {{-- @include('competition-menus') --}}
+                                @include('competition-menus')
                                 <div class="row m-0">
                                     <table class="table table-bordered" height="40%">
                                         <thead>
