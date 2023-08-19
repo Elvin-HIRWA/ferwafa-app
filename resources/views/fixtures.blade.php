@@ -81,7 +81,9 @@
                                                     <small>HUYE STADIUM (15H00)</small>
                                                 </td>
                                                 <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    MUKURA VS</td>
+                     
+                     
+                                                MUKURA VS</td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">

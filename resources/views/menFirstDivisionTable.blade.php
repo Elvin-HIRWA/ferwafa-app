@@ -56,7 +56,7 @@
                             <div class="col-12 col-md-12 col-lg-12 p-0">
                                 <div class="col-12 col-md-12 card-header text-center">
                                     <ul class="menus">
-                                        <li><a href="{{ route('men.first-division-d1') }}">Results & Fixtures</a></li> /
+                                        <li><a href="{{ route('fixtures.show', $days[0]->id) }}">Results & Fixtures</a></li> /
                                         <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
                                     </ul>
                                 </div>

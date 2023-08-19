@@ -22,14 +22,11 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col">
                         <div class="logo">
-                            <a href="/" title="Return Home"><img alt="Logo" class="logo_img"
-                                    src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
+                            <a href="/" title="Return Home"><img alt="Logo" class="logo_img" src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
                         </div>
                     </div>
                     <div class="col">
-                        <img alt="" height="100%" width=""
-                            class="img-responsive banner-image" src="{{asset('static/img/federation/banner.png')}}" /><a
-                            class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
+                        <img alt="" height="100%" width="" class="img-responsive banner-image" src="{{asset('static/img/federation/banner.png')}}" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </div>
@@ -47,7 +44,7 @@
                         <li>
                             <a href="#">Men</a>
                             <ul class="sub-current">
-                                <li><a href="{{ route('men.first-division-d1') }}">First Division</a></li>
+                                <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
                                 <li><a href="#">Second Division</a></li>
                                 <li><a href="#">Third Division</a></li>
                             </ul>
@@ -136,9 +133,9 @@
                     </ul>
                 </li>
                 @if (!Auth::check())
-                    <li class="">
-                        <a href="{{ route('login') }}">Login</a>
-                    </li>
+                <li class="">
+                    <a href="{{ route('login') }}">Login</a>
+                </li>
                 @endif
             </ul>
             <!-- End Menu-->
@@ -155,7 +152,7 @@
                     <li>
                         <a href="#">Men</a>
                         <ul class="#">
-                            <li><a href="{{ route('men.first-division-d1') }}">First Division</a></li>
+                            <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
                             <li><a href="#">Second Division</a></li>
                             <li><a href="#">Third Division</a></li>
                         </ul>

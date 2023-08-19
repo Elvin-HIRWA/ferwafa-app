@@ -42,103 +42,30 @@
                     <div class="card card-primary">
                         <div class="row m-0">
                             <div class="col-12 col-md-12 col-lg-12 p-0">
-                                {{-- @include('competition-menus') --}}
+                                @include('competition-menus')
                                 <div class="row m-0">
                                     <table class="table table-bordered" height="40%">
                                         <thead>
                                             <tr style="background-color: #133E8D;">
-                                                <th colspan="3" style="text-align: center; color: white" scope="col">Day 1</th>
+                                                <th colspan="3" style="text-align: center; color: white" scope="col">{{ $day->name }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($games as $game)
                                             <tr style="height: 10px">
                                                 <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    GASOGI UNITED</td>
+                                                    {{ $game->homeTeam}}
+                                                </td>
                                                 <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>18-08-2023</small> <br>
+                                                    <small>{{ $game->date }}</small> <br>
                                                     VS <br>
-                                                    <small>KIGALI PELE STADIUM (19H00)</small>
+                                                    <small>{{ $game->stadium }}</small>
                                                 </td>
                                                 <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    RAYON SPORT</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    ETOILE DE L'EST</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>20-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>NGOMA STADIUM (15H00)</small>
+                                                    {{ $game->awayTeam }}
                                                 </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    MUSANZE FC</td>
                                             </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    AMAGAJU</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>20-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>HUYE STADIUM (15H00)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    MUKURA VS</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    SC KIYOVU</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>20-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>KIGALI PELE STADIUM (18H00)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    MUHAZI UNITED FC</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    ETINCELLES FC</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>20-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>UMUGANDA STADIUM (15H00)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    GORILLA FC</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    POLICE FC</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>20-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>KIGALI PELE STADIUM (15H00)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    SUNRISE FC</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    AS KIGALI</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>21-08-2023</small> <br>
-                                                    VS <br>
-                                                    <small>KIGALI PELE STADIUM (15H00)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">
-                                                    BUGESERA FC</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 30%; height: 10px; text-align: center; vertical-align: middle;">
-                                                    MARINE FC</td>
-                                                <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    <small>TBD</small> <br>
-                                                    VS <br>
-                                                    <small>UMUGANDA STADIUM (TBD)</small>
-                                                </td>
-                                                <td style="width: 30%; text-align: center; vertical-align: middle;">APR
-                                                    FC</td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
