@@ -130,9 +130,28 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Seasons</span>
-                    </a>
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Competitions</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Men</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="widget-chart.html">First Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Second Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Third Division</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Women</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Peace cup</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
                 @else
                 @can('is-dcm')
@@ -162,11 +181,13 @@
                     </a>
                 </li>
                 @endcan
-                @can(is-competition-manager)
+                @can('is-competition-manager')
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Seasons</span>
-                    </a>
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Widgets</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>
+                        <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>
+                    </ul>
                 </li>
                 @endcan
                 @endcan
