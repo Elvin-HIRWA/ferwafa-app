@@ -15,6 +15,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\UsersController;
@@ -130,6 +131,12 @@ Route::get('/edit-partner/{id}', [PartnerController::class, 'editPartner'])->nam
 
 Route::put('/news/{id}', [NewsController::class, 'updateSingleNews'])->name('news.page.update');
 Route::get('/update-news/{id}', [NewsController::class, 'editSingleNews'])->name('news.page.edit');
+
+
+Route::get('/seasons', [SeasonController::class, 'listSeason'])->name('season');
+Route::get('/add-season', [SeasonController::class, 'addSeason'])->name('add.season');
+Route::post('/create-season', [SeasonController::class, 'createSeason'])->name('create.season');
+Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])->name('delete.season');
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 Route::get('/men-first-division-d1', [CompetitionController::class, 'menFirstDivisionD1'])->name('men.first-division-d1');

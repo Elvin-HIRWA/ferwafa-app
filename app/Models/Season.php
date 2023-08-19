@@ -11,5 +11,5 @@ class Season extends Model
 
     protected $table = 'Season';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['from', 'to'];
 }

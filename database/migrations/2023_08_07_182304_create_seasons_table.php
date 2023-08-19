@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('Season', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('from');
+            $table->integer('to');
             $table->timestamps();
         });
     }

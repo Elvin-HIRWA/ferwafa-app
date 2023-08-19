@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <img alt="" style="width: 700px; height: 200px; margin-left: 550px; right: 0"
+                        <img alt="" height="100%" width=""
                             class="img-responsive banner-image" src="{{asset('static/img/federation/banner.png')}}" /><a
                             class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
