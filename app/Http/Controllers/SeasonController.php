@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Season;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class SeasonController extends Controller
 
     public function addSeason()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -29,32 +30,28 @@ class SeasonController extends Controller
 
     public function createSeason(Request $request)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "from" => "required|date",
             "to" => "required|date"
 
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         Season::create([
             "from" => strtotime($request->from),
             "to" => strtotime($request->to)
         ]);
 
-        return redirect('/parteners')
-            ->with('message', 'Member is added successfully');
+        return redirect('/seasons')
+            ->with('message', 'a Season is added successfully');
     }
 
     public function listSeason()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -67,7 +64,8 @@ class SeasonController extends Controller
 
             $season = [
                 "id" => $value->id,
-                "name" => $value->from. ' - '.$value->to
+                "from" => Carbon::parse($value->from)->format('d-m-Y'),
+                "to" => Carbon::parse($value->to)->format('d-m-Y')
             ];
             array_push($finalSeasons, $season);
         }
@@ -79,7 +77,7 @@ class SeasonController extends Controller
 
     public function editSeason($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -97,7 +95,7 @@ class SeasonController extends Controller
 
     public function updateSeason(Request $request, $id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -125,7 +123,7 @@ class SeasonController extends Controller
 
     public function deleteSeason($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }

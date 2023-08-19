@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Available Partners</h4>
+                            <h4>Available Seasons</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -43,22 +43,22 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Season</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                     @foreach ($seasons as $key => $season)
                                     <tr>
                                         <td class="text-truncate">{{$key+1}}</td>
-                                        <td> {{$season->name}} </td>
-                                        {{-- <td>
-                                            <a href="{{ route('partner.page.edit', $partner['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                        <td> {{ date('Y', strtotime($season['from'])) }}-{{ date('Y', strtotime($season['to'])) }}</td>
+                                        <td>
+                                            {{-- <a href="{{ route('season.page.edit', $season['id']) }}" class="btn btn-outline-primary">Edit</a> --}}
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete.partner', $partner['id']) }}" method="POST">
+                                            <form action="{{ route('delete.season', $season['id']) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                                             </form>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>

@@ -98,9 +98,9 @@ class RegisterController extends Controller
         } elseif ($userPermission->name == 'dcm') {
             return redirect('/news-view');
         } elseif ($userPermission->name == 'competition-manager') {
-            return redirect('/news-view');
+            return redirect('/seasons');
         } else {
-            return redirect('/admin');
+            return redirect('/');
         }
     }
 

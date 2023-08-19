@@ -137,6 +137,9 @@ Route::get('/seasons', [SeasonController::class, 'listSeason'])->name('season');
 Route::get('/add-season', [SeasonController::class, 'addSeason'])->name('add.season');
 Route::post('/create-season', [SeasonController::class, 'createSeason'])->name('create.season');
 Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])->name('delete.season');
+// Route::put('/update-season/{id}', [SeasonController::class, 'updateSeason'])->name('update.season');
+// Route::get('/edit-season/{id}', [SeasonController::class, 'editSeason'])->name('season.page.edit');
+
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 Route::get('/men-first-division-d1', [CompetitionController::class, 'menFirstDivisionD1'])->name('men.first-division-d1');
