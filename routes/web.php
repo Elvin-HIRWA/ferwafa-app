@@ -1,14 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
@@ -19,10 +15,7 @@ use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\UsersController;
-use App\Models\Day;
 use App\Models\Status;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -141,6 +134,13 @@ Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])-
 // Route::get('/edit-season/{id}', [SeasonController::class, 'editSeason'])->name('season.page.edit');
 
 
+
+Route::get('/days', [DayController::class, 'listDays'])->name('day.season');
+Route::get('/add-day', [DayController::class, 'addDay'])->name('add.day.season');
+Route::post('/create-day', [DayController::class, 'createDay'])->name('create.day.season');
+Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('delete.day.season');
+
+
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 Route::get('/men-first-division-d1', [CompetitionController::class, 'menFirstDivisionD1'])->name('men.first-division-d1');
 Route::get('/men-first-division-d2', [CompetitionController::class, 'menFirstDivisionD2'])->name('men.first-division-d2');
@@ -180,6 +180,6 @@ Route::get('/create', function () {
     ]);
 });
 
-Route::get('/days', [CompetitionController::class, 'listDays']);
+// Route::get('/days', [CompetitionController::class, 'listDays']);
 
 Route::get('/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');

@@ -131,7 +131,7 @@ class SeasonController extends Controller
         $season = Season::find($id);
 
         if (!$season) {
-            return response()->json(["errors" => "Season not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect()->back()->with('failed', 'season not found');
         }
 
         $season->delete();

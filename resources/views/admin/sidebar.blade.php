@@ -157,7 +157,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('day.season')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Days</span>
                     </a>
                 </li>
@@ -223,7 +223,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('day.season')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Days</span>
                     </a>
                 </li>
