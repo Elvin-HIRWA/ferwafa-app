@@ -26,7 +26,9 @@ class CompetitionController extends Controller
                 'homeTeam.name AS homeTeam',
                 'awayTeam.name AS awayTeam',
                 'Stadium.name AS stadium',
-                'Game.date'
+                'Game.date',
+                'Game.homeTeamGoals',
+                'Game.awayTeamGoals',
             )
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
@@ -49,5 +51,9 @@ class CompetitionController extends Controller
         return view('menFirstDivisionTable', [
             'days' => $days
         ]);
+    }
+
+    public function calculateTeamScores()
+    {
     }
 }

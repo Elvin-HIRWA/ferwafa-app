@@ -57,9 +57,13 @@
                                                     {{ $game->homeTeam}}
                                                 </td>
                                                 <td style="width: 20%; text-align: center; vertical-align: middle;">
+                                                    @if($game->homeTeamGoals && $game->awayTeamGoals)
+                                                    {{$game->homeTeamGoals}} - {{$game->awayTeamGoals}}
+                                                    @else
                                                     <small>{{ $game->date }}</small> <br>
                                                     VS <br>
                                                     <small>{{ $game->stadium }}</small>
+                                                    @endif
                                                 </td>
                                                 <td style="width: 30%; text-align: center; vertical-align: middle;">
                                                     {{ $game->awayTeam }}

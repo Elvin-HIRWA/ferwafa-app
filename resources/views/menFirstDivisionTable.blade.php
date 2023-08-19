@@ -67,6 +67,8 @@
                                                 <th style="width: 5%" scope="col">#</th>
                                                 <th style="width: 50%" scope="col">Team</th>
                                                 <th style="width: 10%" scope="col">P</th>
+                                                <th style="width: 10%" scope="col">GW</th>
+                                                <th style="width: 10%" scope="col">GL</th>
                                                 <th style="width: 10%" scope="col">GD</th>
                                                 <th style="width: 10%" scope="col">Pts</th>
                                             </tr>
@@ -78,10 +80,14 @@
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>APR FC</td>
+                                                <td>0</td>
+                                                <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
