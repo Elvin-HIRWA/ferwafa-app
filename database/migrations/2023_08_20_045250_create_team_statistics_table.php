@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Day', function (Blueprint $table) {
+        Schema::create('TeamStatistic', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); //Day1 up to Day30
-            $table->string('abbreviation');
-            $table->unsignedBigInteger('seasonID');
+            $table->unsignedBigInteger('teamID');
+            $table->unsignedInteger('goalWin');
+            $table->unsignedInteger('goalLoss');
+            $table->unsignedInteger('goalDifference');
+            $table->unsignedInteger('score');
             $table->timestamps();
-
-
-            $table->foreign('seasonID')->references('id')->on('Season')
-                ->onDelete('restrict')
-                ->onUpdate('cascade');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Day');
+        Schema::dropIfExists('TeamStatistic');
     }
 };

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('GameResult', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('gameID');
-            $table->unsignedBigInteger('winnerID');
+            $table->enum('status', ['draw', 'win']);
+
             $table->timestamps();
         });
     }

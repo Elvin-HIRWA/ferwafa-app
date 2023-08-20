@@ -60,7 +60,7 @@
                                                     @if($game->homeTeamGoals && $game->awayTeamGoals)
                                                     {{$game->homeTeamGoals}} - {{$game->awayTeamGoals}}
                                                     @else
-                                                    <small>{{ $game->date }}</small> <br>
+                                                    <small>{{date('d/m/Y',strtotime($game->date)) }}</small> <br>
                                                     VS <br>
                                                     <small>{{ $game->stadium }}</small>
                                                     @endif

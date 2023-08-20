@@ -11,5 +11,5 @@ class Game extends Model
 
     protected $table = 'Game';
 
-    protected $fillable = ['homeTeamID', 'awayTeamID', 'seasonID', 'dayID', 'stadeID', 'date', 'startTime'];
+    protected $fillable = ['homeTeamID', 'awayTeamID', 'seasonID', 'dayID', 'stadeID', 'date', 'startTime', 'homeTeamGoals', 'awayTeamGoals'];
 }
