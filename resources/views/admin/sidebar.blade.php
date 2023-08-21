@@ -166,6 +166,11 @@
                         <i class="fas fa-envelope"></i><span>Fixtures</span>
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="{{ route('top-score')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>top Scores</span>
+                    </a>
+                </li>
                 @else
                 @can('is-dcm')
                 {{-- <li class="dropdown">

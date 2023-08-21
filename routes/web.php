@@ -14,6 +14,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
+use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
@@ -132,6 +133,13 @@ Route::post('/create-season', [SeasonController::class, 'createSeason'])->name('
 Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])->name('delete.season');
 // Route::put('/update-season/{id}', [SeasonController::class, 'updateSeason'])->name('update.season');
 // Route::get('/edit-season/{id}', [SeasonController::class, 'editSeason'])->name('season.page.edit');
+
+Route::get('/top-score', [TopScoreController::class, 'listTopScore'])->name('top-score');
+Route::get('/add-top-score', [TopScoreController::class, 'addTopScore'])->name('add.top-score');
+Route::post('/create-top-score', [TopScoreController::class, 'createTopScore'])->name('create.top-score');
+Route::delete('/delete-top-score/{id}', [TopScoreController::class, 'deleteTopScore'])->name('delete.top-score');
+Route::put('/update-season/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
+Route::get('/edit-season/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
 
 
 
