@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
+use App\Models\Game;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
@@ -164,6 +165,18 @@ Route::get('/create', function () {
     ]);
 });
 
-// Route::get('/days', [CompetitionController::class, 'listDays']);
+// Route::get('/te', function () {
+//     Game::create([
+//         "homeTeamID" => 1,
+//         "awayTeamID" => 2,
+//         "stadeName" => "PELE",
+//         "date" => "2023-08-19 13:50:29",
+//         "homeTeamGoals" => null,
+//         "awayTeamGoals" => null,
+//         "startTime" => "2023-08-19 13:50:29",
+//         "dayID" => 1,
+//         "seasonID" => 4,
+//     ]);
+// });
 
 Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');

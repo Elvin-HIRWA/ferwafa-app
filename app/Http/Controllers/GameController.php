@@ -85,7 +85,7 @@ class GameController extends Controller
         Game::create([
             "homeTeamID" => $request->homeTeamID,
             "awayTeamID" => $request->awayTeamID,
-            "stade" => $request->stade,
+            "stadeName" => $request->stade,
             "date" => $request->date,
             "homeTeamGoals" => $request->homeTeamGoals,
             "awayTeamGoals" => $request->awayTeamGoals,
