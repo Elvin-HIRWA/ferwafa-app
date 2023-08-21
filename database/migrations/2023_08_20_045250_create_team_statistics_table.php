@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('TeamStatistic', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teamID');
+            $table->unsignedBigInteger('teamID')->unique();
             $table->unsignedInteger('goalWin');
             $table->unsignedInteger('goalLoss');
             $table->unsignedInteger('goalDifference');
             $table->unsignedInteger('score');
             $table->timestamps();
+
+
+            $table->foreign('teamID')->references('id')->on('Team')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 

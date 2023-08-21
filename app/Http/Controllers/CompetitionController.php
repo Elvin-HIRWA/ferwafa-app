@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Day;
 use App\Models\Game;
+use App\Models\Team;
 use App\Models\TeamStatistic;
 use Illuminate\Support\Facades\DB;
 
@@ -48,9 +49,15 @@ class CompetitionController extends Controller
     public function menFirstDivisionTable()
     {
         $days = Day::all();
+        $teamStatistics = DB::table('TeamStatistic as a')
+            ->select('b.name', 'a.goalWin', 'a.goalLoss', 'a.score')
+            ->join('Team as b', 'a.teamID', '=', 'b.id')
+            ->get();
+
 
         return view('menFirstDivisionTable', [
-            'days' => $days
+            'days' => $days,
+            'teamStatistics' => $teamStatistics
         ]);
     }
 
@@ -87,5 +94,14 @@ class CompetitionController extends Controller
 
             $team1Statistics->save();
         }
+    }
+
+    public function standing()
+    {
+        $teams = TeamStatistic::all();
+
+        return view('', [
+            'teams' => $teams
+        ]);
     }
 }

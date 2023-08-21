@@ -21,6 +21,8 @@ use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
 use App\Models\Game;
 use App\Models\Status;
+use App\Models\Team;
+use App\Models\TeamStatistic;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -196,5 +198,15 @@ Route::get('/create', function () {
 //         "seasonID" => 4,
 //     ]);
 // });
+
+Route::get('/test', function () {
+    TeamStatistic::create([
+        'teamID' => 2,
+        'goalWin' => 4,
+        'goalLoss' => 5,
+        'goalDifference' => 1,
+        'score' => 13
+    ]);
+});
 
 Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');

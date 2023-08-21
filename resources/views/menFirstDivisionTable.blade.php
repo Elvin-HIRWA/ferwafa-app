@@ -66,7 +66,7 @@
                                             <tr>
                                                 <th style="width: 5%" scope="col">#</th>
                                                 <th style="width: 50%" scope="col">Team</th>
-                                                <th style="width: 10%" scope="col">P</th>
+                                                {{--<th style="width: 10%" scope="col">P</th>--}}
                                                 <th style="width: 10%" scope="col">GW</th>
                                                 <th style="width: 10%" scope="col">GL</th>
                                                 <th style="width: 10%" scope="col">GD</th>
@@ -74,123 +74,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($teamStatistics as $teamStatistic)
                                             <tr style="background-color: #90EE90">
                                                 <th scope="row">1</th>
-                                                <td>AMAGAJU</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td>{{$teamStatistic->name}}</td>
+                                                {{--<td>{{$teamStatistic->days}}</td>--}}
+                                                <td>{{$teamStatistic->goalWin}}</td>
+                                                <td>{{$teamStatistic->goalLoss}}</td>
+                                                <td>{{$teamStatistic->goalWin - $teamStatistic->goalLoss}}</td>
+                                                <td>{{$teamStatistic->score}}</td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>APR FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>AS KIGALI</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>BUGESERA FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>ETOILE DE L'EST</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>ETINCELLES FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>GASOGI UNITED</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th scope="row">8</th>
-                                                <td>GORILLA FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">9</th>
-                                                <td>MARINES FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">10</th>
-                                                <td>MUHAZI UNITED FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">11</th>
-                                                <td>MUKURA VS</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">12</th>
-                                                <td>MUSANZE FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">13</th>
-                                                <td>POLICE FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr style="background-color: #FF7F7F">
-                                                <th scope="row">14</th>
-                                                <td>RAYON SPORT</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr style="background-color: #FF7F7F">
-                                                <th scope="row">15</th>
-                                                <td>SC KIYOVU</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr style="background-color: #FF7F7F">
-                                                <th scope="row">16</th>
-                                                <td>SUNRISE FC</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
