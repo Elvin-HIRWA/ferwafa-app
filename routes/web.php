@@ -15,6 +15,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
+use App\Http\Controllers\TeamCategoryController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
 use App\Models\Game;
@@ -140,8 +142,24 @@ Route::get('/top-score', [TopScoreController::class, 'listTopScore'])->name('top
 Route::get('/add-top-score', [TopScoreController::class, 'addTopScore'])->name('add.top-score');
 Route::post('/create-top-score', [TopScoreController::class, 'createTopScore'])->name('create.top-score');
 Route::delete('/delete-top-score/{id}', [TopScoreController::class, 'deleteTopScore'])->name('delete.top-score');
-Route::put('/update-season/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
-Route::get('/edit-season/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
+Route::put('/update-top-score/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
+Route::get('/edit-top-score/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
+
+Route::get('/team-category', [TeamCategoryController::class, 'listTeamCategory'])->name('team-category');
+Route::get('/add-team-category', [TeamCategoryController::class, 'addTeamCategory'])->name('add.team-category');
+Route::post('/create-team-category', [TeamCategoryController::class, 'createTeamCategory'])->name('create.team-category');
+Route::delete('/delete-team-category/{id}', [TeamCategoryController::class, 'deleteTeamCategory'])->name('delete.team-category');
+Route::put('/update-team-category/{id}', [TeamCategoryController::class, 'updateTeamCategory'])->name('update.team-category');
+Route::get('/edit-team-category/{id}', [TeamCategoryController::class, 'editTeamCategory'])->name('team-category.page.edit');
+
+
+Route::get('/team', [TeamController::class, 'listTeam'])->name('team');
+Route::get('/add-team', [TeamController::class, 'addTeam'])->name('add.team');
+Route::post('/create-team', [TeamController::class, 'createTeam'])->name('create.team');
+Route::delete('/delete-team/{id}', [TeamController::class, 'deleteTeam'])->name('delete.team');
+Route::put('/update-team/{id}', [TeamController::class, 'updateTeam'])->name('update.team');
+Route::get('/edit-team/{id}', [TeamController::class, 'editTeam'])->name('team.page.edit');
+Route::get('/team-doc/{fileName}', [TeamController::class, 'getTeamImageDoc'])->name('team.doc');
 
 
 

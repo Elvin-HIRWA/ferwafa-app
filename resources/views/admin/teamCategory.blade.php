@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.top-score') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.team-category') }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Top Score
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -43,21 +43,17 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Goals</th>
-                                        <th>Team Name</th>
                                         <th colspan="2">Action</th>
                                     </tr>
-                                    @foreach ($topScores as $key => $topScore)
+                                    @foreach ($teamCategorys as $key => $teamCategory)
                                     <tr>
                                         <td class="text-truncate">{{$key+1}}</td>
-                                        <td> {{ $topScore["name"] }}</td>
-                                        <td>{{ $topScore["goals"] }}</td>
-                                        <td>{{ $topScore["teamName"] }}</td>
+                                        <td> {{ $teamCategory["name"] }}</td>
                                         <td>
-                                            {{-- <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a> --}}
+                                            <a href="{{ route('team-category.page.edit', $teamCategory['id']) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete.season', $topScore['id']) }}" method="POST">
+                                            <form action="{{ route('delete.team-category', $teamCategory['id']) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>

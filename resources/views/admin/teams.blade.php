@@ -21,12 +21,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Available Top Scores</h4>
+                            <h4>Available Teams</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.top-score') }}" class="btn btn-primary">
-                                            <i class="far fa-user"> &nbsp;</i>Add Top Score
+                                        <a href="{{ route('add.team') }}" class="btn btn-primary">
+                                            <i class="far fa-user"> &nbsp;</i>Add Team
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="text" class="form-control" placeholder="Search" />
@@ -41,23 +41,26 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Goals</th>
-                                        <th>Team Name</th>
+                                        <th>Image</th>
+                                        <th>name</th>
                                         <th colspan="2">Action</th>
                                     </tr>
-                                    @foreach ($topScores as $key => $topScore)
+                                    @foreach ($teams as $team)
                                     <tr>
-                                        <td class="text-truncate">{{$key+1}}</td>
-                                        <td> {{ $topScore["name"] }}</td>
-                                        <td>{{ $topScore["goals"] }}</td>
-                                        <td>{{ $topScore["teamName"] }}</td>
+                                        <td class="text-truncate">
+                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                                <li class="team-member team-member-sm">
+                                                    <img class="rounded-circle" src="{{ route('team.doc', $team['url']) }}" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ $team['name'] }}</a> </td>
+                                        <td>{{ $team['category'] }}</a> </td>
                                         <td>
-                                            {{-- <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a> --}}
+                                            <a href="{{ route('team.page.edit', $team['id']) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete.season', $topScore['id']) }}" method="POST">
+                                            <form action="{{ route('delete.team', $team['id']) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>

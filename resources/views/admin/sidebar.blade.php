@@ -130,6 +130,17 @@
                     </a>
                 </li>
                 <li class="dropdown">
+                    <a href="{{ route('team-category')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Team Category</span>
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="{{ route('team')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Teams</span>
+                    </a>
+                </li>
+                <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Competitions</span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Men</a>
