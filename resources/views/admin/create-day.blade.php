@@ -64,6 +64,17 @@
                                                 </div>
 
                                                 <div class="form-group row mb-4">
+                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Season</label>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <select name="seasonID" class="form-control selectric">
+                                                            @foreach($seasons as $season)
+                                                            <option value="{{ $season['id'] }}">{{ date('Y', strtotime($season['from'])) }}-{{ date('Y', strtotime($season['to'])) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-center col-12 col-md-3 col-lg-3"></label>
                                                     <div class="col-sm-12 col-md-7">
                                                         <button class="btn btn-primary">Add</button>

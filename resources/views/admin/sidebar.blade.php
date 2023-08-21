@@ -162,7 +162,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('fixtures')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Fixtures</span>
                     </a>
                 </li>
@@ -233,7 +233,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('fixtures')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Fixtures</span>
                     </a>
                 </li>

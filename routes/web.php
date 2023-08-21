@@ -8,6 +8,7 @@ use App\Http\Controllers\DayController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ReportController;
@@ -149,37 +150,12 @@ Route::post('/create-day', [DayController::class, 'createDay'])->name('create.da
 Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('delete.day.season');
 
 
+Route::get('/games', [GameController::class, 'listGames'])->name('fixtures');
+Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
+Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
+Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
+
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
-// Route::get('/men-first-division-d1', [CompetitionController::class, 'menFirstDivisionD1'])->name('men.first-division-d1');
-// Route::get('/men-first-division-d2', [CompetitionController::class, 'menFirstDivisionD2'])->name('men.first-division-d2');
-// Route::get('/men-first-division-d3', [CompetitionController::class, 'menFirstDivisionD3'])->name('men.first-division-d3');
-// Route::get('/men-first-division-d4', [CompetitionController::class, 'menFirstDivisionD4'])->name('men.first-division-d4');
-// Route::get('/men-first-division-d5', [CompetitionController::class, 'menFirstDivisionD5'])->name('men.first-division-d5');
-// Route::get('/men-first-division-d6', [CompetitionController::class, 'menFirstDivisionD6'])->name('men.first-division-d6');
-// Route::get('/men-first-division-d7', [CompetitionController::class, 'menFirstDivisionD7'])->name('men.first-division-d7');
-// Route::get('/men-first-division-d8', [CompetitionController::class, 'menFirstDivisionD8'])->name('men.first-division-d8');
-// Route::get('/men-first-division-d9', [CompetitionController::class, 'menFirstDivisionD9'])->name('men.first-division-d9');
-// Route::get('/men-first-division-d10', [CompetitionController::class, 'menFirstDivisionD10'])->name('men.first-division-d10');
-// Route::get('/men-first-division-d11', [CompetitionController::class, 'menFirstDivisionD11'])->name('men.first-division-d11');
-// Route::get('/men-first-division-d12', [CompetitionController::class, 'menFirstDivisionD12'])->name('men.first-division-d12');
-// Route::get('/men-first-division-d13', [CompetitionController::class, 'menFirstDivisionD13'])->name('men.first-division-d13');
-// Route::get('/men-first-division-d14', [CompetitionController::class, 'menFirstDivisionD14'])->name('men.first-division-d14');
-// Route::get('/men-first-division-d15', [CompetitionController::class, 'menFirstDivisionD15'])->name('men.first-division-d15');
-// Route::get('/men-first-division-d16', [CompetitionController::class, 'menFirstDivisionD16'])->name('men.first-division-d16');
-// Route::get('/men-first-division-d17', [CompetitionController::class, 'menFirstDivisionD17'])->name('men.first-division-d17');
-// Route::get('/men-first-division-d18', [CompetitionController::class, 'menFirstDivisionD18'])->name('men.first-division-d18');
-// Route::get('/men-first-division-d19', [CompetitionController::class, 'menFirstDivisionD19'])->name('men.first-division-d19');
-// Route::get('/men-first-division-d20', [CompetitionController::class, 'menFirstDivisionD20'])->name('men.first-division-d20');
-// Route::get('/men-first-division-d21', [CompetitionController::class, 'menFirstDivisionD21'])->name('men.first-division-d21');
-// Route::get('/men-first-division-d22', [CompetitionController::class, 'menFirstDivisionD22'])->name('men.first-division-d22');
-// Route::get('/men-first-division-d23', [CompetitionController::class, 'menFirstDivisionD23'])->name('men.first-division-d23');
-// Route::get('/men-first-division-d24', [CompetitionController::class, 'menFirstDivisionD24'])->name('men.first-division-d24');
-// Route::get('/men-first-division-d25', [CompetitionController::class, 'menFirstDivisionD25'])->name('men.first-division-d25');
-// Route::get('/men-first-division-d26', [CompetitionController::class, 'menFirstDivisionD26'])->name('men.first-division-d26');
-// Route::get('/men-first-division-d27', [CompetitionController::class, 'menFirstDivisionD27'])->name('men.first-division-d27');
-// Route::get('/men-first-division-d28', [CompetitionController::class, 'menFirstDivisionD28'])->name('men.first-division-d28');
-// Route::get('/men-first-division-d29', [CompetitionController::class, 'menFirstDivisionD29'])->name('men.first-division-d29');
-// Route::get('/men-first-division-d30', [CompetitionController::class, 'menFirstDivisionD30'])->name('men.first-division-d30');
 
 
 Route::get('/create', function () {

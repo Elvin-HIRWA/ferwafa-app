@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
+use App\Models\Season;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -16,8 +18,26 @@ class DayController extends Controller
             return redirect('/');
         }
 
-        return view('admin.create-day');
+        $seasons = Season::all();
+
+        $finalSeasons = [];
+
+        foreach ($seasons as $value) {
+
+            $season = [
+                "id" => $value->id,
+                "from" => Carbon::parse($value->from)->format('d-m-Y'),
+                "to" => Carbon::parse($value->to)->format('d-m-Y')
+            ];
+            array_push($finalSeasons, $season);
+        }
+
+        return view('admin.create-day', [
+            'seasons' => $finalSeasons
+        ]);
     }
+
+
     public function createDay(Request $request)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
@@ -27,13 +47,15 @@ class DayController extends Controller
 
         $request->validate([
             "name" => "required|string",
-            "abbreviation" => "required|string"
+            "abbreviation" => "required|string",
+            "seasonID" => "required|integer"
 
         ]);
 
         Day::create([
             "name" => $request->name,
-            "abbreviation" => $request->abbreviation
+            "abbreviation" => $request->abbreviation,
+            "seasonID" => $request->seasonID
         ]);
 
         return redirect('/days')
