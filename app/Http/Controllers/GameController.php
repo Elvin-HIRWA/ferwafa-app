@@ -58,7 +58,8 @@ class GameController extends Controller
 
         return view('admin.create-game', [
             'teams' => $teams,
-            'days' => $days
+            'days' => $days,
+            'seasonID' => $seasonID
         ]);
     }
 
@@ -74,8 +75,11 @@ class GameController extends Controller
             "awayTeamID" => "required|integer",
             "stade" => "required|string",
             "date" => "required|date",
+            "startTime" => "required|integer",
             "homeTeamGoals" => "required|integer",
-            "awayTeamGoals" => "required|integer"
+            "awayTeamGoals" => "required|integer",
+            "dayID" => "required|integer",
+            "seasonID" => "required|integer"
         ]);
 
         Game::create([
@@ -85,6 +89,12 @@ class GameController extends Controller
             "date" => $request->date,
             "homeTeamGoals" => $request->homeTeamGoals,
             "awayTeamGoals" => $request->awayTeamGoals,
+            "startTime" => $request->startTime,
+            "dayID" => $request->dayID,
+            "seasonID" => $request->seasonID,
         ]);
+
+        return redirect('/games')
+            ->with('message', 'Game is added successfully');
     }
 }
