@@ -77,16 +77,16 @@ Route::get('/users', [UsersController::class, 'getAllUsers']);
 Route::get('/user/{id}', [UsersController::class, 'getSingleUser']);
 
 
-Route::get('/insert', function () {
+// Route::get('/insert', function () {
 
-    for ($x = 1; $x <= 16; $x++) {
-        TeamStatistic::create([
-            'teamID' => $x,
-            'goalWin' => 0,
-            'goalLoss' => 0,
-            'goalDifference' => 0,
-            'matchPlayed' => 0,
-            'score' => 0
-        ]);
-    }
-});
+//     for ($x = 1; $x <= 16; $x++) {
+//         TeamStatistic::create([
+//             'teamID' => $x,
+//             'goalWin' => 0,
+//             'goalLoss' => 0,
+//             'goalDifference' => 0,
+//             'matchPlayed' => 0,
+//             'score' => 0
+//         ]);
+//     }
+// });
