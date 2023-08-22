@@ -91,6 +91,7 @@ class TeamController extends Controller
         $teams = DB::table("Team AS a")
             ->join("TeamCategory AS b", "a.categoryID", "=", "b.id")
             ->select(["a.id", "a.name", "a.logo", "b.name AS category"])
+            ->orderBy('name', 'asc')
             ->get();
 
         $finalTeams = [];
@@ -175,7 +176,7 @@ class TeamController extends Controller
             return response()->json(["errors" => "Team not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        Storage::delete($team->image_url);
+        // Storage::delete($team->image_url);
 
         $team->delete();
 

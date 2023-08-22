@@ -57,7 +57,7 @@
                                                     {{ $game->homeTeam}}
                                                 </td>
                                                 <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    @if($game->homeTeamGoals && $game->awayTeamGoals)
+                                                    @if(!is_null($game->homeTeamGoals) && !is_null($game->awayTeamGoals))
                                                     {{$game->homeTeamGoals}} - {{$game->awayTeamGoals}}
                                                     @else
                                                     <small>{{date('d/m/Y',strtotime($game->date)) }}</small> <br>

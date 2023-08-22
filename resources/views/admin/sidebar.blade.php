@@ -141,30 +141,8 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Competitions</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Men</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="widget-chart.html">First Division</a></li>
-                                <li><a class="nav-link" href="widget-data.html">Second Division</a></li>
-                                <li><a class="nav-link" href="widget-data.html">Third Division</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Women</a>
-                            <ul class="dropdown-menu">
-
-                            </ul>
-                        </li>
-
-                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Peace cup</a>
-                            <ul class="dropdown-menu">
-
-                            </ul>
-                        </li>
-                    </ul>
                     <a href="{{ route('season')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Seasons</span>
+                        <i class="fas fa-envelope"></i><span>Season</span>
                     </a>
                 </li>
                 <li class="dropdown">
@@ -184,11 +162,6 @@
                 </li>
                 @else
                 @can('is-dcm')
-                {{-- <li class="dropdown">
-                    <a href="{{ route('events.view')}}" class="nav-link">
-                <i class="fas fa-envelope"></i><span>Events</span>
-                </a>
-                </li> --}}
                 <li class="dropdown">
                     <a href="{{ route('news.view')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>News</span>
