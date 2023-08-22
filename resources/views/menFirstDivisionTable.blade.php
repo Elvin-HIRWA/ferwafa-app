@@ -75,7 +75,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($teamStatistics as $key => $teamStatistic)
-                                            <tr style="background-color: #90EE90">
+                                            <tr>
                                                 <th scope="row">{{$key + 1}}</th>
                                                 <td>{{$teamStatistic->name}}</td>
                                                 <td>{{$teamStatistic->matchPlayed}}</td>
