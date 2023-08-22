@@ -58,7 +58,9 @@
                                         <td> {{$game->homeTeamGoals }}</td>
                                         <td> {{$game->awayTeamGoals }}</td>
                                         <td>
-                                            {{-- <a href="{{ route('season.page.edit', $season['id']) }}" class="btn btn-outline-primary">Edit</a> --}}
+                                            @if(!$game->homeTeamGoals && !$game->awayTeamGoals)
+                                            <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Results</a>
+                                            @endif
                                         </td>
                                         <td>
                                             <form action="{{ route('delete.game', $game->id) }}" method="POST">

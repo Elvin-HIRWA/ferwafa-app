@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\TeamCategory;
+use App\Models\TeamStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -53,10 +54,19 @@ class TeamController extends Controller
 
         $path = $request->logo->store('team');
 
-        Team::create([
+        $team  = Team::create([
             "name" => $request->name,
             "categoryID" => $request->categoryID,
             "logo" => $path
+        ]);
+
+        TeamStatistic::create([
+            'teamID' => $team->id,
+            'goalWin' => 0,
+            'goalLoss' => 0,
+            'goalDifference' => 0,
+            'matchPlayed' => 0,
+            'score' => 0
         ]);
 
         return redirect('/team')
@@ -79,9 +89,9 @@ class TeamController extends Controller
         }
 
         $teams = DB::table("Team AS a")
-                    ->join("TeamCategory AS b", "a.categoryID", "=", "b.id")
-                    ->select(["a.id", "a.name", "a.logo", "b.name AS category"])
-                    ->get();
+            ->join("TeamCategory AS b", "a.categoryID", "=", "b.id")
+            ->select(["a.id", "a.name", "a.logo", "b.name AS category"])
+            ->get();
 
         $finalTeams = [];
 

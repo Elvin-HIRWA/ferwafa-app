@@ -35,7 +35,6 @@ class CompetitionController extends Controller
             )
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
-            ->join('Season', 'Game.seasonID', '=', 'Season.id')
             ->join('Day', 'Game.dayID', '=', 'Day.id')
             ->where('dayID', $id)
             ->get();
@@ -50,8 +49,10 @@ class CompetitionController extends Controller
     {
         $days = Day::all();
         $teamStatistics = DB::table('TeamStatistic as a')
-            ->select('b.name', 'a.goalWin', 'a.goalLoss', 'a.score')
+            ->select('b.name', 'a.goalWin', 'a.goalLoss', 'a.score', 'a.matchPlayed', 'a.goalDifference')
             ->join('Team as b', 'a.teamID', '=', 'b.id')
+            ->orderBy('a.score', 'DESC')
+            ->orderBy('a.goalDifference', 'DESC')
             ->get();
 
 
@@ -61,40 +62,40 @@ class CompetitionController extends Controller
         ]);
     }
 
-    public function calculateTeamScores($team1ID, $team2ID, $team1Goal, $team2Goal)
-    {
+    // public function calculateTeamScores($team1ID, $team2ID, $team1Goal, $team2Goal)
+    // {
 
-        $team1Statistics = TeamStatistic::where('teamID', $team1ID)->first();
-        $team2Statistics = TeamStatistic::where('teamID', $team2ID)->first();
-        if ($team1Goal == $team2Goal) {
-            $team1Statistics->score = $team1Statistics->score + 1;
-            $team2Statistics->score = $team2Statistics->score + 1;
-            $team1Statistics->save();
-        }
-        if ($team1Goal > $team2Goal) {
-            $team1Statistics->score = $team1Statistics->score + 3;
-            $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
-            $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
+    //     $team1Statistics = TeamStatistic::where('teamID', $team1ID)->first();
+    //     $team2Statistics = TeamStatistic::where('teamID', $team2ID)->first();
+    //     if ($team1Goal == $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 1;
+    //         $team2Statistics->score = $team2Statistics->score + 1;
+    //         $team1Statistics->save();
+    //     }
+    //     if ($team1Goal > $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 3;
+    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
+    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
 
-            $team2Statistics->score = $team2Statistics->score + 0;
-            $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
-            $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
+    //         $team2Statistics->score = $team2Statistics->score + 0;
+    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
+    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
 
-            $team1Statistics->save();
-        }
+    //         $team1Statistics->save();
+    //     }
 
-        if ($team1Goal < $team2Goal) {
-            $team1Statistics->score = $team1Statistics->score + 0;
-            $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
-            $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
+    //     if ($team1Goal < $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 0;
+    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
+    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
 
-            $team2Statistics->score = $team2Statistics->score + 3;
-            $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
-            $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
+    //         $team2Statistics->score = $team2Statistics->score + 3;
+    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
+    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
 
-            $team1Statistics->save();
-        }
-    }
+    //         $team1Statistics->save();
+    //     }
+    // }
 
     public function standing()
     {

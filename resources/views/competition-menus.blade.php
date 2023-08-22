@@ -39,8 +39,12 @@
                             <div class="col-12 col-md-12 col-lg-12 p-0">
                                 <div class="col-12 col-md-12 card-header text-center">
                                     <ul class="menus">
+                                        @if($day)
                                         <li><a href="{{ route('fixtures.show',$day->id) }}">Results & Fixtures</a></li> /
                                         <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
+                                        @else
+                                        <h1>No Days Available</h1>
+                                        @endif
                                     </ul>
                                     <ul class="menus">
                                         @foreach($days as $day)

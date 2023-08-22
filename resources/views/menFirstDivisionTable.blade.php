@@ -66,7 +66,7 @@
                                             <tr>
                                                 <th style="width: 5%" scope="col">#</th>
                                                 <th style="width: 50%" scope="col">Team</th>
-                                                {{--<th style="width: 10%" scope="col">P</th>--}}
+                                                <th style="width: 10%" scope="col">P</th>
                                                 <th style="width: 10%" scope="col">GW</th>
                                                 <th style="width: 10%" scope="col">GL</th>
                                                 <th style="width: 10%" scope="col">GD</th>
@@ -74,14 +74,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($teamStatistics as $teamStatistic)
+                                            @foreach($teamStatistics as $key => $teamStatistic)
                                             <tr style="background-color: #90EE90">
-                                                <th scope="row">1</th>
+                                                <th scope="row">{{$key + 1}}</th>
                                                 <td>{{$teamStatistic->name}}</td>
-                                                {{--<td>{{$teamStatistic->days}}</td>--}}
+                                                <td>{{$teamStatistic->matchPlayed}}</td>
                                                 <td>{{$teamStatistic->goalWin}}</td>
                                                 <td>{{$teamStatistic->goalLoss}}</td>
-                                                <td>{{$teamStatistic->goalWin - $teamStatistic->goalLoss}}</td>
+                                                <td>{{$teamStatistic->goalDifference}}</td>
                                                 <td>{{$teamStatistic->score}}</td>
                                             </tr>
                                             @endforeach

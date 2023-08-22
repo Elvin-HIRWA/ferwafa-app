@@ -41,18 +41,6 @@
                                             <form method="POST" action="{{ route('create.game') }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Season</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="seasonID" value="{{ $seasonID }}" class="form-control">
-                                                        @error('seasonID')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Day</label>
                                                     <div class="col-sm-12 col-md-7">
                                                         <select name="dayID" class="form-control selectric">
@@ -96,7 +84,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group row mb-4">
+                                                <!-- <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Start time</label>
                                                     <div class="col-sm-12 col-md-7">
                                                         <input type="datetime" name="starttime" class="form-control">
@@ -106,37 +94,13 @@
                                                         </div>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Stade</label>
                                                     <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="stade" class="form-control">
                                                         @error('stade')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Home Team Goals</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="number" name="homeTeamGoals" class="form-control">
-                                                        @error('homeTeamGoals')
-                                                        <div style="color: red;">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Away Team Goals</label>
-                                                    <div class="col-sm-12 col-md-7">
-                                                        <input type="number" name="awayTeamGoals" class="form-control">
-                                                        @error('awayTeamGoals')
                                                         <div style="color: red;">
                                                             {{ $message }}
                                                         </div>

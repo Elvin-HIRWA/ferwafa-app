@@ -11,5 +11,5 @@ class TeamStatistic extends Model
 
     protected $table = 'TeamStatistic';
 
-    protected $fillable = ['teamID', 'goalWin', 'goalLoss', 'goalDifference', 'score'];
+    protected $fillable = ['teamID', 'goalWin', 'goalLoss', 'matchPlayed', 'goalDifference', 'score'];
 }

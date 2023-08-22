@@ -173,8 +173,11 @@ Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('de
 
 Route::get('/games', [GameController::class, 'listGames'])->name('fixtures');
 Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
+Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
 Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
 Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
+Route::put('/add-result/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
+
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 

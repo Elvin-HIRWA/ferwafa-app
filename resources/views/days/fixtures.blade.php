@@ -47,7 +47,7 @@
                                     <table class="table table-bordered" height="40%">
                                         <thead>
                                             <tr style="background-color: #133E8D;">
-                                                <th colspan="3" style="text-align: center; color: white" scope="col">{{ $day->name }}</th>
+                                                <th colspan="3" style="text-align: center; color: white" scope="col">{{$day->name}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -22,6 +22,22 @@ return new class extends Migration
             $table->timestamp('date');
             $table->timestamp('startTime');
             $table->timestamps();
+
+
+            $table->foreign('homeTeamID')->references('id')->on('Team')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->foreign('awayTeamID')->references('id')->on('Team')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->foreign('dayID')->references('id')->on('Day')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->unique(['homeTeamID', 'dayID'], 'teamPerDay');
+            $table->unique(['awayTeamID', 'dayID'], 'teamPerDay');
         });
     }
 

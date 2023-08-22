@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('goalWin');
             $table->unsignedInteger('goalLoss');
             $table->unsignedInteger('goalDifference');
+            $table->unsignedInteger('matchPlayed');
             $table->unsignedInteger('score');
             $table->timestamps();
 
