@@ -6,6 +6,7 @@ use App\Models\Day;
 use App\Models\Game;
 use App\Models\Team;
 use App\Models\TeamStatistic;
+use App\Models\TopScore;
 use Illuminate\Support\Facades\DB;
 
 class CompetitionController extends Controller
@@ -55,10 +56,25 @@ class CompetitionController extends Controller
             ->orderBy('a.goalDifference', 'DESC')
             ->get();
 
+        $topScores = TopScore::orderBy('goals', 'DESC')->get();
+
+        $finalTopScores = [];
+
+        foreach ($topScores as $value) {
+            $topScore = [
+                "id" => $value->id,
+                "name" => $value->name,
+                "goals" => $value->goals,
+                "teamName" => $value->teamName
+            ];
+            array_push($finalTopScores, $topScore);
+        }
+
 
         return view('menFirstDivisionTable', [
             'days' => $days,
-            'teamStatistics' => $teamStatistics
+            'teamStatistics' => $teamStatistics,
+            "topScores" => $finalTopScores
         ]);
     }
 

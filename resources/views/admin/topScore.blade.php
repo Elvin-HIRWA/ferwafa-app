@@ -54,7 +54,7 @@
                                         <td>{{ $topScore["goals"] }}</td>
                                         <td>{{ $topScore["teamName"] }}</td>
                                         <td>
-                                            {{-- <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a> --}}
+                                            <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
                                             <form action="{{ route('delete.season', $topScore['id']) }}" method="POST">
