@@ -41,7 +41,8 @@
                                     <ul class="menus">
                                         @if($day)
                                         <li><a href="{{ route('fixtures.show',$day->id) }}">Results & Fixtures</a></li> /
-                                        <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
+                                        <li><a href="{{ route('men.first-division-table') }}">Standing</a></li> /
+                                        <li><a href="{{ route('topscorers') }}">Top scorers</a></li>
                                         @else
                                         <h1>No Days Available</h1>
                                         @endif

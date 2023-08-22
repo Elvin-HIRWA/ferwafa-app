@@ -6,10 +6,34 @@ use App\Models\Day;
 use App\Models\Game;
 use App\Models\Team;
 use App\Models\TeamStatistic;
+use App\Models\TopScore;
 use Illuminate\Support\Facades\DB;
 
 class CompetitionController extends Controller
 {
+
+    public function topScorers()
+    {
+        $topScores = TopScore::orderBy('goals', 'DESC')->get();
+
+        $finalTopScores = [];
+
+        foreach ($topScores as $value) {
+            $topScore = [
+                "id" => $value->id,
+                "name" => $value->name,
+                "goals" => $value->goals,
+                "teamName" => $value->teamName
+            ];
+            array_push($finalTopScores, $topScore);
+        }
+
+
+        return view('topscorers', [
+            'topScores' => $finalTopScores
+        ]);
+    }
+
     public function listDays()
     {
         $days = Day::all();

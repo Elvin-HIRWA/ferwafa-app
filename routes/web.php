@@ -19,9 +19,7 @@ use App\Http\Controllers\TeamCategoryController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
-use App\Models\Game;
 use App\Models\Status;
-use App\Models\Team;
 use App\Models\TeamStatistic;
 use Illuminate\Support\Facades\Route;
 
@@ -181,35 +179,6 @@ Route::put('/add-result/{id}', [GameController::class, 'createMatchResult'])->na
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 
-
-Route::get('/create', function () {
-    Status::create([
-        'name' => 'unpublished',
-    ]);
-});
-
-// Route::get('/te', function () {
-//     Game::create([
-//         "homeTeamID" => 1,
-//         "awayTeamID" => 2,
-//         "stadeName" => "PELE",
-//         "date" => "2023-08-19 13:50:29",
-//         "homeTeamGoals" => null,
-//         "awayTeamGoals" => null,
-//         "startTime" => "2023-08-19 13:50:29",
-//         "dayID" => 1,
-//         "seasonID" => 4,
-//     ]);
-// });
-
-Route::get('/test', function () {
-    TeamStatistic::create([
-        'teamID' => 2,
-        'goalWin' => 4,
-        'goalLoss' => 5,
-        'goalDifference' => 1,
-        'score' => 13
-    ]);
-});
-
 Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');
+
+Route::get('/topscorers', [CompetitionController::class, 'topScorers'])->name('topscorers');
