@@ -43,6 +43,7 @@
                                     <tr>
                                         <th>Image</th>
                                         <th>name</th>
+                                        <th>Category</th>
                                         <th colspan="2">Action</th>
                                     </tr>
                                     @foreach ($teams as $team)

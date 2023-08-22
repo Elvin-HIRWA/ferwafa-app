@@ -47,7 +47,7 @@
                                         <th>Stade</th>
                                         <th>Home Team Goals</th>
                                         <th>Away Team Goals</th>
-                                        <th colspan="2">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                     @foreach($games as $key => $game)
                                     <tr>
@@ -62,13 +62,13 @@
                                             <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Results</a>
                                             @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <form action="{{ route('delete.game', $game->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </table>

@@ -74,8 +74,6 @@ class GameController extends Controller
             "awayTeamID" => "required|integer",
             "stade" => "required|string",
             "date" => "required|date",
-            // "homeTeamGoals" => "nullable|integer",
-            // "awayTeamGoals" => "nullable|integer",
             "dayID" => "required|integer",
         ]);
 
@@ -130,20 +128,25 @@ class GameController extends Controller
         $team2Statistics = TeamStatistic::where('teamID', $team2ID)->first();
 
         if ($team1Goal == $team2Goal) {
+
             $team1Statistics->score = $team1Statistics->score + 1;
-            $team2Statistics->score = $team2Statistics->score + 1;
+            $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
+            $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
             $team1Statistics->matchPlayed = $team1Statistics->matchPlayed + 1;
+
+            $team2Statistics->score = $team2Statistics->score + 1;
+            $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
+            $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
             $team2Statistics->matchPlayed = $team2Statistics->matchPlayed + 1;
 
-            $team1Statistics->save();
-            $team2Statistics->save();
-            $team1Statistics->goalDifference = $team1Statistics->gaolWin - $team1Statistics->gaolLoss;
-            $team2Statistics->goalDifference = $team2Statistics->gaolWin - $team2Statistics->gaolLoss;
+            $team1Statistics->goalDifference = $team1Statistics->goalWin - $team1Statistics->goalLoss;
+            $team2Statistics->goalDifference = $team2Statistics->goalWin - $team2Statistics->goalLoss;
 
             $team1Statistics->save();
             $team2Statistics->save();
         }
         if ($team1Goal > $team2Goal) {
+
             $team1Statistics->score = $team1Statistics->score + 3;
             $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
             $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
@@ -155,16 +158,15 @@ class GameController extends Controller
             $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
             $team2Statistics->matchPlayed = $team2Statistics->matchPlayed + 1;
 
-            $team1Statistics->save();
-            $team2Statistics->save();
+            $team1Statistics->goalDifference = $team1Statistics->goalWin - $team1Statistics->goalLoss;
+            $team2Statistics->goalDifference = $team2Statistics->goalWin - $team2Statistics->goalLoss;
 
-            $team1Statistics->goalDifference = $team1Statistics->gaolWin - $team1Statistics->gaolLoss;
-            $team2Statistics->goalDifference = $team2Statistics->gaolWin - $team2Statistics->gaolLoss;
             $team1Statistics->save();
             $team2Statistics->save();
         }
 
         if ($team1Goal < $team2Goal) {
+            
             $team1Statistics->score = $team1Statistics->score + 0;
             $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
             $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
@@ -174,12 +176,10 @@ class GameController extends Controller
             $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
             $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
             $team2Statistics->matchPlayed = $team2Statistics->matchPlayed + 1;
+            
+            $team1Statistics->goalDifference = $team1Statistics->goalWin - $team1Statistics->goalLoss;
+            $team2Statistics->goalDifference = $team2Statistics->goalWin - $team2Statistics->goalLoss;
 
-            $team1Statistics->save();
-            $team2Statistics->save();
-
-            $team1Statistics->goalDifference = $team1Statistics->gaolWin - $team1Statistics->gaolLoss;
-            $team2Statistics->goalDifference = $team2Statistics->gaolWin - $team2Statistics->gaolLoss;
             $team1Statistics->save();
             $team2Statistics->save();
         }
@@ -204,5 +204,58 @@ class GameController extends Controller
         $this->calculateTeamScores($game->homeTeamID, $game->awayTeamID, $request->homeTeamGoals, $request->awayTeamGoals);
 
         return redirect('/games')->with('message', 'Result Added successfully');
+    }
+
+    public function updateGame(Request $request, $id)
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $request->validate([
+            "homeTeamID" => "required|integer",
+            "awayTeamID" => "required|integer",
+            "stade" => "required|string",
+            "date" => "required|date",
+            "dayID" => "required|integer",
+
+        ]);
+
+        $game = Game::find($id);
+
+        if (!$game) {
+            return redirect()->back()->with('fail', 'Game not found');
+        }
+
+        $game->homeTeamID = $request->homeTeamID;
+        $game->awayTeamID = $request->awayTeamID;
+        $game->stade = $request->stade;
+        $game->date = $request->date;
+        $game->dayID = $request->dayID;
+        $game->save();
+
+        return redirect('/games')
+            ->with('message', 'updated successfully');
+    }
+
+
+    public function deleteGame($id)
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $game = Game::find($id);
+
+        if (!$game) {
+            return redirect()->back()->with('failed', 'Game not found');
+        }
+
+        $game->delete();
+
+        return redirect('/games')
+            ->with('message', 'deleted successfully');
     }
 }
