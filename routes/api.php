@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SendingKeyController;
 use App\Http\Controllers\UsersController;
+use App\Models\TeamStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -74,3 +75,18 @@ Route::get('/key-permission-list', [KeyController::class, 'permissionKeyList']);
 
 Route::get('/users', [UsersController::class, 'getAllUsers']);
 Route::get('/user/{id}', [UsersController::class, 'getSingleUser']);
+
+
+Route::get('/insert', function () {
+
+    for ($x = 1; $x <= 16; $x++) {
+        TeamStatistic::create([
+            'teamID' => $x,
+            'goalWin' => 0,
+            'goalLoss' => 0,
+            'goalDifference' => 0,
+            'matchPlayed' => 0,
+            'score' => 0
+        ]);
+    }
+});
