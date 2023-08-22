@@ -129,6 +129,59 @@
                         <i class="fas fa-envelope"></i><span>Gallery</span>
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="{{ route('team-category')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Team Category</span>
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="{{ route('team')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Teams</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Competitions</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Men</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="widget-chart.html">First Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Second Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Third Division</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Women</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Peace cup</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href="{{ route('season')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Seasons</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('day.season')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Days</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('fixtures')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Fixtures</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('top-score')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>top Scores</span>
+                    </a>
+                </li>
                 @else
                 @can('is-dcm')
                 {{-- <li class="dropdown">
@@ -152,8 +205,47 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Gallery</span>
+                    </a>
+                </li>
+                @endcan
+                @can('is-competition-manager')
+                <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="briefcase"></i><span>Competitions</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Men</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="widget-chart.html">First Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Second Division</a></li>
+                                <li><a class="nav-link" href="widget-data.html">Third Division</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Women</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a class="menu-toggle nav-link has-dropdown" href="#">Peace cup</a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href="{{ route('season')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Seasons</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('day.season')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Days</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('fixtures')}}" class="nav-link">
+                        <i class="fas fa-envelope"></i><span>Fixtures</span>
                     </a>
                 </li>
                 @endcan

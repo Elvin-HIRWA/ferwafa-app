@@ -1,24 +1,28 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendingKeyController;
+use App\Http\Controllers\TeamCategoryController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TopScoreController;
 use App\Http\Controllers\UsersController;
-use App\Models\User;
+use App\Models\Game;
+use App\Models\Status;
+use App\Models\Team;
+use App\Models\TeamStatistic;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -128,34 +132,84 @@ Route::get('/edit-partner/{id}', [PartnerController::class, 'editPartner'])->nam
 Route::put('/news/{id}', [NewsController::class, 'updateSingleNews'])->name('news.page.update');
 Route::get('/update-news/{id}', [NewsController::class, 'editSingleNews'])->name('news.page.edit');
 
+
+Route::get('/seasons', [SeasonController::class, 'listSeason'])->name('season');
+Route::get('/add-season', [SeasonController::class, 'addSeason'])->name('add.season');
+Route::post('/create-season', [SeasonController::class, 'createSeason'])->name('create.season');
+Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])->name('delete.season');
+// Route::put('/update-season/{id}', [SeasonController::class, 'updateSeason'])->name('update.season');
+// Route::get('/edit-season/{id}', [SeasonController::class, 'editSeason'])->name('season.page.edit');
+
+Route::get('/top-score', [TopScoreController::class, 'listTopScore'])->name('top-score');
+Route::get('/add-top-score', [TopScoreController::class, 'addTopScore'])->name('add.top-score');
+Route::post('/create-top-score', [TopScoreController::class, 'createTopScore'])->name('create.top-score');
+Route::delete('/delete-top-score/{id}', [TopScoreController::class, 'deleteTopScore'])->name('delete.top-score');
+Route::put('/update-top-score/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
+Route::get('/edit-top-score/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
+
+Route::get('/team-category', [TeamCategoryController::class, 'listTeamCategory'])->name('team-category');
+Route::get('/add-team-category', [TeamCategoryController::class, 'addTeamCategory'])->name('add.team-category');
+Route::post('/create-team-category', [TeamCategoryController::class, 'createTeamCategory'])->name('create.team-category');
+Route::delete('/delete-team-category/{id}', [TeamCategoryController::class, 'deleteTeamCategory'])->name('delete.team-category');
+Route::put('/update-team-category/{id}', [TeamCategoryController::class, 'updateTeamCategory'])->name('update.team-category');
+Route::get('/edit-team-category/{id}', [TeamCategoryController::class, 'editTeamCategory'])->name('team-category.page.edit');
+
+
+Route::get('/team', [TeamController::class, 'listTeam'])->name('team');
+Route::get('/add-team', [TeamController::class, 'addTeam'])->name('add.team');
+Route::post('/create-team', [TeamController::class, 'createTeam'])->name('create.team');
+Route::delete('/delete-team/{id}', [TeamController::class, 'deleteTeam'])->name('delete.team');
+Route::put('/update-team/{id}', [TeamController::class, 'updateTeam'])->name('update.team');
+Route::get('/edit-team/{id}', [TeamController::class, 'editTeam'])->name('team.page.edit');
+Route::get('/team-doc/{fileName}', [TeamController::class, 'getTeamImageDoc'])->name('team.doc');
+
+
+
+Route::get('/days', [DayController::class, 'listDays'])->name('day.season');
+Route::get('/add-day', [DayController::class, 'addDay'])->name('add.day.season');
+Route::post('/create-day', [DayController::class, 'createDay'])->name('create.day.season');
+Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('delete.day.season');
+
+
+Route::get('/games', [GameController::class, 'listGames'])->name('fixtures');
+Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
+Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
+Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
+Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
+Route::put('/add-result/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
+
+
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
-Route::get('/men-first-division-d1', [CompetitionController::class, 'menFirstDivisionD1'])->name('men.first-division-d1');
-Route::get('/men-first-division-d2', [CompetitionController::class, 'menFirstDivisionD2'])->name('men.first-division-d2');
-Route::get('/men-first-division-d3', [CompetitionController::class, 'menFirstDivisionD3'])->name('men.first-division-d3');
-Route::get('/men-first-division-d4', [CompetitionController::class, 'menFirstDivisionD4'])->name('men.first-division-d4');
-Route::get('/men-first-division-d5', [CompetitionController::class, 'menFirstDivisionD5'])->name('men.first-division-d5');
-Route::get('/men-first-division-d6', [CompetitionController::class, 'menFirstDivisionD6'])->name('men.first-division-d6');
-Route::get('/men-first-division-d7', [CompetitionController::class, 'menFirstDivisionD7'])->name('men.first-division-d7');
-Route::get('/men-first-division-d8', [CompetitionController::class, 'menFirstDivisionD8'])->name('men.first-division-d8');
-Route::get('/men-first-division-d9', [CompetitionController::class, 'menFirstDivisionD9'])->name('men.first-division-d9');
-Route::get('/men-first-division-d10', [CompetitionController::class, 'menFirstDivisionD10'])->name('men.first-division-d10');
-Route::get('/men-first-division-d11', [CompetitionController::class, 'menFirstDivisionD11'])->name('men.first-division-d11');
-Route::get('/men-first-division-d12', [CompetitionController::class, 'menFirstDivisionD12'])->name('men.first-division-d12');
-Route::get('/men-first-division-d13', [CompetitionController::class, 'menFirstDivisionD13'])->name('men.first-division-d13');
-Route::get('/men-first-division-d14', [CompetitionController::class, 'menFirstDivisionD14'])->name('men.first-division-d14');
-Route::get('/men-first-division-d15', [CompetitionController::class, 'menFirstDivisionD15'])->name('men.first-division-d15');
-Route::get('/men-first-division-d16', [CompetitionController::class, 'menFirstDivisionD16'])->name('men.first-division-d16');
-Route::get('/men-first-division-d17', [CompetitionController::class, 'menFirstDivisionD17'])->name('men.first-division-d17');
-Route::get('/men-first-division-d18', [CompetitionController::class, 'menFirstDivisionD18'])->name('men.first-division-d18');
-Route::get('/men-first-division-d19', [CompetitionController::class, 'menFirstDivisionD19'])->name('men.first-division-d19');
-Route::get('/men-first-division-d20', [CompetitionController::class, 'menFirstDivisionD20'])->name('men.first-division-d20');
-Route::get('/men-first-division-d21', [CompetitionController::class, 'menFirstDivisionD21'])->name('men.first-division-d21');
-Route::get('/men-first-division-d22', [CompetitionController::class, 'menFirstDivisionD22'])->name('men.first-division-d22');
-Route::get('/men-first-division-d23', [CompetitionController::class, 'menFirstDivisionD23'])->name('men.first-division-d23');
-Route::get('/men-first-division-d24', [CompetitionController::class, 'menFirstDivisionD24'])->name('men.first-division-d24');
-Route::get('/men-first-division-d25', [CompetitionController::class, 'menFirstDivisionD25'])->name('men.first-division-d25');
-Route::get('/men-first-division-d26', [CompetitionController::class, 'menFirstDivisionD26'])->name('men.first-division-d26');
-Route::get('/men-first-division-d27', [CompetitionController::class, 'menFirstDivisionD27'])->name('men.first-division-d27');
-Route::get('/men-first-division-d28', [CompetitionController::class, 'menFirstDivisionD28'])->name('men.first-division-d28');
-Route::get('/men-first-division-d29', [CompetitionController::class, 'menFirstDivisionD29'])->name('men.first-division-d29');
-Route::get('/men-first-division-d30', [CompetitionController::class, 'menFirstDivisionD30'])->name('men.first-division-d30');
+
+
+Route::get('/create', function () {
+    Status::create([
+        'name' => 'unpublished',
+    ]);
+});
+
+// Route::get('/te', function () {
+//     Game::create([
+//         "homeTeamID" => 1,
+//         "awayTeamID" => 2,
+//         "stadeName" => "PELE",
+//         "date" => "2023-08-19 13:50:29",
+//         "homeTeamGoals" => null,
+//         "awayTeamGoals" => null,
+//         "startTime" => "2023-08-19 13:50:29",
+//         "dayID" => 1,
+//         "seasonID" => 4,
+//     ]);
+// });
+
+Route::get('/test', function () {
+    TeamStatistic::create([
+        'teamID' => 2,
+        'goalWin' => 4,
+        'goalLoss' => 5,
+        'goalDifference' => 1,
+        'score' => 13
+    ]);
+});
+
+Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');

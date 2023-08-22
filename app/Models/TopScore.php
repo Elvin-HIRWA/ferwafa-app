@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Status extends Model
+class TopScore extends Model
 {
     use HasFactory;
 
-    protected $table = 'Status';
+    protected $table = 'TopScore';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'goals', 'teamName'];
 }

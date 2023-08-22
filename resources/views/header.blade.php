@@ -8,8 +8,8 @@
     <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link href="{{asset('static/CACHE/css/output.718a7af03b3d.css')}}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{{asset('static/img/federation/ferwafa.png')}}" rel="shortcut icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <script src="http://127.0.0.1:35729/livereload.js"></script>
@@ -18,17 +18,17 @@
 <body>
     <header>
         <div class="headerbox">
-            <div class="container">
-                <div class="row justify-content-between align-items-center">
+            <div style=" height: 90px" class="container">
+                <div class="row justify-content-between align-items-center; display: relative">
                     <div class="col">
-                        <div class="logo">
-                            <a href="/" title="Return Home"><img alt="Logo" class="logo_img"
-                                    src="./static/img/federation/ferwafa.png" /></a>
+                        <div style="" class="logo">
+                            <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img"
+                                    src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
                         </div>
                     </div>
                     <div class="col">
-                        <img alt="" style="width: 700px; height: 200px; margin-left: 550px; right: 0"
-                            class="img-responsive banner-image" src="./static/img/federation/banner.png" /><a
+                        <img style="height: 90px; margin-bottom: 100px; width: 700px; display: absolute; margin-left:50px" alt="" height="100px" width=""
+                            class="img-responsive banner-image" src="{{asset('static/img/federation/banner.png')}}" /><a
                             class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <li>
                             <a href="#">Men</a>
                             <ul class="sub-current">
-                                <li><a href="{{ route('men.first-division-d1') }}">First Division</a></li>
+                                <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
                                 <li><a href="#">Second Division</a></li>
                                 <li><a href="#">Third Division</a></li>
                             </ul>
@@ -136,9 +136,9 @@
                     </ul>
                 </li>
                 @if (!Auth::check())
-                    <li class="">
-                        <a href="{{ route('login') }}">Login</a>
-                    </li>
+                <li class="">
+                    <a href="{{ route('login') }}">Login</a>
+                </li>
                 @endif
             </ul>
             <!-- End Menu-->
@@ -155,7 +155,7 @@
                     <li>
                         <a href="#">Men</a>
                         <ul class="#">
-                            <li><a href="{{ route('men.first-division-d1') }}">First Division</a></li>
+                            <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
                             <li><a href="#">Second Division</a></li>
                             <li><a href="#">Third Division</a></li>
                         </ul>

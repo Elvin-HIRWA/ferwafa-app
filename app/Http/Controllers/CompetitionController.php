@@ -2,133 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Day;
+use App\Models\Game;
+use App\Models\Team;
+use App\Models\TeamStatistic;
+use Illuminate\Support\Facades\DB;
 
 class CompetitionController extends Controller
 {
-    public function menFirstDivisionTable()
+    public function listDays()
     {
-        return view('menFirstDivisionTable');
+        $days = Day::all();
+
+        return view('competition-menus', [
+            'days' => $days
+        ]);
     }
 
-    public function menFirstDivisionD1()
+    public function show($id)
     {
-        return view('days.day1');
+        $days = Day::all();
+        $day = Day::find($id);
+
+        $games = DB::table('Game')
+            ->select(
+                'homeTeam.name AS homeTeam',
+                'awayTeam.name AS awayTeam',
+                'Game.stadeName AS stadium',
+                'Game.date',
+                'Game.homeTeamGoals',
+                'Game.awayTeamGoals',
+            )
+            ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
+            ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
+            ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->where('dayID', $id)
+            ->get();
+
+        return view('days.fixtures', [
+            'day' => $day,
+            'days' => $days,
+            'games' => $games
+        ]);
     }
-    public function menFirstDivisionD2()
+    public function menFirstDivisionTable()
     {
-        return view('days.day2');
+        $days = Day::all();
+        $teamStatistics = DB::table('TeamStatistic as a')
+            ->select('b.name', 'a.goalWin', 'a.goalLoss', 'a.score', 'a.matchPlayed', 'a.goalDifference')
+            ->join('Team as b', 'a.teamID', '=', 'b.id')
+            ->orderBy('a.score', 'DESC')
+            ->orderBy('a.goalDifference', 'DESC')
+            ->get();
+
+
+        return view('menFirstDivisionTable', [
+            'days' => $days,
+            'teamStatistics' => $teamStatistics
+        ]);
     }
-    public function menFirstDivisionD3()
+
+    // public function calculateTeamScores($team1ID, $team2ID, $team1Goal, $team2Goal)
+    // {
+
+    //     $team1Statistics = TeamStatistic::where('teamID', $team1ID)->first();
+    //     $team2Statistics = TeamStatistic::where('teamID', $team2ID)->first();
+    //     if ($team1Goal == $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 1;
+    //         $team2Statistics->score = $team2Statistics->score + 1;
+    //         $team1Statistics->save();
+    //     }
+    //     if ($team1Goal > $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 3;
+    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
+    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
+
+    //         $team2Statistics->score = $team2Statistics->score + 0;
+    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
+    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
+
+    //         $team1Statistics->save();
+    //     }
+
+    //     if ($team1Goal < $team2Goal) {
+    //         $team1Statistics->score = $team1Statistics->score + 0;
+    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
+    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
+
+    //         $team2Statistics->score = $team2Statistics->score + 3;
+    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
+    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
+
+    //         $team1Statistics->save();
+    //     }
+    // }
+
+    public function standing()
     {
-        return view('days.day3');
-    }
-    public function menFirstDivisionD4()
-    {
-        return view('days.day4');
-    }
-    public function menFirstDivisionD5()
-    {
-        return view('days.day5');
-    }
-    public function menFirstDivisionD6()
-    {
-        return view('days.day6');
-    }
-    public function menFirstDivisionD7()
-    {
-        return view('days.day7');
-    }
-    public function menFirstDivisionD8()
-    {
-        return view('days.day8');
-    }
-    public function menFirstDivisionD9()
-    {
-        return view('days.day9');
-    }
-    public function menFirstDivisionD10()
-    {
-        return view('days.day10');
-    }
-    public function menFirstDivisionD11()
-    {
-        return view('days.day11');
-    }
-    public function menFirstDivisionD12()
-    {
-        return view('days.day12');
-    }
-    public function menFirstDivisionD13()
-    {
-        return view('days.day13');
-    }
-    public function menFirstDivisionD14()
-    {
-        return view('days.day14');
-    }
-    public function menFirstDivisionD15()
-    {
-        return view('days.day15');
-    }
-    public function menFirstDivisionD16()
-    {
-        return view('days.day16');
-    }
-    public function menFirstDivisionD17()
-    {
-        return view('days.day17');
-    }
-    public function menFirstDivisionD18()
-    {
-        return view('days.day18');
-    }
-    public function menFirstDivisionD19()
-    {
-        return view('days.day19');
-    }
-    public function menFirstDivisionD20()
-    {
-        return view('days.day20');
-    }
-    public function menFirstDivisionD21()
-    {
-        return view('days.day21');
-    }
-    public function menFirstDivisionD22()
-    {
-        return view('days.day22');
-    }
-    public function menFirstDivisionD23()
-    {
-        return view('days.day23');
-    }
-    public function menFirstDivisionD24()
-    {
-        return view('days.day24');
-    }
-    public function menFirstDivisionD25()
-    {
-        return view('days.day25');
-    }
-    public function menFirstDivisionD26()
-    {
-        return view('days.day26');
-    }
-    public function menFirstDivisionD27()
-    {
-        return view('days.day27');
-    }
-    public function menFirstDivisionD28()
-    {
-        return view('days.day28');
-    }
-    public function menFirstDivisionD29()
-    {
-        return view('days.day29');
-    }
-    public function menFirstDivisionD30()
-    {
-        return view('days.day30');
+        $teams = TeamStatistic::all();
+
+        return view('', [
+            'teams' => $teams
+        ]);
     }
 }

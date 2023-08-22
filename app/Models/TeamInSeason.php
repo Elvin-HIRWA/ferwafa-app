@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Status extends Model
+class TeamInSeason extends Model
 {
     use HasFactory;
 
-    protected $table = 'Status';
+    protected $table = 'TeamInSeason';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['teamID', 'seasonID', 'divisionID'];
 }
