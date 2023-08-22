@@ -58,7 +58,7 @@
                                         <td> {{$game->homeTeamGoals }}</td>
                                         <td> {{$game->awayTeamGoals }}</td>
                                         <td>
-                                            @if(!$game->homeTeamGoals && !$game->awayTeamGoals)
+                                            @if(is_null($game->homeTeamGoals) && is_null($game->awayTeamGoals))
                                             <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Results</a>
                                             @endif
                                         </td>
