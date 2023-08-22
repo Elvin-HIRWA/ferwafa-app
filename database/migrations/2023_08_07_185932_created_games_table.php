@@ -36,8 +36,8 @@ return new class extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
 
-            $table->unique(['homeTeamID', 'dayID'], 'teamPerDay');
-            $table->unique(['awayTeamID', 'dayID'], 'teamPerDay');
+            $table->unique(['homeTeamID', 'dayID'], 'homeTeamPerDay');
+            $table->unique(['awayTeamID', 'dayID'], 'awayteamPerDay');
         });
     }
 
