@@ -57,7 +57,7 @@
                                             <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete.season', $topScore['id']) }}" method="POST">
+                                            <form action="{{ route('delete.top-score', $topScore['id']) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
