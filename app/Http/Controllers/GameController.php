@@ -81,19 +81,29 @@ class GameController extends Controller
             return redirect()->back()->with('choose different Teams');
         }
 
-        Game::create([
-            "homeTeamID" => $request->homeTeamID,
-            "awayTeamID" => $request->awayTeamID,
-            "stadeName" => $request->stade,
-            "date" => $request->date,
-            // "homeTeamGoals" => $request->homeTeamGoals,
-            // "awayTeamGoals" => $request->awayTeamGoals,
-            "startTime" => '2023-08-22 08:56:19',
-            "dayID" => $request->dayID
-        ]);
+        if (now() > $request->date) {
+            return redirect()->back()->with('date is invalid you need to select future dates');
+        }
 
-        return redirect('/games')
+        try {
+            Game::create([
+                "homeTeamID" => $request->homeTeamID,
+                "awayTeamID" => $request->awayTeamID,
+                "stadeName" => $request->stade,
+                "date" => $request->date,
+                // "homeTeamGoals" => $request->homeTeamGoals,
+                // "awayTeamGoals" => $request->awayTeamGoals,
+                "startTime" => '2023-08-22 08:56:19',
+                "dayID" => $request->dayID
+            ]);
+
+            return redirect('/games')
             ->with('message', 'Game added successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('something wrong');
+        }
+
+        
     }
 
     public function addMatchResult($id)
@@ -107,6 +117,10 @@ class GameController extends Controller
 
         if (!$game) {
             return redirect()->back()->with('fail', 'Game not found');
+        }
+
+        if ( now() <  $game->date) {
+            return redirect()->back()->with('fail', 'not allowed to add result before match day');
         }
 
         $team = DB::table('Game as a')
