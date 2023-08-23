@@ -14715,6 +14715,11 @@ header .mobile-nav:hover {
     header .mobile-nav {
         display: none
     }
+
+    .banner-image{
+        position: absolute;
+        right: 10%;
+    }
 }
 
 @media (min-width:1200px) {
@@ -15073,8 +15078,7 @@ iframe.big-video {
     padding-top: 50px
 }
 
-@media (max-width:767px) {
-
+@media (max-width:767px) {  
     .hero-header.hero-bg .container .col-lg-12.no-margin h1,
     .hero-header.hero-bg .container .recent-results.results-page .info-results ul li.no-margin h1,
     .recent-results.results-page .info-results ul .hero-header.hero-bg .container li.no-margin h1,

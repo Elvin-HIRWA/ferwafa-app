@@ -40,7 +40,7 @@ class CompetitionController extends Controller
             ->where('dayID', $id)
             ->get();
 
-        return view('days.fixtures', [
+        return view('fixtures', [
             'day' => $day,
             'days' => $days,
             'games' => $games
