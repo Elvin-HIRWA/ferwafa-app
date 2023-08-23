@@ -25,6 +25,14 @@
             margin-right: 10px;
             /* add spacing between items */
         }
+
+        .main {
+            background: rgb(127, 206, 127);
+        }
+
+        .main-table {
+            background: rgb(234, 158, 158);
+        }
     </style>
 </head>
 
@@ -47,6 +55,10 @@
             </div>
         </div>
     </div>
+    {{-- @php
+                    $changeColor = true;
+                @endphp --}}
+
     <section class="section">
         <div class="container mt-5">
             <div class="row">
@@ -56,12 +68,13 @@
                             <div class="col-12 col-md-12 col-lg-12 p-0">
                                 <div class="col-12 col-md-12 card-header text-center">
                                     <ul class="menus">
-                                        <li><a href="{{ route('fixtures.show', $days[0]->id) }}">Results & Fixtures</a></li> /
+                                        <li><a href="{{ route('fixtures.show', $days[0]->id) }}">Results & Fixtures</a>
+                                        </li> /
                                         <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
                                     </ul>
                                 </div>
                                 <div class="row m-0">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered main-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%" scope="col">#</th>
@@ -74,16 +87,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($teamStatistics as $key => $teamStatistic)
-                                            <tr>
-                                                <th scope="row">{{$key + 1}}</th>
-                                                <td>{{$teamStatistic->name}}</td>
-                                                <td>{{$teamStatistic->matchPlayed}}</td>
-                                                <td>{{$teamStatistic->goalWin}}</td>
-                                                <td>{{$teamStatistic->goalLoss}}</td>
-                                                <td>{{$teamStatistic->goalDifference}}</td>
-                                                <td>{{$teamStatistic->score}}</td>
-                                            </tr>
+                                            @foreach ($teamStatistics as $key => $teamStatistic)
+                                                @if ($key + 1 === count($teamStatistics) || $key + 1 === count($teamStatistics) - 1)
+                                                    <tr class="main-table main">
+                                                    @else
+                                                    <tr>
+                                                @endif
+
+                                                @if ($key + 1 == 1)
+                                                    <tr class="main">
+                                                @endif
+                                                <th scope="row">{{ $key + 1 }} </th>
+                                                <td>{{ $teamStatistic->name }}</td>
+                                                <td>{{ $teamStatistic->matchPlayed }}</td>
+                                                <td>{{ $teamStatistic->goalWin }}</td>
+                                                <td>{{ $teamStatistic->goalLoss }}</td>
+                                                <td>{{ $teamStatistic->goalDifference }}</td>
+                                                <td>{{ $teamStatistic->score }}</td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -112,13 +133,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($topScores as $key => $topScore)
-                                            <tr>
-                                                <th scope="row">{{$key + 1}}</th>
-                                                <td>{{$topScore['name']}}</td>
-                                                <td>{{$topScore['teamName']}}</td>
-                                                <td>{{$topScore['goals']}}</td>
-                                            </tr>
+                                            @foreach ($topScores as $key => $topScore)
+                                                <tr>
+                                                    <th scope="row">{{ $key + 1 }}</th>
+                                                    <td>{{ $topScore['name'] }}</td>
+                                                    <td>{{ $topScore['teamName'] }}</td>
+                                                    <td>{{ $topScore['goals'] }}</td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
