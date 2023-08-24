@@ -54,7 +54,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-5">
                         <div class="info-links">
                             <h5>Ferwafa</h5>
-                            <img src="./static/img/federation/ferwafa.png" />
+                            <img src="{{asset('static/img/federation/ferwafa.png')}}" />
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-7">
@@ -69,7 +69,7 @@
                                     <i style="color: #fff" class="fa fa-location-arrow"></i>&nbsp;<a href="#!">23 KG 234 ST</a>
                                 </li>
                                 <li>
-                                    <i style="color: #fff" class="fa fa-envelope"></i>&nbsp;<a href="#!">ferwafa@yahoo.fr</a>
+                                    <i style="color: #fff" class="fa fa-envelope"></i>&nbsp;<a style="text-transform: lowercase" href="#!">ferwafa@yahoo.fr</a>
                                 </li>
                             </ul>
                         </div>
