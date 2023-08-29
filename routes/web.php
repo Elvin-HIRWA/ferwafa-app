@@ -177,7 +177,8 @@ Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('
 Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
 Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
 Route::put('/add-result/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
-
+Route::put('/update-fixture/{id}', [GameController::class, 'updateGame'])->name('update.fixture');
+Route::get('/edit-fixture/{id}', [GameController::class, 'updateFixture'])->name('game.fixture.edit');
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 

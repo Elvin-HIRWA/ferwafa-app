@@ -13,18 +13,26 @@ return new class extends Migration
     {
         Schema::create('TeamStatistic', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teamID')->unique();
+            $table->unsignedBigInteger('gameID');
+            $table->unsignedBigInteger('teamID');
             $table->unsignedInteger('goalWin');
             $table->unsignedInteger('goalLoss');
-            $table->integer('goalDifference');
-            $table->unsignedInteger('matchPlayed');
             $table->unsignedInteger('score');
             $table->timestamps();
 
+            $table->foreign('gameID')->references('id')->on('Game')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
 
             $table->foreign('teamID')->references('id')->on('Team')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
+
+
+            
+
+
+            $table->unique(['gameID', 'teamID'], 'TeamPerDay');
         });
     }
 

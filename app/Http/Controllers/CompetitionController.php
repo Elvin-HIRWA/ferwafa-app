@@ -33,6 +33,7 @@ class CompetitionController extends Controller
                 'Game.date',
                 'Game.homeTeamGoals',
                 'Game.awayTeamGoals',
+                'Game.isPlayed',
             )
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
@@ -49,12 +50,29 @@ class CompetitionController extends Controller
     public function menFirstDivisionTable()
     {
         $days = Day::all();
-        $teamStatistics = DB::table('TeamStatistic as a')
-            ->select('b.name', 'a.goalWin', 'a.goalLoss', 'a.score', 'a.matchPlayed', 'a.goalDifference')
-            ->join('Team as b', 'a.teamID', '=', 'b.id')
-            ->orderBy('a.score', 'DESC')
-            ->orderBy('a.goalDifference', 'DESC')
-            ->get();
+        
+
+        $teamStatistics = DB::select("SELECT a.name AS name, 
+                                            SUM(b.goalWin) AS goalWin, 
+                                            SUM(b.goalLoss) AS goalLoss, 
+                                            SUM(b.goalWin) - SUM(b.goalLoss) AS goalDifference, 
+                                            SUM(b.score) AS score,
+                                            SUM(
+                                                    CASE 
+                                                        WHEN c.isPlayed = true 
+                                                    THEN 1 
+                                                        ELSE 0 
+                                                    END
+                                            ) AS matchPlayed
+                                        FROM Team AS a
+                                        INNER JOIN TeamStatistic AS b
+                                        ON b.teamID = a.id
+                                        INNER JOIN Game AS c
+                                        ON c.id = b. gameID
+                                        GROUP BY a.id
+                                        ORDER BY SUM(b.score) DESC, (SUM(b.goalWin) - SUM(b.goalLoss)) DESC, SUM(b.goalWin) DESC, a.name ASC
+                                        ");
+        
 
         $topScores = TopScore::orderBy('goals', 'DESC')->get();
 
@@ -77,41 +95,6 @@ class CompetitionController extends Controller
             "topScores" => $finalTopScores
         ]);
     }
-
-    // public function calculateTeamScores($team1ID, $team2ID, $team1Goal, $team2Goal)
-    // {
-
-    //     $team1Statistics = TeamStatistic::where('teamID', $team1ID)->first();
-    //     $team2Statistics = TeamStatistic::where('teamID', $team2ID)->first();
-    //     if ($team1Goal == $team2Goal) {
-    //         $team1Statistics->score = $team1Statistics->score + 1;
-    //         $team2Statistics->score = $team2Statistics->score + 1;
-    //         $team1Statistics->save();
-    //     }
-    //     if ($team1Goal > $team2Goal) {
-    //         $team1Statistics->score = $team1Statistics->score + 3;
-    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
-    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
-
-    //         $team2Statistics->score = $team2Statistics->score + 0;
-    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
-    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
-
-    //         $team1Statistics->save();
-    //     }
-
-    //     if ($team1Goal < $team2Goal) {
-    //         $team1Statistics->score = $team1Statistics->score + 0;
-    //         $team1Statistics->goalWin = $team1Statistics->goalWin + $team1Goal;
-    //         $team1Statistics->goalLoss = $team1Statistics->goalLoss + $team2Goal;
-
-    //         $team2Statistics->score = $team2Statistics->score + 3;
-    //         $team2Statistics->goalWin = $team2Statistics->goalWin + $team2Goal;
-    //         $team2Statistics->goalLoss = $team2Statistics->goalLoss + $team1Goal;
-
-    //         $team1Statistics->save();
-    //     }
-    // }
 
     public function standing()
     {

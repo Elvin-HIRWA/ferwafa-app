@@ -49,25 +49,10 @@ class TeamController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['errors'=>$validation->messages()]);
         }
 
         $path = $request->logo->store('team');
-
-        $team  = Team::create([
-            "name" => $request->name,
-            "categoryID" => $request->categoryID,
-            "logo" => $path
-        ]);
-
-        TeamStatistic::create([
-            'teamID' => $team->id,
-            'goalWin' => 0,
-            'goalLoss' => 0,
-            'goalDifference' => 0,
-            'matchPlayed' => 0,
-            'score' => 0
-        ]);
 
         return redirect('/team')
             ->with('message', 'Member is added successfully');

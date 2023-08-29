@@ -45,9 +45,10 @@
                                         <th>Home Team</th>
                                         <th>Away Team</th>
                                         <th>Stade</th>
+                                        <th>Date</th>
                                         <th>Home Team Goals</th>
                                         <th>Away Team Goals</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                     @foreach($games as $key => $game)
                                     <tr>
@@ -55,20 +56,23 @@
                                         <td> {{$game->homeTeam }}</td>
                                         <td>{{$game->awayTeam }} </td>
                                         <td> {{$game->stadium }}</td>
+                                        <td> {{$game->date }}</td>
                                         <td> {{$game->homeTeamGoals }}</td>
                                         <td> {{$game->awayTeamGoals }}</td>
                                         <td>
-                                            @if(is_null($game->homeTeamGoals) && is_null($game->awayTeamGoals))
-                                            <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Results</a>
+                                            @if (!$game->isPlayed)
+                                                {{-- <a href="{{ route('game.fixture.edit', $game->id) }}" class="btn btn-outline-primary">Edit</a> --}}
+                                            @else
+                                                <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Scores</a>
                                             @endif
                                         </td>
-                                        {{-- <td>
+                                        <td>
                                             <form action="{{ route('delete.game', $game->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                                             </form>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>

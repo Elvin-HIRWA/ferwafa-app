@@ -31,14 +31,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Add Goal Results</h4>
+                            <h4>Update Game</h4>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form method="POST" action="{{ route('create.game.result',$gameID) }}" enctype="multipart/form-data">
+                                            <form method="POST" action="" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group row mb-4">

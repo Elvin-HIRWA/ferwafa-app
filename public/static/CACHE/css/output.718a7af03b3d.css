@@ -15011,6 +15011,9 @@ iframe.big-video {
     .hero-header {
         height: 450px
     }
+    .banner-image{
+        display: none;
+    }
 }
 
 .hero-header.big {

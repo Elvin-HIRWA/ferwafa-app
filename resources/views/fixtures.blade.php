@@ -57,10 +57,10 @@
                                                     {{ $game->homeTeam}}
                                                 </td>
                                                 <td style="width: 20%; text-align: center; vertical-align: middle;">
-                                                    @if(!is_null($game->homeTeamGoals) && !is_null($game->awayTeamGoals))
-                                                    {{$game->homeTeamGoals}} - {{$game->awayTeamGoals}}
+                                                    @if($game->isPlayed)
+                                                    {{$game->homeTeamGoals}} - {{$game->awayTeamGoals}} 
                                                     @else
-                                                    <small>{{date('d/m/Y',strtotime($game->date)) }}</small> <br>
+                                                    <small>{{date('d/m/Y',strtotime($game->date)) }} {{date('H:i',strtotime($game->date)) }}</small> <br>
                                                     VS <br>
                                                     <small>{{ $game->stadium }}</small>
                                                     @endif
