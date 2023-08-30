@@ -28,10 +28,6 @@ return new class extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
 
-
-            
-
-
             $table->unique(['gameID', 'teamID'], 'TeamPerDay');
         });
     }
