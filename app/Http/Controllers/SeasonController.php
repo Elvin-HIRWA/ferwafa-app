@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Day;
 use App\Models\Season;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -132,6 +133,13 @@ class SeasonController extends Controller
 
         if (!$season) {
             return redirect()->back()->with('failed', 'season not found');
+        }
+
+        $day = Day::where('seasonID', $id)->first();
+
+        if (!is_null($day)) {
+            return redirect('/seasons')
+                ->with('error', 'Cant be deleted, has been used');
         }
 
         $season->delete();

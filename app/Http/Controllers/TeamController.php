@@ -174,7 +174,7 @@ class TeamController extends Controller
 
         if (!is_null($teamStatistics)) {
             return redirect('/team')
-                ->with('error', 'team cant be deleted, has used in matches');
+                ->with('error', 'Team cant be deleted, has used in matches');
         }
 
         Storage::delete($team->logo);

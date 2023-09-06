@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -90,7 +91,6 @@ class TeamCategoryController extends Controller
 
         $request->validate([
             "name" => "required|string"
-
         ]);
 
         $teamCategory = TeamCategory::find($id);
@@ -117,7 +117,15 @@ class TeamCategoryController extends Controller
         $teamCategory = TeamCategory::find($id);
 
         if (!$teamCategory) {
-            return response()->json(["errors" => "TeamCategory not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect('/team-category')
+                ->with('error', 'TeamCategory not found');
+        }
+
+        $team = Team::where('categoryID', $id)->first();
+
+        if (!is_null($team)) {
+            return redirect('/team-category')
+                ->with('error', 'Cant be deleted, has been used');
         }
 
         $teamCategory->delete();

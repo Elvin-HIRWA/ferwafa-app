@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
+use App\Models\Game;
 use App\Models\Season;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,9 +21,9 @@ class DayController extends Controller
 
         $seasons = Season::all()->toArray();
 
-        if(empty($seasons)){
-        return redirect('/days')
-            ->with('error', 'Create Season first');
+        if (empty($seasons)) {
+            return redirect('/days')
+                ->with('error', 'Create Season first');
         }
         $finalSeasons = [];
 
@@ -90,7 +91,14 @@ class DayController extends Controller
         $day = Day::find($id);
 
         if (!$day) {
-            return redirect()->back()->with('failed', 'day not found');
+            return redirect()->back()->with('error', 'day not found');
+        }
+
+        $game = Game::where('dayID', $id)->first();
+
+        if (!is_null($game)) {
+            return redirect('/days')
+                ->with('error', 'Cant be deleted, has been used');
         }
 
         $day->delete();
