@@ -62,8 +62,8 @@
                         <li>
                             <a href="#">Women</a>
                             <ul class="sub-current">
-                                <li><a href="">First Division</a></li>
-                                <li><a href="">Second Division</a></li>
+                                <li><a href="#">First Division</a></li>
+                                <li><a href="#">Second Division</a></li>
                             </ul>
                         </li>
 
@@ -87,7 +87,7 @@
                         <li>
                             <a href="#">Women</a>
                             <ul class="sub-current">
-                                <li><a href="/national-team-women/">Senior</a></li>
+                                <li><a href="#">Senior</a></li>
                                 <li><a href="#">U-20</a></li>
                                 <li><a href="#">Other</a></li>
                                 <li><a href="#">History</a></li>
@@ -122,9 +122,9 @@
                 <li class="current">
                     <a href="">Development</a>
                     <ul class="sub-current">
-                        <li><a href="/grassroots/">Grassroots Football</a></li>
-                        <li><a href="/football-school/">Football for schools</a></li>
-                        <li><a href="/youthdevelopment/">Youth Development</a></li>
+                        <li><a href="#">Grassroots Football</a></li>
+                        <li><a href="#">Football for schools</a></li>
+                        <li><a href="#">Youth Development</a></li>
                     </ul>
                 </li>
                 <li class="current">
@@ -170,8 +170,8 @@
                     <li>
                         <a href="#">Women</a>
                         <ul class="#">
-                            <li><a href="">First Division</a></li>
-                            <li><a href="">Second Division</a></li>
+                            <li><a href="#">First Division</a></li>
+                            <li><a href="#">Second Division</a></li>
                         </ul>
                     </li>
 
@@ -195,7 +195,7 @@
                     <li>
                         <a href="#">Women</a>
                         <ul class="#">
-                            <li><a href="/national-team-women/">Senior</a></li>
+                            <li><a href="#">Senior</a></li>
                             <li><a href="#">U-20</a></li>
                             <li><a href="#">Other</a></li>
                             <li><a href="#">History</a></li>
@@ -230,9 +230,9 @@
             <li class="">
                 <a href="">Development</a>
                 <ul class="#">
-                    <li>`<a href="/grassroots/">Grassroots Football</a></li>
-                    <li><a href="/football-school/">Football for schools</a></li>
-                    <li><a href="/youthdevelopment/">Youth Development</a></li>
+                    <li>`<a href="#">Grassroots Football</a></li>
+                    <li><a href="#">Football for schools</a></li>
+                    <li><a href="#">Youth Development</a></li>
                 </ul>
             </li>
             <li class="">
