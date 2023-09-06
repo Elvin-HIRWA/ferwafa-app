@@ -13,7 +13,7 @@ class TeamCategoryController extends Controller
 {
     public function addTeamCategory()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -23,17 +23,13 @@ class TeamCategoryController extends Controller
 
     public function createteamCategory(Request $request)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required|string",
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         TeamCategory::create([
             "name" => $request->name
@@ -45,7 +41,7 @@ class TeamCategoryController extends Controller
 
     public function listTeamCategory()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -69,14 +65,14 @@ class TeamCategoryController extends Controller
 
     public function editTeamCategory($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
         $teamCategory = TeamCategory::find($id);
 
         if (!$teamCategory) {
-            return redirect()->back()->with('failed', 'TeamCategory not found');
+            return redirect()->back()->with('errors', 'TeamCategory not found');
         }
 
         return view('admin.update-TeamCategory', [
@@ -87,7 +83,7 @@ class TeamCategoryController extends Controller
 
     public function updateTeamCategory(Request $request, $id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -100,7 +96,7 @@ class TeamCategoryController extends Controller
         $teamCategory = TeamCategory::find($id);
 
         if (!$teamCategory) {
-            return redirect()->back()->with('fail', 'TeamCategory not found');
+            return redirect()->back()->with('errors', 'TeamCategory not found');
         }
 
         $teamCategory->name = $request->name;
@@ -113,7 +109,7 @@ class TeamCategoryController extends Controller
 
     public function deleteTeamCategory($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }

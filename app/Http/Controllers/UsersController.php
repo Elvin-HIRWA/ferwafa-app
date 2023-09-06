@@ -59,7 +59,7 @@ class UsersController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->back()->with('fail', 'user not found');
+            return redirect()->back()->with('errors', 'user not found');
         }
 
         $user->delete();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Team;
 use App\Models\TeamCategory;
 use App\Models\TeamStatistic;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
@@ -23,17 +23,17 @@ class TeamController extends Controller
 
     public function addTeam()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
 
         $teamCategory = TeamCategory::all()->toArray();
 
-        if(empty($teamCategory)){
+        if (empty($teamCategory)) {
             return redirect('/team')
                 ->with('error', 'Create Team Category first');
-            }
+        }
 
         return view('admin.create-team', [
             "categories" => $teamCategory
@@ -42,20 +42,16 @@ class TeamController extends Controller
 
     public function createTeam(Request $request)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required|string",
             "logo" => "required|file|max:5000|mimes:png,jpg,jpeg,svg",
             "categoryID" => "required|integer"
 
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(['errors'=>$validation->messages()]);
-        }
 
         $path = $request->logo->store('team');
 
@@ -79,7 +75,7 @@ class TeamController extends Controller
 
     public function listTeam()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -110,25 +106,27 @@ class TeamController extends Controller
 
     public function editTeam($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
         $team = Team::find($id);
+        $teamCategory = TeamCategory::all()->toArray();
 
         if (!$team) {
-            return redirect()->back()->with('failed', 'Team not found');
+            return redirect()->back()->with('errors', 'Team not found');
         }
 
         return view('admin.update-team', [
-            'team' => $team
+            'team' => $team,
+            'categories' => $teamCategory
         ]);
     }
 
 
     public function updateTeam(Request $request, $id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -143,10 +141,10 @@ class TeamController extends Controller
         $team = Team::find($id);
 
         if (!$team) {
-            return redirect()->back()->with('fail', 'Team not found');
+            return redirect()->back()->with('errors', 'Team not found');
         }
 
-        Storage::delete($team->image_url);
+        Storage::delete($team->logo);
         $path = $request->logo->store('team');
 
         $team->name = $request->name;
@@ -161,7 +159,7 @@ class TeamController extends Controller
 
     public function deleteTeam($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -169,11 +167,17 @@ class TeamController extends Controller
         $team = Team::find($id);
 
         if (!$team) {
-            return response()->json(["errors" => "Team not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect('/team')->with('error', 'Team not found');
         }
 
-        // Storage::delete($team->image_url);
+        $teamStatistics = TeamStatistic::where('teamID', $id)->first();
 
+        if (!is_null($teamStatistics)) {
+            return redirect('/team')
+                ->with('error', 'team cant be deleted, has used in matches');
+        }
+
+        Storage::delete($team->logo);
         $team->delete();
 
         return redirect('/team')

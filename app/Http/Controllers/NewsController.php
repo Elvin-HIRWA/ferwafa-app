@@ -29,7 +29,7 @@ class NewsController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        $request->validate([
+        $validation = Validator::make($request->all(), [
             "title" => "required|string",
             "caption" => "required|string|max:255",
             "description" => "required|string",
@@ -37,6 +37,10 @@ class NewsController extends Controller
             "statusID" => "required|in:1,2,3",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
         ]);
+
+        if ($validation->fails()) {
+            return response()->json(['errors' => $validation->messages()]);
+        }
 
         DB::transaction(function () use ($request) {
 
@@ -205,24 +209,21 @@ class NewsController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+
+        $request->validate([
             "title" => "required|string",
             "caption" => "required|string|max:255",
             "description" => "required|string",
             "is_top" => "boolean",
             "statusID" => "required|integer|in:1,2,3",
-            "image" => "file|max:5000|mimes:png,jpg,jpeg"
-
+            "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $news = News::where("id", $id)->first();
 
         if (!$news) {
-            throw new Exception('news not found');
+            return redirect('/news-view')
+                ->with('error', 'News not found');
         }
 
         $news->title = $request->title;
@@ -256,7 +257,8 @@ class NewsController extends Controller
         $news = News::where("id", $id)->first();
 
         if (!$news) {
-            throw new Exception('news not found');
+            return redirect('/news-view')
+                ->with('error', 'News not found');
         }
 
         $newsImage = NewsUrl::where('news_id', $news->id)->first();

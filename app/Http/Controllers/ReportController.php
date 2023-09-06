@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use App\Models\DocumentType;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
@@ -42,7 +39,7 @@ class ReportController extends Controller
 
         $request->validate([
             "title" => "required|string|max:255",
-            "reportFile" =>  'file|max:5000|mimes:pdf',
+            "reportFile" =>  'required|file|max:5000|mimes:pdf',
             "typeID" => 'required|integer'
         ]);
 
@@ -124,7 +121,7 @@ class ReportController extends Controller
         $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            return redirect()->back()->with('fail', 'report not found');
+            return redirect()->back()->with('errors', 'report not found');
         }
 
         return response()->json($report);
@@ -150,7 +147,7 @@ class ReportController extends Controller
         $types = DocumentType::all();
 
         if (!$report) {
-            return redirect()->back()->with('fail', 'report not found');
+            return redirect()->back()->with('errors', 'report not found');
         }
 
         return view('admin.update-document', [
@@ -168,14 +165,14 @@ class ReportController extends Controller
 
         $request->validate([
             "title" => "required|string|max:255",
-            "reportFile" =>  'file|max:5000|mimes:pdf',
+            "reportFile" =>  'required|file|max:5000|mimes:pdf',
             "typeID" => 'required|integer'
         ]);
 
         $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            return redirect()->back()->with('fail', 'report not found');
+            return redirect()->back()->with('errors', 'report not found');
         }
 
         Storage::delete($report->url);
@@ -200,7 +197,7 @@ class ReportController extends Controller
         $report = Document::where('id', $id)->first();
 
         if (!$report) {
-            return redirect()->back()->with('fail', 'report not found');
+            return redirect()->back()->with('errors', 'report not found');
         }
 
         Storage::delete($report->url);

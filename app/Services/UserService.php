@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Permission;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

@@ -34,16 +34,12 @@ class CommitteController extends Controller
             return redirect('/');
         }
 
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required|string",
             "position" => "required|string|max:255",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
 
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $path = $request->image->store('committe');
 

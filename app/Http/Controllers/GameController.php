@@ -55,19 +55,19 @@ class GameController extends Controller
         }
 
         $seasonID = Season::orderBy('created_at', 'DESC')->first();
-        
-        if(is_null($seasonID)){
+
+        if (is_null($seasonID)) {
             return redirect('/games')->with('error', 'create season first');
         }
         $teams = Team::all()->toArray();
 
-        if(empty($teams)){
+        if (empty($teams)) {
             return redirect('/games')->with('error', 'create teams first');
         }
 
         $days = Day::where('seasonID', $seasonID->id)->get();
 
-        if(is_null($days)){
+        if (is_null($days)) {
             return redirect('/games')->with('error', 'create day first');
         }
 
@@ -94,13 +94,13 @@ class GameController extends Controller
         ]);
 
         if ($request->homeTeamID == $request->awayTeamID) {
-            return redirect()->back()->with('choose different Teams');
+            return redirect('/games')->with('error', 'choose different Teams');
         }
 
         if (now() > $request->date) {
-            return redirect()->back()->with('date is invalid you need to select future dates');
+            return redirect('/games')->with('error', 'date is invalid you need to select future dates');
         }
-        
+
         try {
             DB::transaction(function () use ($request) {
                 $game = Game::create([
@@ -120,7 +120,7 @@ class GameController extends Controller
                     'goalLoss' => 0,
                     'score' => 0
                 ]);
-                
+
                 TeamStatistic::create([
                     'gameID' => $game->id,
                     'teamID' => $request->awayTeamID,
@@ -128,16 +128,13 @@ class GameController extends Controller
                     'goalLoss' => 0,
                     'score' => 0
                 ]);
-                
             });
 
             return redirect('/games')
-            ->with('message', 'Game added successfully');
+                ->with('message', 'Game added successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('something wrong');
         }
-
-        
     }
 
     public function addMatchResult($id)
@@ -153,7 +150,7 @@ class GameController extends Controller
             return redirect()->back()->with('error', 'Game not found');
         }
 
-        if ( now() <  $game->date) {
+        if (now() <  $game->date) {
             return redirect()->back()->with('error', 'not allowed to add result before match day');
         }
 
@@ -191,17 +188,17 @@ class GameController extends Controller
 
         $homeTeam = TeamStatistic::where([['gameID', $game->id], ['teamID', $request->homeTeamID]])->first();
 
-        if(is_null($homeTeam)){
+        if (is_null($homeTeam)) {
             return redirect()->back()->with('error', 'Home Team not found');
         }
         $awayTeam = TeamStatistic::where([['gameID', $game->id], ['teamID', $request->awayTeamID]])->first();
 
-        if(is_null($awayTeam)){
+        if (is_null($awayTeam)) {
             return redirect()->back()->with('error', 'Away Team not found');
         }
 
         try {
-            DB::transaction(function () use ($request,$game, &$homeTeam, &$awayTeam) {
+            DB::transaction(function () use ($request, $game, &$homeTeam, &$awayTeam) {
                 $game->homeTeamGoals = $request->homeTeamGoals;
                 $game->awayTeamGoals = $request->awayTeamGoals;
                 $game->isPlayed = true;
@@ -212,17 +209,17 @@ class GameController extends Controller
                 $awayTeam->goalWin = $request->awayTeamGoals;
                 $awayTeam->goalLoss = $request->homeTeamGoals;
 
-                if($request->homeTeamGoals > $request->awayTeamGoals){
+                if ($request->homeTeamGoals > $request->awayTeamGoals) {
                     $homeTeam->score = 3;
                     $awayTeam->score = 0;
                 }
 
-                if($request->homeTeamGoals < $request->awayTeamGoals){
+                if ($request->homeTeamGoals < $request->awayTeamGoals) {
                     $homeTeam->score = 0;
                     $awayTeam->score = 3;
                 }
 
-                if($request->homeTeamGoals === $request->awayTeamGoals){
+                if ($request->homeTeamGoals === $request->awayTeamGoals) {
                     $homeTeam->score = 0;
                     $awayTeam->score = 0;
                 }
@@ -233,7 +230,7 @@ class GameController extends Controller
             });
             return redirect('/games')->with('message', 'Result Added successfully');
         } catch (\Exception $exception) {
-            dd($exception);
+
             return \response()->json(
                 ['message' => 'System error, contact support', 'errors' => $exception->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
@@ -254,7 +251,7 @@ class GameController extends Controller
             return redirect()->back()->with('fail', 'Game not found');
         }
 
-        if ( now() >  $game->date) {
+        if (now() >  $game->date) {
             return redirect()->back()->with('fail', 'not allowed to changed finiched games');
         }
 
@@ -331,12 +328,12 @@ class GameController extends Controller
                 Game::where('id', $game->id)->delete();
             });
             return redirect('/games')
-            ->with('message', 'deleted successfully');
+                ->with('message', 'deleted successfully');
         } catch (\Exception $exception) {
-                return \response()->json(
-                    ['message' => 'System error, contact support', 'errors' => $exception->getMessage()],
-                    Response::HTTP_INTERNAL_SERVER_ERROR
-                );
+            return \response()->json(
+                ['message' => 'System error, contact support', 'errors' => $exception->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

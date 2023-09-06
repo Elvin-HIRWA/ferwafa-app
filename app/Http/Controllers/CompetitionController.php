@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
-use App\Models\Game;
-use App\Models\Team;
 use App\Models\TeamStatistic;
 use App\Models\TopScore;
 use Illuminate\Support\Facades\DB;

@@ -18,7 +18,6 @@ class PartnerController extends Controller
         $this->middleware('auth', ['except' => ['getPartnerImageDoc']]);
     }
 
-
     public function addPartner()
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
@@ -35,15 +34,11 @@ class PartnerController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "link" => "required|string",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg,svg"
 
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $path = $request->image->store('partner');
 
@@ -101,7 +96,7 @@ class PartnerController extends Controller
         $partner = Partner::find($id);
 
         if (!$partner) {
-            return redirect()->back()->with('failed', 'Partner not found');
+            return redirect()->back()->with('errors', 'Partner not found');
         }
 
         return view('admin.update-partner', [
@@ -126,7 +121,7 @@ class PartnerController extends Controller
         $partner = Partner::find($id);
 
         if (!$partner) {
-            return redirect()->back()->with('fail', 'Partner not found');
+            return redirect()->back()->with('errors', 'Partner not found');
         }
 
         Storage::delete($partner->image_url);
@@ -151,7 +146,8 @@ class PartnerController extends Controller
         $partner = Partner::find($id);
 
         if (!$partner) {
-            return response()->json(["errors" => "Partner not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect('/parteners')
+                ->with('errors', 'Partner not found');
         }
 
         Storage::delete($partner->image_url);
