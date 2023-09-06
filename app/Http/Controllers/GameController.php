@@ -150,11 +150,11 @@ class GameController extends Controller
         $game = Game::find($id);
 
         if (!$game) {
-            return redirect()->back()->with('fail', 'Game not found');
+            return redirect()->back()->with('error', 'Game not found');
         }
 
         if ( now() <  $game->date) {
-            return redirect()->back()->with('fail', 'not allowed to add result before match day');
+            return redirect()->back()->with('error', 'not allowed to add result before match day');
         }
 
         $team = DB::table('Game as a')
@@ -186,18 +186,18 @@ class GameController extends Controller
         $game = Game::find($gameID);
 
         if (!$game) {
-            return redirect()->back()->with('fail', 'Game not found');
+            return redirect()->back()->with('error', 'Game not found');
         }
 
         $homeTeam = TeamStatistic::where([['gameID', $game->id], ['teamID', $request->homeTeamID]])->first();
 
         if(is_null($homeTeam)){
-            return redirect()->back()->with('fail', 'Home Team not found');
+            return redirect()->back()->with('error', 'Home Team not found');
         }
         $awayTeam = TeamStatistic::where([['gameID', $game->id], ['teamID', $request->awayTeamID]])->first();
 
         if(is_null($awayTeam)){
-            return redirect()->back()->with('fail', 'Away Team not found');
+            return redirect()->back()->with('error', 'Away Team not found');
         }
 
         try {
