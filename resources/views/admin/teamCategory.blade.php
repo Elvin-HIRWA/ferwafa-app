@@ -21,12 +21,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Available Top Scores</h4>
+                            <h4>Available Team Categories</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
                                         <a href="{{ route('add.team-category') }}" class="btn btn-primary">
-                                            <i class="far fa-user"> &nbsp;</i>Add Top Score
+                                            <i class="far fa-user"> &nbsp;</i>Add Team Category
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="text" class="form-control" placeholder="Search" />

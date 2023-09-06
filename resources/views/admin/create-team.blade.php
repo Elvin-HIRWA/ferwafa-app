@@ -68,7 +68,7 @@
                                                   <div class="col-sm-12 col-md-7">
                                                       <select name="categoryID" class="form-control selectric">
                                                           @foreach($categories as $category)
-                                                          <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                          <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                                           @endforeach
                                                       </select>
                                                   </div>

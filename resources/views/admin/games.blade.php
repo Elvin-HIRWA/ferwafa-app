@@ -37,6 +37,11 @@
                                 </form>
                             </div>
                         </div>
+                        @if (session()->has('error'))
+                        <div class="badge badge-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                        @endif
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped">

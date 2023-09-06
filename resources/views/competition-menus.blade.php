@@ -43,7 +43,7 @@
                                         <li><a href="{{ route('fixtures.show',$day->id) }}">Results & Fixtures</a></li> /
                                         <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
                                         @else
-                                        <h1>No Days Available</h1>
+                                        <h1>No Available Fixtures</h1>
                                         @endif
                                     </ul>
                                     <ul class="menus">

@@ -18,16 +18,20 @@ class DayController extends Controller
             return redirect('/');
         }
 
-        $seasons = Season::all();
+        $seasons = Season::all()->toArray();
 
+        if(empty($seasons)){
+        return redirect('/days')
+            ->with('error', 'Create Season first');
+        }
         $finalSeasons = [];
 
         foreach ($seasons as $value) {
 
             $season = [
-                "id" => $value->id,
-                "from" => Carbon::parse($value->from)->format('d-m-Y'),
-                "to" => Carbon::parse($value->to)->format('d-m-Y')
+                "id" => $value['id'],
+                "from" => Carbon::parse($value['from'])->format('d-m-Y'),
+                "to" => Carbon::parse($value['to'])->format('d-m-Y')
             ];
             array_push($finalSeasons, $season);
         }

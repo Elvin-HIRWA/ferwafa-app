@@ -44,6 +44,7 @@
                             <div class="col-12 col-md-12 col-lg-12 p-0">
                                 @include('competition-menus')
                                 <div class="row m-0">
+                                    @if (!is_null($day))
                                     <table class="table table-bordered" height="40%">
                                         <thead>
                                             <tr style="background-color: #133E8D;">
@@ -72,6 +73,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    @endif
                                 </div>
                             </div>
                         </div>
