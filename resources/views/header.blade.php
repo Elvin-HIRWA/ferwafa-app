@@ -25,13 +25,14 @@
                             <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img" src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
                         </div>
                     </div>
-                    <div style="" class="col">
+                    <div class="col" style="display: flex;">
                         <div style="margin-top: 20px;">
                             <marquee behavior="" direction="left">
-                                <h2 style="color:  #133E8D">About Rwanda premier Legue <a href="{{ route('fixtures.show',1) }}">Click here</a></h2>
+                                <h2 style="color:  #133E8D">About Rwanda premier Legue</h2>
                             </marquee>
-                            {{-- <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img"
-                                    src="{{asset('static/img/federation/ferwafa.png')}}" /></a> --}}
+                        </div>
+                        <div style="margin-top: 20px; margin-left: 10px">
+                            <h2><a href="{{ route('fixtures.show',1) }}">Click here</a></h2>
                         </div>
                     </div>
                     <div class="col">
