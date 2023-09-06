@@ -28,7 +28,12 @@ class TeamController extends Controller
             return redirect('/');
         }
 
-        $teamCategory = TeamCategory::all();
+        $teamCategory = TeamCategory::all()->toArray();
+
+        if(empty($teamCategory)){
+            return redirect('/team')
+                ->with('error', 'Create Team Category first');
+            }
 
         return view('admin.create-team', [
             "categories" => $teamCategory
@@ -53,6 +58,12 @@ class TeamController extends Controller
         }
 
         $path = $request->logo->store('team');
+
+        Team::create([
+            "name" => $request->name,
+            "categoryID" => $request->categoryID,
+            "logo" => $path
+        ]);
 
         return redirect('/team')
             ->with('message', 'Member is added successfully');

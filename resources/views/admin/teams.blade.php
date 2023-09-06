@@ -37,6 +37,11 @@
                                 </form>
                             </div>
                         </div>
+                        @if (session()->has('error'))
+                        <div class="badge badge-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                        @endif
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 @if ($errors->any())
@@ -56,27 +61,32 @@
                                         <th colspan="2">Action</th>
                                     </tr>
                                     @foreach ($teams as $team)
-                                    <tr>
-                                        <td class="text-truncate">
-                                            <ul class="list-unstyled order-list m-b-0 m-b-0">
-                                                <li class="team-member team-member-sm">
-                                                    <img class="rounded-circle" src="{{ route('team.doc', $team['url']) }}" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td>{{ $team['name'] }}</a> </td>
-                                        <td>{{ $team['category'] }}</a> </td>
-                                        <td>
-                                            <a href="{{ route('team.page.edit', $team['id']) }}" class="btn btn-outline-primary">Edit</a>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('delete.team', $team['id']) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="text-truncate">
+                                                <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                                    <li class="team-member team-member-sm">
+                                                        <img class="rounded-circle"
+                                                            src="{{ route('team.doc', $team['url']) }}" alt="user"
+                                                            data-toggle="tooltip" title=""
+                                                            data-original-title="Wildan Ahdian" />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>{{ $team['name'] }}</a> </td>
+                                            <td>{{ $team['category'] }}</a> </td>
+                                            <td>
+                                                <a href="{{ route('team.page.edit', $team['id']) }}"
+                                                    class="btn btn-outline-primary">Edit</a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('delete.team', $team['id']) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn-outline-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </table>
                             </div>

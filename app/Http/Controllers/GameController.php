@@ -54,11 +54,22 @@ class GameController extends Controller
             return redirect('/');
         }
 
-        $seasonID = Season::orderBy('created_at', 'DESC')->first()->id;
+        $seasonID = Season::orderBy('created_at', 'DESC')->first();
+        
+        if(is_null($seasonID)){
+            return redirect('/games')->with('error', 'create season first');
+        }
+        $teams = Team::all()->toArray();
 
-        $teams = Team::all();
+        if(empty($teams)){
+            return redirect('/games')->with('error', 'create teams first');
+        }
 
-        $days = Day::where('seasonID', $seasonID)->get();
+        $days = Day::where('seasonID', $seasonID->id)->get();
+
+        if(is_null($days)){
+            return redirect('/games')->with('error', 'create day first');
+        }
 
         return view('admin.create-game', [
             'teams' => $teams,

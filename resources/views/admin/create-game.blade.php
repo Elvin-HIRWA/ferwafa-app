@@ -31,7 +31,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Season</h4>
+                            <h4>Create game</h4>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -55,7 +55,7 @@
                                                     <div class="col-sm-12 col-md-7">
                                                         <select name="homeTeamID" class="form-control selectric">
                                                             @foreach($teams as $team)
-                                                            <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                                            <option value="{{ $team['id'] }}">{{ $team['name'] }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -66,7 +66,7 @@
                                                     <div class="col-sm-12 col-md-7">
                                                         <select name="awayTeamID" class="form-control selectric">
                                                             @foreach($teams as $team)
-                                                            <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                                            <option value="{{ $team['id'] }}">{{ $team['name'] }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
