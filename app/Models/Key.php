@@ -12,6 +12,8 @@ class Key extends Model
 
     protected $table = 'KeyPermission';
 
+    protected $fillable = ['value', 'permissionID'];
+
     public static function getKeyWithTheirPermission(): array
     {
         $key = DB::select(

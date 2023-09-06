@@ -22,21 +22,20 @@
                 <div class="row justify-content-between align-items-center;">
                     <div class="col">
                         <div style="" class="logo">
-                            <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img"
-                                    src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
+                            <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img" src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
                         </div>
                     </div>
                     <div style="" class="col">
                         <div style="margin-top: 20px;">
-                           <marquee behavior="" direction="left"> <h2 style="color:  #133E8D">About Rwanda premier Legue <a href="{{ route('fixtures.show',1) }}">Click here</a></h2></marquee>
+                            <marquee behavior="" direction="left">
+                                <h2 style="color:  #133E8D">About Rwanda premier Legue <a href="{{ route('fixtures.show',1) }}">Click here</a></h2>
+                            </marquee>
                             {{-- <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img"
                                     src="{{asset('static/img/federation/ferwafa.png')}}" /></a> --}}
                         </div>
                     </div>
                     <div class="col">
-                        <img  alt="" height="100px" width=""
-                            class="img-responsive banner-image" src="{{asset('static/img/federation/primus.png')}}" /><a
-                            class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
+                        <img alt="" height="100px" width="" class="img-responsive banner-image" src="{{asset('static/img/federation/primus.png')}}" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </div>
@@ -54,7 +53,7 @@
                         <li>
                             <a href="#">Men</a>
                             <ul class="sub-current">
-                                <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
+                                <li><a href="{{ route('fixtures.show',1) }}">Premier League</a></li>
                                 <li><a href="#">Second Division</a></li>
                                 <li><a href="#">Third Division</a></li>
                             </ul>
@@ -162,7 +161,7 @@
                     <li>
                         <a href="#">Men</a>
                         <ul class="#">
-                            <li><a href="{{ route('fixtures.show',1) }}">First Division</a></li>
+                            <li><a href="{{ route('fixtures.show',1) }}">Premier League</a></li>
                             <li><a href="#">Second Division</a></li>
                             <li><a href="#">Third Division</a></li>
                         </ul>

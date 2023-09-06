@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('Permission', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  // admin , Band or Orchestre
+            $table->string('name')->unique();  // admin , Band or Orchestre
             $table->timestamps();
         });
     }

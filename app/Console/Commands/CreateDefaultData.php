@@ -53,9 +53,10 @@ class CreateDefaultData extends Command
             DB::transaction(function () use ($documentTypes, $status, $permissions) {
 
                 foreach ($documentTypes as $documentType) {
-                    $type = DocumentType::where('name', $documentType)->get();
+                    $type = DocumentType::where('name', $documentType)->first();
+
                     if (!is_null($type)) {
-                        $this->error("ReportType exist in Database");
+                        $this->error("DocumentType exist in Database");
                         return;
                     }
 
@@ -65,7 +66,7 @@ class CreateDefaultData extends Command
                 }
 
                 foreach ($status as $value) {
-                    $stat = Status::where('name', $value)->get();
+                    $stat = Status::where('name', $value)->first();
                     if (!is_null($stat)) {
                         $this->error("Status exist in Database");
                         return;
@@ -77,7 +78,7 @@ class CreateDefaultData extends Command
                 }
 
                 foreach ($permissions as $value) {
-                    $permission = Permission::where('name', $value)->get();
+                    $permission = Permission::where('name', $value)->first();
                     if (!is_null($permission)) {
                         $this->error("Permission exist in Database");
                         return;
@@ -88,6 +89,7 @@ class CreateDefaultData extends Command
                     ]);
                 }
             });
+            $this->info('Default Data Inserted successfully');
         } catch (\Throwable $th) {
             $this->error("Contact Support");
         }
