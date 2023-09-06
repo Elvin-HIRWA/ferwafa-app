@@ -33,6 +33,11 @@
                         <div class="card-header">
                             <h4>Create game</h4>
                         </div>
+                        @if (session()->has('error'))
+                        <div class="badge badge-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                        @endif
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <div class="row">
