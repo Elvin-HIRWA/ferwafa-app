@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\DocumentType;
+use App\Models\Permission;
 use App\Models\Status;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -42,12 +43,18 @@ class CreateDefaultData extends Command
             "unpublished"
         ];
 
-        try {
-            DB::transaction(function () use ($documentTypes, $status) {
+        $permissions = [
+            'admin',
+            'dcm',
+            'competition-manager'
+        ];
 
-                foreach($documentTypes as $documentType){
+        try {
+            DB::transaction(function () use ($documentTypes, $status, $permissions) {
+
+                foreach ($documentTypes as $documentType) {
                     $type = DocumentType::where('name', $documentType)->get();
-                    if(!is_null($type)){
+                    if (!is_null($type)) {
                         $this->error("ReportType exist in Database");
                         return;
                     }
@@ -57,18 +64,30 @@ class CreateDefaultData extends Command
                     ]);
                 }
 
-                foreach($status as $value){
+                foreach ($status as $value) {
                     $stat = Status::where('name', $value)->get();
-                    if(!is_null($stat)){
+                    if (!is_null($stat)) {
                         $this->error("Status exist in Database");
                         return;
                     }
 
                     Status::create([
-                        "name" => $documentType
+                        "name" => $value
                     ]);
                 }
-            }); 
+
+                foreach ($permissions as $value) {
+                    $permission = Permission::where('name', $value)->get();
+                    if (!is_null($permission)) {
+                        $this->error("Permission exist in Database");
+                        return;
+                    }
+
+                    Permission::create([
+                        "name" => $value
+                    ]);
+                }
+            });
         } catch (\Throwable $th) {
             $this->error("Contact Support");
         }
