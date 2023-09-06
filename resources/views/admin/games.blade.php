@@ -65,11 +65,8 @@
                                         <td> {{$game->homeTeamGoals }}</td>
                                         <td> {{$game->awayTeamGoals }}</td>
                                         <td>
-                                            @if (!$game->isPlayed)
-                                                {{-- <a href="{{ route('game.fixture.edit', $game->id) }}" class="btn btn-outline-primary">Edit</a> --}}
-                                            @else
-                                                <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Scores</a>
-                                            @endif
+                                            <a href="{{ route('game.page.edit', $game->id) }}" class="btn btn-outline-primary">Add Scores</a>
+
                                         </td>
                                         <td>
                                             <form action="{{ route('delete.game', $game->id) }}" method="POST">
