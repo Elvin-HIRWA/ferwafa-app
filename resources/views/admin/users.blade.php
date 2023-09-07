@@ -59,11 +59,7 @@
                                         <td>{{ date('jS M Y', strtotime($user['since'])) }}</td>
                                         <td>
                                             <div>
-                                                <form action="{{ route('users.delete', $user['id']) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                                </form>
+                                                <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $user['id'] }}">Delete</button>
 
                                             </div>
                                         </td>
@@ -77,11 +73,42 @@
             </div>
         </section>
     </div>
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this user ?
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteGameForm" method="POST" action="{{ route('users.delete', 0) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="/src/main.js"></script>
     <script src="./assets/js/app.min.js"></script>
     <script src="./assets/js/custom.js"></script>
     <script src="./assets/js/scripts.js"></script>
     <script src="./assets/js/scripts.js"></script>
     <script src="./assets/js/custom.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.delete-game').click(function() {
+                var gameId = $(this).data('game-id');
+                var form = $('#deleteGameForm');
+                var action = form.attr('action');
+                // Update the form action with the correct game ID
+                form.attr('action', action.replace('0', gameId));
+            });
+        });
+    </script>
 
 </body>
