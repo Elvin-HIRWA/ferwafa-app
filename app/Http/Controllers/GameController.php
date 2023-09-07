@@ -7,13 +7,11 @@ use App\Models\Game;
 use App\Models\Season;
 use App\Models\Team;
 use App\Models\TeamStatistic;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
@@ -169,16 +167,12 @@ class GameController extends Controller
 
     public function createMatchResult(Request $request, $gameID)
     {
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "homeTeamID" => "required|integer",
             "homeTeamGoals" => "required|integer",
             "awayTeamID" => "required|integer",
             "awayTeamGoals" => "required|integer"
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(['errors' => $validation->errors()->all(), "timestamp" => now()->format("Y-m-d, H:i:s")], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $game = Game::find($gameID);
 
@@ -248,11 +242,11 @@ class GameController extends Controller
         $game = Game::find($id);
 
         if (!$game) {
-            return redirect()->back()->with('fail', 'Game not found');
+            return redirect()->back()->with('error', 'Game not found');
         }
 
         if (now() >  $game->date) {
-            return redirect()->back()->with('fail', 'not allowed to changed finiched games');
+            return redirect()->back()->with('error', 'not allowed to changed finiched games');
         }
 
         $team = DB::table('Game as a')
@@ -295,7 +289,7 @@ class GameController extends Controller
         $game = Game::find($id);
 
         if (!$game) {
-            return redirect()->back()->with('fail', 'Game not found');
+            return redirect()->back()->with('error', 'Game not found');
         }
 
         $game->homeTeamID = $request->homeTeamID;
@@ -319,7 +313,7 @@ class GameController extends Controller
         $game = Game::find($id);
 
         if (!$game) {
-            return redirect()->back()->with('failed', 'Game not found');
+            return redirect()->back()->with('error', 'Game not found');
         }
 
         try {
