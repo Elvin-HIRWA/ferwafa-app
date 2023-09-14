@@ -72,7 +72,7 @@ class CompetitionController extends Controller
                                         ");
         
 
-        $topScores = TopScore::orderBy('goals', 'DESC')->get();
+        $topScores = TopScore::orderBy('goals', 'DESC')->orderBy('name', 'ASC')->take(10)->get();
 
         $finalTopScores = [];
 

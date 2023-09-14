@@ -129,7 +129,7 @@
                                                 <th style="width: 5%" scope="col">#</th>
                                                 <th style="width: 50%" scope="col">Name</th>
                                                 <th style="width: 10%" scope="col">Team</th>
-                                                <th style="width: 10%" scope="col">Goals</th>
+                                                <th style="width: 10%; background-color: #133E8D; color: white" scope="col">Goals</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -138,7 +138,7 @@
                                                     <th scope="row">{{ $key + 1 }}</th>
                                                     <td>{{ $topScore['name'] }}</td>
                                                     <td>{{ $topScore['teamName'] }}</td>
-                                                    <td>{{ $topScore['goals'] }}</td>
+                                                    <td style="background-color: #133E8D; color: white">{{ $topScore['goals'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

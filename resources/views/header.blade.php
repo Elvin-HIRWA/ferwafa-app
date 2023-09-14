@@ -32,7 +32,7 @@
                             </marquee>
                         </div>
                         <div style="margin-top: 20px; margin-left: 10px">
-                            <h2><a href="{{ route('fixtures.show',1) }}">Click here</a></h2>
+                            <span><a href="{{ route('fixtures.show',1) }}" style="font-size: 20px; color:  #133E8D">Click here</a></span>
                         </div>
                     </div>
                     <div class="col">

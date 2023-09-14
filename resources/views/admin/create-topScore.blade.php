@@ -64,10 +64,14 @@
                                                 </div>
 
                                                 <div class="form-group row mb-4">
-                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Team Name</label>
+                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Team</label>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <input type="text" name="teamName" class="form-control">
-                                                        @error('teamName')
+                                                        <select name="teamID" class="form-control selectric">
+                                                            @foreach($teams as $team)
+                                                            <option value="{{ $team['id'] }}">{{ $team['name'] }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('teamID')
                                                         <div style="color: red;">
                                                             {{ $message }}
                                                         </div>

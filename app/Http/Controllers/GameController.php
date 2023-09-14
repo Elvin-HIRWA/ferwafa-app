@@ -32,6 +32,8 @@ class GameController extends Controller
                 'Game.homeTeamGoals',
                 'Game.awayTeamGoals',
                 'Game.isPlayed',
+                'Day.id AS dayID',
+                'Day.name AS dayName'
             )
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
@@ -40,8 +42,13 @@ class GameController extends Controller
             ->orderBy('Game.id', 'DESC')
             ->get();
 
+        $finalGames = collect($games)->map(fn($item) => (array) $item)
+              ->groupBy("dayID")
+              ->values()
+              ->toArray();    
+        
         return view('admin.games', [
-            'games' => $games
+            'games' => $finalGames
         ]);
     }
 
@@ -214,8 +221,8 @@ class GameController extends Controller
                 }
 
                 if ($request->homeTeamGoals === $request->awayTeamGoals) {
-                    $homeTeam->score = 0;
-                    $awayTeam->score = 0;
+                    $homeTeam->score = 1;
+                    $awayTeam->score = 1;
                 }
 
                 $homeTeam->save();
