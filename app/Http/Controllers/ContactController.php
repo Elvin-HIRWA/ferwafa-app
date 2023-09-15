@@ -30,7 +30,7 @@ class ContactController extends Controller
             "content" => "required|string"
         ]);
 
-        Mail::to('ferwafa@yahoo.fr')->send(new sendInfo(
+        Mail::to('theotimecyubahiro@gmail.com')->send(new sendInfo(
             $request->name,
             $request->email,
             $request->subject,
@@ -46,7 +46,7 @@ class ContactController extends Controller
             "message" => "required|string"
         ]);
 
-        Mail::to('ferwafa@yahoo.fr')->send(new SendWhistleBlowers(
+        Mail::to('theotimecyubahiro@gmail.com')->send(new SendWhistleBlowers(
             $request->message
         ));
 
