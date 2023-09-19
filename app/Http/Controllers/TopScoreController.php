@@ -15,7 +15,7 @@ class TopScoreController extends Controller
 {
     public function addTopScore()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -33,7 +33,7 @@ class TopScoreController extends Controller
 
     public function createTopScore(Request $request)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -74,7 +74,7 @@ class TopScoreController extends Controller
 
     public function listTopScore()
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -100,7 +100,7 @@ class TopScoreController extends Controller
 
     public function editTopScore($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -125,7 +125,7 @@ class TopScoreController extends Controller
 
     public function updateTopScore(Request $request, $id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
@@ -161,7 +161,7 @@ class TopScoreController extends Controller
 
     public function deleteTopScore($id)
     {
-        if (!Gate::allows('is-admin') && !Gate::allows('is-dcm')) {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
