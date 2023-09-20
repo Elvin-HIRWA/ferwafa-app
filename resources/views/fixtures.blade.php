@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        {{-- <section class="section">
+        <section class="section">
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
@@ -90,7 +90,8 @@
                     </div>
                 </div>
             </div>
-        </section> --}}
+        </section>
         @include('footer')
     </div>
+    <script src="/static/CACHE/js/output.037fb98d23ee.js"></script>
 </body>
