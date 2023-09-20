@@ -16,9 +16,8 @@
 </head>
 
 <body>
-
-    @include('header')
     <div id="layout">
+        @include('header')
         <div class="section-title big-title" style="background: url(../static/img/background/footballnew.jpg)">
             <div class="container">
                 <div class="row">
@@ -42,15 +41,16 @@
             <!-- White Section -->
             <div class="white-section paddings main-about-sec">
                 <center>
-                    <h1 class="title-text">{{$result['title']}}</h1>
+                    <h1 class="title-text">{{ $result['title'] }}</h1>
                 </center>
                 <div class="container">
                     <div class="row about-container">
                         <div class="col-lg-5">
-                            <img alt="" src="{{ route('news.images.show', $url[0]['url'])}}" style="width: 100%; height: 100%" />
+                            <img alt="" src="{{ route('news.images.show', $url[0]['url']) }}"
+                                style="width: 100%; height: 100%" />
                         </div>
                         <div class="col-lg-7">
-                            {!! $result['description']!!}
+                            {!! $result['description'] !!}
                         </div>
                     </div>
                 </div>

@@ -28,12 +28,12 @@
                     <div class="col" style="display: flex;">
                         <div style="margin-top: 20px;">
                             <marquee behavior="" direction="left">
-                                <h2 style="color:  #133E8D">About Rwanda premier Legue</h2>
+                                <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show',1) }}" style="color:  #133E8D">About Rwanda premier League Click here</a></h2>
                             </marquee>
                         </div>
-                        <div style="margin-top: 20px; margin-left: 10px">
-                            <span><a href="{{ route('fixtures.show',1) }}" style="font-size: 20px; color:  #133E8D">Click here</a></span>
-                        </div>
+                        <!--<div style="margin-top: 20px; margin-left: 10px">-->
+                        <!--    <h2><a href="{{ route('fixtures.show',1) }}" style="font-size: 20px; color:  #133E8D">Click here</a></h2>-->
+                        <!--</div>-->
                     </div>
                     <div class="col">
                         <img alt="" height="100px" width="" class="img-responsive banner-image" src="{{asset('static/img/federation/primus.png')}}" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>

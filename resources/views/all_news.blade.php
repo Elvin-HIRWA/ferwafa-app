@@ -17,8 +17,8 @@
 </head>
 
 <body>
-    @include('header')
     <div id="layout">
+        @include('header')
         <div class="section-title big-title" style="background: url(../static/img/background/footballnew.jpg)">
             <div class="container">
                 <div class="row">
@@ -49,27 +49,27 @@
                     </div>
                     <!-- content Column Left -->
                     @foreach ($result as $news)
-                    <div class="col-lg-6 col-xl-6">
-                        <div class="single-home-news">
-                            <div class="news-img">
-                                <img src="{{ route('news.images.show', $news['image_url'])}}">
-                            </div>
-                            <div class="news-information">
-                                <h5>
-                                    <a href="{{ route('single.news',$news['id'])}}">{{ $news['title']}}</a>
-                                </h5>
-                                <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
-                                <p>
-                                    {{$news['caption']}}
-                                </p>
-                                <a href="{{ route('single.news',$news['id'])}}">Read More [+]</a>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="single-home-news">
+                                <div class="news-img">
+                                    <img src="{{ route('news.images.show', $news['image_url']) }}">
+                                </div>
+                                <div class="news-information">
+                                    <h5>
+                                        <a href="{{ route('single.news', $news['id']) }}">{{ $news['title'] }}</a>
+                                    </h5>
+                                    <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
+                                    <p>
+                                        {{ $news['caption'] }}
+                                    </p>
+                                    <a href="{{ route('single.news', $news['id']) }}">Read More [+]</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
         </section>
+        @include('footer')
     </div>
-    @include('footer')
 </body>
