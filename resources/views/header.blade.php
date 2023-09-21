@@ -8,35 +8,45 @@
     <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="{{asset('static/CACHE/css/output.718a7af03b3d.css')}}" media="screen" rel="stylesheet" type="text/css" />
-    <link href="{{asset('static/img/federation/ferwafa.png')}}" rel="shortcut icon" />
+    <link href="{{ asset('static/CACHE/css/output.718a7af03b3d.css') }}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('static/img/federation/ferwafa.png') }}" rel="shortcut icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <script src="http://127.0.0.1:35729/livereload.js"></script>
 </head>
 
 <body>
+    @php
+        $day = DB::table('Game')
+            ->join('Day', 'Day.id', '=', 'Game.dayID')
+            ->where('Game.isPlayed', 1)
+            ->orderBy('Day.id', 'DESC')
+            ->first(['Game.dayID']);
+    @endphp
     <header>
         <div class="headerbox">
             <div style=" height: 90px" class="container">
                 <div class="row justify-content-between align-items-center;">
                     <div class="col">
                         <div style="" class="logo">
-                            <a href="/" title="Return Home"><img style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo" class="logo_img" src="{{asset('static/img/federation/ferwafa.png')}}" /></a>
+                            <a href="/" title="Return Home"><img
+                                    style="height: 90px; margin-bottom: 100px; margin-left: 20px" alt="Logo"
+                                    class="logo_img" src="{{ asset('static/img/federation/ferwafa.png') }}" /></a>
                         </div>
                     </div>
                     <div class="col" style="display: flex;">
                         <div style="margin-top: 20px;">
                             <marquee behavior="" direction="left">
-                                <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show',1) }}" style="color:  #133E8D">About Rwanda premier League Click here</a></h2>
+
+                                <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', $day->dayID) }}"
+                                        style="color:  #133E8D">About Primus National League Click here</a></h2>
                             </marquee>
                         </div>
-                        <!--<div style="margin-top: 20px; margin-left: 10px">-->
-                        <!--    <h2><a href="{{ route('fixtures.show',1) }}" style="font-size: 20px; color:  #133E8D">Click here</a></h2>-->
-                        <!--</div>-->
                     </div>
                     <div class="col">
-                        <img alt="" height="100px" width="" class="img-responsive banner-image" src="{{asset('static/img/federation/primus.png')}}" /><a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
+                        <img alt="" height="100px" width="" class="img-responsive banner-image"
+                            src="{{ asset('static/img/federation/primus.png') }}" /><a class="mobile-nav"
+                            href="#mobile-nav"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </div>
@@ -54,7 +64,7 @@
                         <li>
                             <a href="#">Men</a>
                             <ul class="sub-current">
-                                <li><a href="{{ route('fixtures.show',1) }}">Premier League</a></li>
+                                <li><a href="{{ route('fixtures.show', $day->dayID) }}">Primus National</a></li>
                                 <li><a href="#">Second Division</a></li>
                                 <li><a href="#">Third Division</a></li>
                             </ul>
@@ -143,9 +153,9 @@
                     </ul>
                 </li>
                 @if (!Auth::check())
-                <li class="">
-                    <a href="{{ route('login') }}">Login</a>
-                </li>
+                    <li class="">
+                        <a href="{{ route('login') }}">Login</a>
+                    </li>
                 @endif
             </ul>
             <!-- End Menu-->
@@ -162,7 +172,7 @@
                     <li>
                         <a href="#">Men</a>
                         <ul class="#">
-                            <li><a href="{{ route('fixtures.show',1) }}">Premier League</a></li>
+                            <li><a href="{{ route('fixtures.show', $day->dayID) }}">Primus National</a></li>
                             <li><a href="#">Second Division</a></li>
                             <li><a href="#">Third Division</a></li>
                         </ul>

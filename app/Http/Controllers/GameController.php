@@ -155,9 +155,9 @@ class GameController extends Controller
             return redirect()->back()->with('error', 'Game not found');
         }
 
-        if (now() <  $game->date) {
-            return redirect()->back()->with('error', 'not allowed to add result before match day');
-        }
+        // if (now() <  $game->date) {
+        //     return redirect()->back()->with('error', 'not allowed to add result before match day');
+        // }
 
         $team = DB::table('Game as a')
             ->select('b.id as homeTeamID', 'b.name as homeTeam', 'c.id as awayTeamID', 'c.name as awayTeam')

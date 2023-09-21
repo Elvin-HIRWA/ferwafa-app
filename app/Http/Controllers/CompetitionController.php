@@ -47,8 +47,9 @@ class CompetitionController extends Controller
     }
     public function menFirstDivisionTable()
     {
-        $days = Day::all();
-        
+        $days = DB::table('Game')
+                ->join('Day', 'Day.id','=','Game.dayID')
+                ->where('Game.isPlayed', 1)->orderBy('Day.id', 'DESC')->first(['Game.dayID']);        
 
         $teamStatistics = DB::select("SELECT a.name AS name, 
                                             SUM(b.goalWin) AS goalWin, 
