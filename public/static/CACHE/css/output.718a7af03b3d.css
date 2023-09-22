@@ -18421,6 +18421,7 @@ body::-webkit-scrollbar-thumb:hover {
     .news-img img {
         height: 100%;
         width: 100%;
+        object-fit: cover;
         display: block;
         transition: opacity 0.3s ease-in-out
     }

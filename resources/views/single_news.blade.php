@@ -47,7 +47,7 @@
                     <div class="row about-container">
                         <div class="col-lg-5">
                             <img alt="" src="{{ route('news.images.show', $url[0]['url']) }}"
-                                style="width: 100%; height: 100%" />
+                                style="width: 100%; height: 100%; object-fit: cover;" />
                         </div>
                         <div class="col-lg-7">
                             {!! $result['description'] !!}
