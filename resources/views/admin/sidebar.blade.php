@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -15,180 +14,189 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- General CSS Files -->
     <link rel="stylesheet" href="./assets/css/app.min.css">
+    <link rel="stylesheet" href="./assets/bundles/bootstrap-daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="./assets/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="./assets/bundles/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="./assets/bundles/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="./assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="./assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/components.css">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="./assets/css/custom.css">
     <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
-    <title>Ferwafa</title>
+    <link rel='shortcut icon' type='image/x-icon' href='./assets/img/favicon.ico' />
 </head>
 
 <body>
-    <div class="navbar-bg"></div>
-    <nav class="navbar navbar-expand-lg main-navbar sticky">
-        <div class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-                <li>
-                    <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
-                        <i data-feather="align-justify"></i></a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link nav-link-lg fullscreen-btn">
-                        <i data-feather="maximize"></i>
-                    </a>
-                </li>
-                <li>
-                    <form class="form-inline mr-auto">
-                        <div class="search-element">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200" />
-                            <button class="btn" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </li>
-            </ul>
-        </div>
-        <ul class="navbar-nav navbar-right">
-            <li class="nav-item dropdown">
-                <a style="color: black" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                                <i data-feather="align-justify"></i></a>
+                            </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <form class="form-inline mr-auto">
+                                <div class="search-element">
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200" />
+                                    <button class="btn" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
-            </li>
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a style="color: black" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
 
-        </ul>
-    </nav>
-    <div class="main-sidebar sidebar-style-2">
-        <aside id="sidebar-wrapper">
-            <div class="sidebar-brand">
-                <a href="{{ url('/') }}">
-                    <img alt="image" src="{{asset('static/img/federation/ferwafa.png')}}" class="header-logo" />
-                    <span class="logo-name">Ferwafa</span>
-                </a>
-            </div>
-            <ul class="sidebar-menu">
-                @can('is-admin')
-                <li class="dropdown">
-                    <a href="{{ route('dashboard.view')}}" class="nav-link">
-                        <i class="far fa-envelope"></i><span>Dashboard</span>
-                    </a>
-                </li>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-                {{-- <li class="dropdown">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="{{ url('/') }}">
+                            <img alt="image" src="{{asset('static/img/federation/ferwafa.png')}}" class="header-logo" />
+                            <span class="logo-name">Ferwafa</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        @can('is-admin')
+                            <li class="dropdown">
+                                <a href="{{ route('dashboard.view')}}" class="nav-link">
+                                    <i class="far fa-envelope"></i><span>Dashboard</span>
+                                </a>
+                            </li>
+
+                            {{-- <li class="dropdown">
                     <a href="{{ route('events.view')}}" class="nav-link">
-                <i class="fas fa-envelope"></i><span>Events</span>
-                </a>
-                </li> --}}
-                <li class="dropdown">
-                    <a href="{{ route('news.view')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>News</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('reports.view') }}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Documents</span>
-                    </a>
-                </li>
+                        <i class="fas fa-envelope"></i><span>Events</span>
+                        </a>
+                        </li> --}}
+                            <li class="dropdown">
+                                <a href="{{ route('news.view')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>News</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('reports.view') }}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Documents</span>
+                                </a>
+                            </li>
 
-                {{-- <li class="dropdown">
+                            {{-- <li class="dropdown">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Permissions</span>
                     </a>
                 </li> --}}
-                <li class="dropdown">
-                    <a href="{{ route('users.view')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Users</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('committe')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Executive Committee</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('partner')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Partners</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Gallery</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('team-category')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Team Category</span>
-                    </a>
-                </li>
+                            <li class="dropdown">
+                                <a href="{{ route('users.view')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Users</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('committe')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Executive Committee</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('partner')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Partners</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('admin.gallery.list')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Gallery</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('team-category')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Team Category</span>
+                                </a>
+                            </li>
 
-                <li class="dropdown">
-                    <a href="{{ route('team')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Teams</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('season')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Season</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('day.season')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Days</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('fixtures')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Fixtures</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('top-score')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>top Scores</span>
-                    </a>
-                </li>
-                @else
-                @can('is-dcm')
-                <li class="dropdown">
-                    <a href="{{ route('news.view')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>News</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('reports.view') }}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Documents</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('committe')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Executive Committee</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('partner')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Partners</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
-                        <i class="fas fa-envelope"></i><span>Gallery</span>
-                    </a>
-                </li>
-                @endcan
-                @can('is-competition-manager')
+                            <li class="dropdown">
+                                <a href="{{ route('team')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Teams</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('season')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Season</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('day.season')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Days</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('fixtures')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>Fixtures</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ route('top-score')}}" class="nav-link">
+                                    <i class="fas fa-envelope"></i><span>top Scores</span>
+                                </a>
+                            </li>
+                        @else
+                            @can('is-dcm')
+                                <li class="dropdown">
+                                    <a href="{{ route('news.view')}}" class="nav-link">
+                                        <i class="fas fa-envelope"></i><span>News</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('reports.view') }}" class="nav-link">
+                                        <i class="fas fa-envelope"></i><span>Documents</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('committe')}}" class="nav-link">
+                                        <i class="fas fa-envelope"></i><span>Executive Committee</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('partner')}}" class="nav-link">
+                                        <i class="fas fa-envelope"></i><span>Partners</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('admin.gallery.list')}}" class="nav-link">
+                                        <i class="fas fa-envelope"></i><span>Gallery</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('is-competition-manager')
                 <li class="dropdown">
                     <a href="{{ route('team-category')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Team Category</span>
@@ -221,14 +229,30 @@
                     </a>
                 </li>
                 @endcan
-                @endcan
-            </ul>
-        </aside>
+                        @endcan
+                    </ul>
+                </aside>
+            </div>
+        </div>
     </div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- General JS Scripts -->
     <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
+    <!-- JS Libraies -->
+    <script src="./assets/bundles/cleave-js/dist/cleave.min.js"></script>
+    <script src="./assets/bundles/cleave-js/dist/addons/cleave-phone.us.js"></script>
+    <script src="./assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+    <script src="./assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="./assets/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="./assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="./assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="./assets/bundles/select2/dist/js/select2.full.min.js"></script>
+    <script src="./assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="./assets/js/page/forms-advanced-forms.js"></script>
+    <!-- Template JS File -->
     <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
     <script src="./assets/js/custom.js"></script>
 </body>
+
+</html>

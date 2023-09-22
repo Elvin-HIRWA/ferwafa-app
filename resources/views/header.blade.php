@@ -260,9 +260,11 @@
                     <li><a href="#">Whistleblowers</a></li>
                 </ul>
             </li>
-            <li class="">
-                <a href="{{ route('login') }}">Login</a>
-            </li>
+            @if (!Auth::check())
+                <li class="">
+                    <a href="{{ route('login') }}">Login</a>
+                </li>
+            @endif
         </ul>
         <!-- End Menu-->
     </div>
