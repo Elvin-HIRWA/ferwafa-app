@@ -99,9 +99,9 @@
                         <li>
                             <a href="#">Women</a>
                             <ul class="sub-current">
-                                <li><a href="#">Senior</a></li>
-                                <li><a href="#">U-20</a></li>
-                                <li><a href="#">Other</a></li>
+                                <li><a href="{{ route('seniorWomen.news') }}">Senior</a></li>
+                                <li><a href="{{ route('u20Women.news') }}">U-20</a></li>
+                                <li><a href="{{ route('otherWomen.news') }}">Other</a></li>
                                 <!-- <li><a href="#">History</a></li> -->
                             </ul>
                         </li>
@@ -211,9 +211,9 @@
                     <li>
                         <a href="#">Women</a>
                         <ul class="#">
-                            <li><a href="#">Senior</a></li>
-                            <li><a href="#">U-20</a></li>
-                            <li><a href="#">Other</a></li>
+                            <li><a href="{{ route('seniorWomen.news') }}">Senior</a></li>
+                            <li><a href="{{ route('u20Women.news') }}">U-20</a></li>
+                            <li><a href="route('otherWomen.news') }}">Other</a></li>
                             <!-- <li><a href="#">History</a></li> -->
                         </ul>
                     </li>

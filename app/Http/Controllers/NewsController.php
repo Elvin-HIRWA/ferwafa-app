@@ -8,20 +8,29 @@ use App\Models\NewsUrl;
 use App\Models\Partner;
 use App\Models\Status;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['getNewsImage', 'allNews', 'getNews', 'getSingleNews', 'seniorMen', 'u23', 'u17', 'otherMen']]);
+        $this->middleware('auth', ['except' => [
+            'getNewsImage',
+            'allNews',
+            'getNews',
+            'getSingleNews',
+            'seniorMen',
+            'u23',
+            'u17',
+            'otherMen',
+            'seniorWomen',
+            'u20Women',
+            'otherWomen'
+        ]]);
     }
 
     public function postNews(Request $request)
@@ -251,6 +260,117 @@ class NewsController extends Controller
 
         return view(
             'other_men_news',
+            ["result" => $result]
+        );
+    }
+
+    public function seniorWomen()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 5]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'senior_women_news',
+            ["result" => $result]
+        );
+    }
+
+    public function u20Women()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 6]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'u20_women_news',
+            ["result" => $result]
+        );
+    }
+
+    public function otherWomen()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 7]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'other_women_news',
             ["result" => $result]
         );
     }

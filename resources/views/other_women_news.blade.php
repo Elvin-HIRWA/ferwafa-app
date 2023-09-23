@@ -23,7 +23,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <h1 class="banner-title-main">Other News Men National Team</h1>
+                        <h1 class="banner-title-main">Other News Women National Team</h1>
                     </div>
                     <div class="col-md-4">
                         <div class="breadcrumbs">
@@ -43,7 +43,7 @@
                     <div class="col-lg-12 col-lg12">
                         <div class="panel-box">
                             <div class="titles">
-                                <h4>Other News for Men National Team</h4>
+                                <h4>Other News for Women National Team</h4>
                             </div>
                         </div>
                     </div>

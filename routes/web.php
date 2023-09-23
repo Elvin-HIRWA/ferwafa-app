@@ -46,11 +46,15 @@ Route::get('/single-news/{id}', [NewsController::class, 'getSingleNews'])->name(
 Route::delete('/news/{id}', [NewsController::class, 'deleteNews'])->name('news.delete');
 Route::get('/about', [CommitteController::class, 'listAllCommitte'])->name('about');
 Route::get('/all-news', [NewsController::class, 'allNews'])->name('all.news');
+
 Route::get('/national-team-men-senior-news', [NewsController::class, 'seniorMen'])->name('seniorMen.news');
 Route::get('/national-team-men-u23-news', [NewsController::class, 'u23'])->name('u23.news');
 Route::get('/national-team-men-u17-news', [NewsController::class, 'u17'])->name('u17.news');
 Route::get('/national-team-men-other-news', [NewsController::class, 'otherMen'])->name('otherMen.news');
 
+Route::get('/national-team-women-senior-news', [NewsController::class, 'seniorWomen'])->name('seniorWomen.news');
+Route::get('/national-team-women-u20-news', [NewsController::class, 'u20Women'])->name('u20Women.news');
+Route::get('/national-team-women-other-news', [NewsController::class, 'otherWomen'])->name('otherWomen.news');
 
 
 
