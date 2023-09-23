@@ -25,7 +25,7 @@ class TopScoreController extends Controller
         if (empty($teams)) {
             return redirect('/games')->with('error', 'create teams first');
         }
-        
+
         return view('admin.create-topScore', [
             'teams' => $teams,
         ]);
@@ -37,7 +37,7 @@ class TopScoreController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required|string",
             "goals" => "required|integer",
             "teamID" => "required|string"
@@ -48,10 +48,6 @@ class TopScoreController extends Controller
 
         if (is_null($team)) {
             return redirect('/games')->with('error', 'team Not Found');
-        }
-
-        if ($validation->fails()) {
-            return response()->json(["errors" => $validation->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         TopScore::create([
@@ -138,7 +134,7 @@ class TopScoreController extends Controller
         ]);
 
         $topScore = TopScore::find($id);
-        
+
         if (!$topScore) {
             return redirect()->back()->with('fail', 'TopScore not found');
         }

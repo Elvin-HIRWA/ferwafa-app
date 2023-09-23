@@ -29,18 +29,16 @@ class NewsController extends Controller
             Auth::logout();
             return redirect('/');
         }
-        $validation = Validator::make($request->all(), [
+
+        $request->validate([
             "title" => "required|string",
             "caption" => "required|string|max:255",
             "description" => "required|string",
             "is_top" => "required|boolean",
             "statusID" => "required|in:1,2,3",
+            "newsTypeID" => "required|numeric",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
         ]);
-
-        if ($validation->fails()) {
-            return response()->json(['errors' => $validation->messages()]);
-        }
 
         DB::transaction(function () use ($request) {
 
@@ -49,6 +47,7 @@ class NewsController extends Controller
                 "caption" => $request->caption,
                 "description" => $request->description,
                 "statusID" => $request->statusID,
+                "newsTypeID" => $request->newsTypeID,
                 "is_top" => $request->is_top
             ]);
 

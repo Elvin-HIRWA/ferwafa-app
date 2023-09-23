@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\DocumentType;
+use App\Models\NewsType;
 use App\Models\Permission;
 use App\Models\Status;
 use Illuminate\Console\Command;
@@ -49,8 +50,22 @@ class CreateDefaultData extends Command
             'competition-manager'
         ];
 
+        $newsTypes = [
+            'National-team-men-senior',
+            'National-team-men-U-23-Olympic',
+            'National-team-men-U-17',
+            'National-team-men-other',
+            'National-team-women-senior',
+            'National-team-women-U-20',
+            'National-team-women-other',
+            'Grassroots-football',
+            'Football-for-schools',
+            'Youth-Development',
+            'other'
+        ];
+
         try {
-            DB::transaction(function () use ($documentTypes, $status, $permissions) {
+            DB::transaction(function () use ($documentTypes, $status, $permissions, $newsTypes) {
 
                 foreach ($documentTypes as $documentType) {
                     $type = DocumentType::where('name', $documentType)->first();
@@ -86,6 +101,19 @@ class CreateDefaultData extends Command
 
                     Permission::create([
                         "name" => $value
+                    ]);
+                }
+
+                foreach ($newsTypes as $value) {
+                    $newsType = NewsType::where('name', $value)->first();
+                    if (!is_null($newsType)) {
+                        dump($newsType);
+                        $this->error("NewsType exist in Database");
+                        return;
+                    }
+
+                    NewsType::create([
+                        'name' => $value
                     ]);
                 }
             });
