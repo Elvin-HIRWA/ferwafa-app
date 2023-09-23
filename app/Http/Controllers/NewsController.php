@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\NewsType;
 use App\Models\NewsUrl;
 use App\Models\Partner;
 use App\Models\Status;
@@ -20,7 +21,7 @@ class NewsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['getNewsImage', 'allNews', 'getNews', 'getSingleNews',]]);
+        $this->middleware('auth', ['except' => ['getNewsImage', 'allNews', 'getNews', 'getSingleNews', 'seniorMen', 'u23', 'u17', 'otherMen']]);
     }
 
     public function postNews(Request $request)
@@ -105,6 +106,155 @@ class NewsController extends Controller
             ["result" => $result]
         );
     }
+
+    public function seniorMen()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 1]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'senior_men_news',
+            ["result" => $result]
+        );
+    }
+
+    public function u23()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 2]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'u23_men_news',
+            ["result" => $result]
+        );
+    }
+
+    public function u17()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 3]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'u17_men_news',
+            ["result" => $result]
+        );
+    }
+
+    public function otherMen()
+    {
+        $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
+                                News AS a
+                                JOIN NewsUrl AS b
+                                ON b.news_id = a.id
+                                JOIN Status AS c
+                                ON a.statusID = c.id
+                                WHERE  c.id = ?
+                                AND
+                                a.newsTypeID = ?
+                                ORDER BY created_at DESC', [1, 4]);
+
+        $result = [];
+
+        foreach ($news as $value) {
+            $fileUrl = explode('/', $value->image_url)[1];
+            $singleNews = [
+                "id" => $value->id,
+                "title" => $value->title,
+                "caption" => $value->caption,
+                "description" => $value->description,
+                "is_top" => $value->is_top,
+                "status" => $value->name,
+                "created_at" => Carbon::parse($value->created_at)->format('d-m-Y'),
+                "updated_at" => Carbon::parse($value->updated_at)->format('d-m-Y'),
+                "image_url" => $fileUrl
+            ];
+            array_push($result, $singleNews);
+        }
+
+        return view(
+            'other_men_news',
+            ["result" => $result]
+        );
+    }
+
     public function getNews()
     {
         $news = DB::select('SELECT a.*,b.image_url,c.name FROM 
@@ -195,10 +345,13 @@ class NewsController extends Controller
         }
         $statuses = Status::all();
 
+        $newsTypes = NewsType::all();
+
         return view('admin.update-news', [
             'result' => $result,
             'url' => $urls,
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'newsTypes' => $newsTypes
         ]);
     }
 
@@ -215,6 +368,7 @@ class NewsController extends Controller
             "description" => "required|string",
             "is_top" => "boolean",
             "statusID" => "required|integer|in:1,2,3",
+            "newsTypeID" => "required|numeric",
             "image" => "required|file|max:5000|mimes:png,jpg,jpeg"
         ]);
 
@@ -230,6 +384,7 @@ class NewsController extends Controller
         $news->description = $request->description;
         $news->is_top = $request->is_top;
         $news->statusID = $request->statusID;
+        $news->newsTypeID = $request->newsTypeID;
         $news->save();
 
         $path = $request->image->store('newsImages');
