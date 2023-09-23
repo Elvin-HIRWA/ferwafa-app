@@ -56,12 +56,9 @@ Route::get('/national-team-women-senior-news', [NewsController::class, 'seniorWo
 Route::get('/national-team-women-u20-news', [NewsController::class, 'u20Women'])->name('u20Women.news');
 Route::get('/national-team-women-other-news', [NewsController::class, 'otherWomen'])->name('otherWomen.news');
 
-
-
-
-
-
-
+Route::get('/development-grassroots-news', [NewsController::class, 'grassroots'])->name('grassroots.news');
+Route::get('/development-schools-news', [NewsController::class, 'schools'])->name('schools.news');
+Route::get('/development-youth-news', [NewsController::class, 'youth'])->name('youth.news');
 
 Route::get('/committe', [CommitteController::class, 'listCommitte'])->name('committe');
 Route::get('/add-committe', [CommitteController::class, 'addMember'])->name('add.committe');

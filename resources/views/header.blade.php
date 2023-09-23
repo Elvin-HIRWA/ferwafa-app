@@ -105,14 +105,14 @@
                                 <!-- <li><a href="#">History</a></li> -->
                             </ul>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#">Other</a>
                             <ul class="sub-current">
                                 <li><a href="#">Results</a></li>
                                 <li><a href="#">Fixtures</a></li>
                                 <li><a href="#">Statistics</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="current">
@@ -134,9 +134,9 @@
                 <li class="current">
                     <a href="">Development</a>
                     <ul class="sub-current">
-                        <li><a href="#">Grassroots Football</a></li>
-                        <li><a href="#">Football for schools</a></li>
-                        <li><a href="#">Youth Development</a></li>
+                        <li><a href="{{ route('grassroots.news') }}">Grassroots Football</a></li>
+                        <li><a href="{{ route('schools.news') }}">Football for schools</a></li>
+                        <li><a href="{{ route('youth.news') }}">Youth Development</a></li>
                     </ul>
                 </li>
                 <li class="current">
@@ -217,14 +217,14 @@
                             <!-- <li><a href="#">History</a></li> -->
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Other</a>
                         <ul class="#">
                             <li><a href="#">Results</a></li>
                             <li><a href="#">Fixtures</a></li>
                             <li><a href="#">Statistics</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li class="javascript:void(0);">
@@ -246,9 +246,9 @@
             <li class="">
                 <a href="">Development</a>
                 <ul class="#">
-                    <li>`<a href="#">Grassroots Football</a></li>
-                    <li><a href="#">Football for schools</a></li>
-                    <li><a href="#">Youth Development</a></li>
+                    <li><a href="{{ route('grassroots.news') }}">Grassroots Football</a></li>
+                    <li><a href="{{ route('schools.news') }}">Football for schools</a></li>
+                    <li><a href="{{ route('youth.news') }}">Youth Development</a></li>
                 </ul>
             </li>
             <li class="">
