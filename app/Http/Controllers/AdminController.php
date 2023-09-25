@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\News;
+use App\Models\NewsType;
 use App\Models\Partner;
 use App\Models\Status;
 use Carbon\Carbon;
@@ -31,8 +32,11 @@ class AdminController extends Controller
 
         $statuses = Status::all();
 
+        $newsTypes = NewsType::all();
+
         return view('admin.create-news', [
-            "statuses" => $statuses
+            "statuses" => $statuses,
+            "newsTypes" => $newsTypes
         ]);
     }
     public function adminView()
