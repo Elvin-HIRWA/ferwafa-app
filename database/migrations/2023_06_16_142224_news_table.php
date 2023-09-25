@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('caption');
-            $table->text('description');
+            $table->longText('description');
             $table->unsignedBigInteger('statusID');
             $table->boolean('is_top')->default(false);
             $table->timestamps();

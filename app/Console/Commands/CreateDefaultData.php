@@ -71,50 +71,46 @@ class CreateDefaultData extends Command
                     $type = DocumentType::where('name', $documentType)->first();
 
                     if (!is_null($type)) {
-                        $this->error("DocumentType exist in Database");
-                        return;
-                    }
+                        continue;
+                    } else {
 
-                    DocumentType::create([
-                        "name" => $documentType
-                    ]);
+                        DocumentType::create([
+                            "name" => $documentType
+                        ]);
+                    }
                 }
 
                 foreach ($status as $value) {
                     $stat = Status::where('name', $value)->first();
                     if (!is_null($stat)) {
-                        $this->error("Status exist in Database");
-                        return;
+                        continue;
+                    } else{
+                        Status::create([
+                            "name" => $value
+                        ]);
                     }
-
-                    Status::create([
-                        "name" => $value
-                    ]);
                 }
 
                 foreach ($permissions as $value) {
                     $permission = Permission::where('name', $value)->first();
                     if (!is_null($permission)) {
-                        $this->error("Permission exist in Database");
-                        return;
+                        continue;
+                    } else {
+                        Permission::create([
+                            "name" => $value
+                        ]);
                     }
-
-                    Permission::create([
-                        "name" => $value
-                    ]);
                 }
 
                 foreach ($newsTypes as $value) {
                     $newsType = NewsType::where('name', $value)->first();
                     if (!is_null($newsType)) {
-                        dump($newsType);
-                        $this->error("NewsType exist in Database");
-                        return;
+                        continue;
+                    } else {
+                        NewsType::create([
+                            'name' => $value
+                        ]);
                     }
-
-                    NewsType::create([
-                        'name' => $value
-                    ]);
                 }
             });
             $this->info('Default Data Inserted successfully');
