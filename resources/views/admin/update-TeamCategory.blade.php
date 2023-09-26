@@ -73,17 +73,17 @@
 
 
 
-    <script src="./assets/js/app.min.js"></script>
+    <script src="{{ asset('assets/js/app.min.js')}}"></script>
     <!-- JS Libraies -->
-    <script src="./assets/bundles/summernote/summernote-bs4.js"></script>
-    <script src="./assets/bundles/codemirror/lib/codemirror.js"></script>
-    <script src="./assets/bundles/codemirror/mode/javascript/javascript.js"></script>
-    <script src="./assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
-    <script src="./assets/bundles/ckeditor/ckeditor.js"></script>
+    <script src="{{ asset('assets/bundles/summernote/summernote-bs4.js')}}"></script>
+    <script src="{{ asset('assets/bundles/codemirror/lib/codemirror.js')}}"></script>
+    <script src="{{ asset('assets/bundles/codemirror/mode/javascript/javascript.js')}}"></script>
+    <script src="{{ asset('assets/bundles/jquery-selectric/jquery.selectric.min.js')}}"></script>
+    <script src="{{ asset('assets/bundles/ckeditor/ckeditor.js')}}"></script>
     <!-- Page Specific JS File -->
-    <script src="./assets/js/page/ckeditor.js"></script>
+    <script src="{{ asset('assets/js/page/ckeditor.js')}}"></script>
     <!-- Template JS File -->
-    <script src="./assets/js/scripts.js"></script>
+    <script src="{{ asset('assets/js/scripts.js')}}"></script>
     <!-- Custom JS File -->
-    <script src="./assets/js/custom.js"></script>
+    <script src="{{ asset('assets/js/custom.js')}}"></script>
 </body>
