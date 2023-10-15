@@ -74,7 +74,11 @@
                         <li>
                             <a href="#">Women</a>
                             <ul class="sub-current">
-                                <li><a href="#">First Division</a></li>
+                                @if($day)
+                                <li><a href="{{ route('fixtures.showWomen', $day->dayID) }}">First Division</a></li>
+                                @else
+                                <li><a href="{{ route('fixtures.showWomen', 1) }}">First Division</a></li>
+                                @endif
                                 <li><a href="#">Second Division</a></li>
                             </ul>
                         </li>
@@ -186,7 +190,11 @@
                     <li>
                         <a href="#">Women</a>
                         <ul class="#">
-                            <li><a href="#">First Division</a></li>
+                            @if($day)
+                            <li><a href="{{ route('fixtures.showWomen', $day->dayID) }}">First Division</a></li>
+                            @else
+                            <li><a href="{{ route('fixtures.showWomen', 1) }}">First Division</a></li>
+                            @endif
                             <li><a href="#">Second Division</a></li>
                         </ul>
                     </li>
