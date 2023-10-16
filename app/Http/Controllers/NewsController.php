@@ -527,7 +527,7 @@ class NewsController extends Controller
             $fileUrl = explode('/', $value->image_url)[1];
             $partner = [
                 "id" => $value->id,
-                "link" => $value->name,
+                "link" => $value->link,
                 "created_at" => $value->created_at,
                 "updataed_at" => $value->updated_at,
                 "url" => $fileUrl
