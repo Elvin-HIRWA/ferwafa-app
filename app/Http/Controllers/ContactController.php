@@ -30,7 +30,7 @@ class ContactController extends Controller
             "content" => "required|string"
         ]);
 
-        Mail::to('theotimecyubahiro@gmail.com')->send(new sendInfo(
+        Mail::to(Env('INFO_EMAIL'))->send(new sendInfo(
             $request->name,
             $request->email,
             $request->subject,
@@ -46,7 +46,7 @@ class ContactController extends Controller
             "message" => "required|string"
         ]);
 
-        Mail::to('theotimecyubahiro@gmail.com')->send(new SendWhistleBlowers(
+        Mail::to(Env('INFO_EMAIL'))->send(new SendWhistleBlowers(
             $request->message
         ));
 
