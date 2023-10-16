@@ -70,7 +70,8 @@ class AdminController extends Controller
                                 JOIN NewsUrl AS b
                                 ON b.news_id = a.id
                                 JOIN Status AS c
-                                ON a.statusID = c.id'
+                                ON a.statusID = c.id
+                                ORDER BY a.id DESC'
         );
 
         $result = [];
