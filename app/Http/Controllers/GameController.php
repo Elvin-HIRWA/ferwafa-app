@@ -39,6 +39,8 @@ class GameController extends Controller
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
             ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->join('TeamCategory', 'homeTeam.categoryID', '=', 'TeamCategory.id')
+            ->where('TeamCategory.name', 'men')
             ->orderBy('Day.id', 'DESC')
             ->orderBy('Game.id', 'DESC')
             ->get();
@@ -49,6 +51,45 @@ class GameController extends Controller
             ->toArray();
 
         return view('admin.games', [
+            'games' => $finalGames
+        ]);
+    }
+
+    public function listGamesWomen()
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $games = DB::table('Game')
+            ->select(
+                'Game.id',
+                'homeTeam.name AS homeTeam',
+                'awayTeam.name AS awayTeam',
+                'Game.stadeName AS stadium',
+                'Game.date',
+                'Game.homeTeamGoals',
+                'Game.awayTeamGoals',
+                'Game.isPlayed',
+                'Day.id AS dayID',
+                'Day.name AS dayName'
+            )
+            ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
+            ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
+            ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->join('TeamCategory', 'homeTeam.categoryID', '=', 'TeamCategory.id')
+            ->where('TeamCategory.name', 'women')
+            ->orderBy('Day.id', 'DESC')
+            ->orderBy('Game.id', 'DESC')
+            ->get();
+
+        $finalGames = collect($games)->map(fn ($item) => (array) $item)
+            ->groupBy("dayID")
+            ->values()
+            ->toArray();
+
+        return view('admin.women-games', [
             'games' => $finalGames
         ]);
     }

@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Available Men Fixtures</h4>
+                            <h4>Available Women Fixtures</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -38,46 +38,49 @@
                             </div>
                         </div>
                         @if (session()->has('error'))
-                        <div class="badge badge-danger">
-                            {{ session()->get('error') }}
-                        </div>
+                            <div class="badge badge-danger">
+                                {{ session()->get('error') }}
+                            </div>
                         @endif
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 @foreach ($games as $data)
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th style="text-align: center; background-color:#133E8D; color:white" colspan="9">{{ $data[0]['dayName'] }}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Home Team</th>
-                                        <th>Away Team</th>
-                                        <th>Stade</th>
-                                        <th>Date</th>
-                                        <th>Home Team Goals</th>
-                                        <th>Away Team Goals</th>
-                                        <th colspan="2">Action</th>
-                                    </tr>
-                                    @foreach ($data as $key => $game)
-                                    <tr @if ($game['isPlayed']) style='font-weight: bold' @endif>
-                                        <td class="text-truncate">{{ $key + 1 }}</td>
-                                        <td> {{ $game['homeTeam'] }}</td>
-                                        <td>{{ $game['awayTeam'] }} </td>
-                                        <td> {{ $game['stadium'] }}</td>
-                                        <td> {{ $game['date'] }}</td>
-                                        <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
-                                        <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
-                                        <td>
-                                            <a href="{{ route('game.page.edit', $game['id']) }}" class="btn btn-outline-primary">Add Scores</a>
+                                    <table class="table table-striped">
+                                        <tr><th style="text-align: center; background-color:#133E8D; color:white" colspan="9">{{ $data[0]['dayName'] }}</th></tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Home Team</th>
+                                            <th>Away Team</th>
+                                            <th>Stade</th>
+                                            <th>Date</th>
+                                            <th>Home Team Goals</th>
+                                            <th>Away Team Goals</th>
+                                            <th colspan="2">Action</th>
+                                        </tr>
+                                        @foreach ($data as $key => $game)
+                                            <tr @if ($game['isPlayed'])
+                                                style='font-weight: bold'
+                                            @endif>
+                                                <td class="text-truncate">{{ $key + 1 }}</td>
+                                                <td> {{ $game['homeTeam'] }}</td>
+                                                <td>{{ $game['awayTeam'] }} </td>
+                                                <td> {{ $game['stadium'] }}</td>
+                                                <td> {{ $game['date'] }}</td>
+                                                <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
+                                                <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
+                                                <td>
+                                                    <a href="{{ route('game.page.edit', $game['id']) }}"
+                                                        class="btn btn-outline-primary">Add Scores</a>
 
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $game['id'] }}">Delete</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </table>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger delete-game"
+                                                        data-toggle="modal" data-target="#confirmDeleteModal"
+                                                        data-game-id="{{ $game['id'] }}">Delete</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
                                 @endforeach
                             </div>
                         </div>
@@ -87,7 +90,8 @@
         </section>
     </div>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
