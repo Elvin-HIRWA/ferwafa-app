@@ -6,6 +6,7 @@ use App\Models\Day;
 use App\Models\Game;
 use App\Models\Season;
 use App\Models\Team;
+use App\Models\TeamCategory;
 use App\Models\TeamStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -38,16 +39,57 @@ class GameController extends Controller
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
             ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->join('TeamCategory', 'homeTeam.categoryID', '=', 'TeamCategory.id')
+            ->where('TeamCategory.name', 'men')
             ->orderBy('Day.id', 'DESC')
             ->orderBy('Game.id', 'DESC')
             ->get();
 
-        $finalGames = collect($games)->map(fn($item) => (array) $item)
-              ->groupBy("dayID")
-              ->values()
-              ->toArray();    
-        
+        $finalGames = collect($games)->map(fn ($item) => (array) $item)
+            ->groupBy("dayID")
+            ->values()
+            ->toArray();
+
         return view('admin.games', [
+            'games' => $finalGames
+        ]);
+    }
+
+    public function listGamesWomen()
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $games = DB::table('Game')
+            ->select(
+                'Game.id',
+                'homeTeam.name AS homeTeam',
+                'awayTeam.name AS awayTeam',
+                'Game.stadeName AS stadium',
+                'Game.date',
+                'Game.homeTeamGoals',
+                'Game.awayTeamGoals',
+                'Game.isPlayed',
+                'Day.id AS dayID',
+                'Day.name AS dayName'
+            )
+            ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
+            ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
+            ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->join('TeamCategory', 'homeTeam.categoryID', '=', 'TeamCategory.id')
+            ->where('TeamCategory.name', 'women')
+            ->orderBy('Day.id', 'DESC')
+            ->orderBy('Game.id', 'DESC')
+            ->get();
+
+        $finalGames = collect($games)->map(fn ($item) => (array) $item)
+            ->groupBy("dayID")
+            ->values()
+            ->toArray();
+
+        return view('admin.women-games', [
             'games' => $finalGames
         ]);
     }
@@ -100,6 +142,22 @@ class GameController extends Controller
 
         if ($request->homeTeamID == $request->awayTeamID) {
             return redirect('/games')->with('error', 'choose different Teams');
+        }
+
+        $category1 = DB::table('TeamCategory AS a')
+            ->join('Team AS b', 'b.categoryID', '=', 'a.id')
+            ->select('a.name')
+            ->where('b.id', $request->homeTeamID)
+            ->first();
+
+        $category2 = DB::table('TeamCategory AS a')
+            ->join('Team AS b', 'b.categoryID', '=', 'a.id')
+            ->select('a.name')
+            ->where('b.id', $request->awayTeamID)
+            ->first();
+
+        if ($category1 != $category2) {
+            return redirect('/games')->with('error', 'choose  Teams with the same category');
         }
 
         if (now() > $request->date) {
@@ -297,6 +355,22 @@ class GameController extends Controller
 
         if (!$game) {
             return redirect()->back()->with('error', 'Game not found');
+        }
+
+        $category1 = DB::table('TeamCategory AS a')
+            ->join('Team AS b', 'b.categoryID', '=', 'a.id')
+            ->select('a.name')
+            ->where('b.id', $request->homeTeamID)
+            ->first();
+
+        $category2 = DB::table('TeamCategory AS a')
+            ->join('Team AS b', 'b.categoryID', '=', 'a.id')
+            ->select('a.name')
+            ->where('b.id', $request->awayTeamID)
+            ->first();
+
+        if ($category1 != $category2) {
+            return redirect('/games')->with('error', 'choose  Teams with the same category');
         }
 
         $game->homeTeamID = $request->homeTeamID;

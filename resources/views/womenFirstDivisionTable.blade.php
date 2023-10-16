@@ -66,15 +66,15 @@
                                     <div class="col-12 col-md-12 card-header text-center">
                                         <ul class="menus">
                                             @if($days)
-                                            <li><a href="{{ route('fixtures.show', $days->dayID) }}">Results &
+                                            <li><a href="{{ route('fixtures.showWomen', $days->dayID) }}">Results &
                                                     Fixtures</a>
                                             </li> /
                                             @else
-                                            <li><a href="{{ route('fixtures.show', 1) }}">Results &
+                                            <li><a href="{{ route('fixtures.showWomen', 1) }}">Results &
                                                     Fixtures</a>
                                             </li> /
                                             @endif
-                                            <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
+                                            <li><a href="{{ route('women.first-division-table') }}">Standing</a></li>
                                         </ul>
                                     </div>
                                     <div class="row m-0">

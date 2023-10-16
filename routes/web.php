@@ -186,6 +186,10 @@ Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('de
 
 
 Route::get('/games', [GameController::class, 'listGames'])->name('fixtures');
+
+Route::get('/games-women', [GameController::class, 'listGamesWomen'])->name('fixtures.women');
+
+
 Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
 Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
 Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
@@ -196,4 +200,8 @@ Route::get('/edit-fixture/{id}', [GameController::class, 'updateFixture'])->name
 
 Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 
+Route::get('/women-first-division-table', [CompetitionController::class, 'womenFirstDivisionTable'])->name('women.first-division-table');
+
 Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');
+
+Route::get('/women-first-division/day/{id}', [CompetitionController::class, 'showWomen'])->name('fixtures.showWomen');

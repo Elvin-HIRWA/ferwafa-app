@@ -38,33 +38,24 @@
             <h3 class="main-report-title">Circular</h3>
             <div class="report-container">
                 @foreach ($circularDocuments as $circularDocument)
-                    <div class="report">
-                        <div class="report-image">
-                            <a><img alt="" src="/static/img/icons/document.png" /></a>
-                            <a><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
-                        </div>
-                        <div class="report-title">
-                            <a href="{{ route('report.doc', $circularDocument['url']) }}" target="_blank">
-                                <p>{{ $circularDocument['title'] }}</p>
-                            </a>
-                        </div>
+                <div class="report">
+                    <div class="report-image">
+                        <a><img alt="" src="/static/img/icons/document.png" /></a>
+                        <a><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
                     </div>
+                    <div class="report-title">
+                        @php
+                        $fileUrl = explode('/', $circularDocument->url)[1];
+                        @endphp
+                        <a href="{{ route('report.doc', $fileUrl) }}" target="_blank">
+                            <p>{{ $circularDocument->title }}</p>
+                        </a>
+                    </div>
+                </div>
                 @endforeach
             </div>
             <div class="pagination">
-                <ul>
-                    <li class="arrow-pagination">
-                        <a href="#!"><img alt="" src="/static/img/icons/arrow-left.png" /></a>
-                    </li>
-                    <li><a href="#!">1</a></li>
-                    <li><a href="#!">2</a></li>
-                    <li><a href="#!">3</a></li>
-                    <li><a href="#!">4</a></li>
-                    <li><a href="#!">5</a></li>
-                    <li class="arrow-pagination">
-                        <a href="#!"><img alt="" src="/static/img/icons/arrow-right.png" /></a>
-                    </li>
-                </ul>
+                {{ $circularDocuments->links('pagination::bootstrap-4') }}
             </div>
         </section>
         @include('footer')

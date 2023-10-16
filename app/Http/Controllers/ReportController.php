@@ -89,30 +89,13 @@ class ReportController extends Controller
     public function get()
     {
 
-        $reports = DB::select(
-            'SELECT a.* FROM
-                        Document AS a 
-                        JOIN DocumentType AS b
-                        ON a.type_id = b.id
-                        WHERE b.name = ?',
-            ['report']
-        );
+        $reports = DB::table('Document AS a')
+            ->join('DocumentType AS b', 'a.type_id', '=', 'b.id')
+            ->select('a.*')
+            ->where('b.name', 'report')
+            ->paginate(10);
 
-        $finalReport = [];
-
-        foreach ($reports as $value) {
-            $fileUrl = explode('/', $value->url)[1];
-            $report = [
-                "id" => $value->id,
-                "title" => $value->title,
-                "created_at" => $value->created_at,
-                "updataed_at" => $value->updated_at,
-                "url" => $fileUrl
-            ];
-            array_push($finalReport, $report);
-        }
-
-        return view('report', ['reports' => $finalReport]);
+        return view('report', ['reports' => $reports]);
     }
 
     public function getSingle($id)
@@ -181,6 +164,7 @@ class ReportController extends Controller
 
         $report->title = $request->title;
         $report->url = $path;
+        $report->type_id = $request->typeID;
         $report->save();
 
         return redirect('/report-view')
