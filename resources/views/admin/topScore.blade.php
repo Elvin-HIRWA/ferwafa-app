@@ -2,13 +2,13 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/app.min.css">
+    <link rel="stylesheet" href="{{asset("assets/css/app.min.css")}}">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/css/components.css")}}">
     <!-- Custom style CSS -->
-    <link rel="stylesheet" href="./assets/css/custom.css">
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
+    <link href="{{asset("static/img/federation/ferwafa.png")}}" rel="shortcut icon" />
     <title>Ferwafa</title>
 </head>
 
@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.top-score') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.top-score', request()->route('categoryID')) }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Top Score
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,10 +54,10 @@
                                         <td>{{ $topScore["goals"] }}</td>
                                         <td>{{ $topScore["teamName"] }}</td>
                                         <td>
-                                            <a href="{{ route('top-score.page.edit', $topScore['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                            <a href="{{ route('top-score.page.edit', [request()->route('categoryID'), $topScore['id']]) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete.top-score', $topScore['id']) }}" method="POST">
+                                            <form action="{{ route('delete.top-score', [request()->route('categoryID'), $topScore['id']]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
@@ -73,11 +73,11 @@
             </div>
         </section>
     </div>
-    <script type="module" src="/src/main.js"></script>
-    <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/custom.js"></script>
+    <script type="module" src="{{asset("src/main.js")}}"></script>
+    <script src="{{asset("assets/js/app.min.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
 
 </body>

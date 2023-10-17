@@ -56,6 +56,9 @@
                 </div>
             </div>
         </div>
+        @php
+            $categoryID = 1;
+        @endphp
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
@@ -65,10 +68,10 @@
                                 <div class="col-12 col-md-12 col-lg-12 p-0">
                                     <div class="col-12 col-md-12 card-header text-center">
                                         <ul class="menus">
-                                            <li><a href="{{ route('fixtures.show', $days->dayID) }}">Results &
+                                            <li><a href="{{ route('fixtures.show',[$categoryID, $days->dayID]) }}">Results &
                                                     Fixtures</a>
                                             </li> /
-                                            <li><a href="{{ route('men.first-division-table') }}">Standing</a></li>
+                                            <li><a href="{{ route('men.first-division-table', $categoryID) }}">Standing</a></li>
                                         </ul>
                                     </div>
                                     <div class="row m-0">
@@ -117,7 +120,7 @@
                                 <div class="col-12 col-md-12 col-lg-12 p-0">
                                     <div class="col-12 col-md-12 card-header text-center">
                                         <ul class="menus">
-                                            <li><a>Top Scores</a></li>
+                                            <li><a>{{$categoryName}} Top Scores</a></li>
                                         </ul>
                                     </div>
                                     <div class="row m-0">

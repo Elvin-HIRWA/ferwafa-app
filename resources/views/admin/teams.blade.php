@@ -2,13 +2,13 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/app.min.css">
+    <link rel="stylesheet" href="{{asset("assets/css/app.min.css")}}">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/css/components.css")}}">
     <!-- Custom style CSS -->
-    <link rel="stylesheet" href="./assets/css/custom.css">
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
+    <link href="{{asset("static/img/federation/ferwafa.png")}}" rel="shortcut icon" />
     <title>Ferwafa</title>
 </head>
 
@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.team') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.team', request()->route('categoryID')) }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Team
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -72,7 +72,7 @@
                                         <td>{{ $team['name'] }}</a> </td>
                                         <td>{{ $team['category'] }}</a> </td>
                                         <td>
-                                            <a href="{{ route('team.page.edit', $team['id']) }}" class="btn btn-outline-primary">Edit</a>
+                                            <a href="{{ route('team.page.edit',[request()->route('categoryID'), $team['id']]) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $team['id'] }}">Delete</button>
@@ -109,12 +109,12 @@
     </div>
 
 
-    <script type="module" src="/src/main.js"></script>
-    <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/custom.js"></script>
+    <script type="module" src="{{asset("src/main.js")}}"></script>
+    <script src="{{asset("assets/js/app.min.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
     <script>
         $(document).ready(function() {
             $('.delete-game').click(function() {

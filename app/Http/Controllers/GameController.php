@@ -6,6 +6,7 @@ use App\Models\Day;
 use App\Models\Game;
 use App\Models\Season;
 use App\Models\Team;
+use App\Models\TeamCategory;
 use App\Models\TeamStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,11 +16,17 @@ use Illuminate\Support\Facades\Gate;
 
 class GameController extends Controller
 {
-    public function listGames()
+    public function listGames($categoryID)
     {
+        $teamCategory = TeamCategory::where('id', $categoryID)->first();
+        
+        if (is_null($teamCategory)) {
+            return redirect('/')
+                ->with('error', 'Team category not found');
+        }
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
-            return redirect('/');
+            return redirect("/games/$categoryID");
         }
 
         $games = DB::table('Game')
@@ -38,6 +45,8 @@ class GameController extends Controller
             ->join('Team as homeTeam', 'Game.homeTeamID', '=', 'homeTeam.id')
             ->join('Team as awayTeam', 'Game.awayTeamID', '=', 'awayTeam.id')
             ->join('Day', 'Game.dayID', '=', 'Day.id')
+            ->where('homeTeam.categoryID', $categoryID)
+            ->where('awayTeam.categoryID', $categoryID)
             ->orderBy('Day.id', 'DESC')
             ->orderBy('Game.id', 'DESC')
             ->get();
@@ -52,28 +61,35 @@ class GameController extends Controller
         ]);
     }
 
-    public function addGame()
+    public function addGame($categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
 
+        $teamCategory = TeamCategory::where('id', $categoryID)->first();
+        
+        if (is_null($teamCategory)) {
+            return redirect('/')
+                ->with('error', 'Team category not found');
+        }
+
         $seasonID = Season::orderBy('created_at', 'DESC')->first();
 
         if (is_null($seasonID)) {
-            return redirect('/games')->with('error', 'create season first');
+            return redirect("/games/$categoryID")->with('error', 'create season first');
         }
-        $teams = Team::all()->toArray();
+        $teams = Team::where('categoryID', $categoryID)->get()->toArray();
 
         if (empty($teams)) {
-            return redirect('/games')->with('error', 'create teams first');
+            return redirect("/games/$categoryID")->with('error', 'create teams first');
         }
 
         $days = Day::where('seasonID', $seasonID->id)->get();
 
         if (is_null($days)) {
-            return redirect('/games')->with('error', 'create day first');
+            return redirect("/games/$categoryID")->with('error', 'create day first');
         }
 
         return view('admin.create-game', [
@@ -83,7 +99,7 @@ class GameController extends Controller
         ]);
     }
 
-    public function createGame(Request $request)
+    public function createGame($categoryID, Request $request)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -99,12 +115,12 @@ class GameController extends Controller
         ]);
 
         if ($request->homeTeamID == $request->awayTeamID) {
-            return redirect('/games')->with('error', 'choose different Teams');
+            return redirect("/games/$categoryID")->with('error', 'choose different Teams');
         }
 
-        if (now() > $request->date) {
-            return redirect('/games')->with('error', 'date is invalid you need to select future dates');
-        }
+        // if (now() > $request->date) {
+        //     return redirect("/games/$categoryID")->with('error', 'date is invalid you need to select future dates');
+        // }
 
         try {
             DB::transaction(function () use ($request) {
@@ -135,14 +151,14 @@ class GameController extends Controller
                 ]);
             });
 
-            return redirect('/games')
+            return redirect("/games/$categoryID")
                 ->with('message', 'Game added successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('something wrong');
         }
     }
 
-    public function addMatchResult($id)
+    public function addMatchResult($categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -172,7 +188,7 @@ class GameController extends Controller
         ]);
     }
 
-    public function createMatchResult(Request $request, $gameID)
+    public function createMatchResult($categoryID, Request $request, $gameID)
     {
         $request->validate([
             "homeTeamID" => "required|integer",
@@ -229,7 +245,7 @@ class GameController extends Controller
                 $awayTeam->save();
                 $game->save();
             });
-            return redirect('/games')->with('message', 'Result Added successfully');
+            return redirect("/games/$categoryID")->with('message', 'Result Added successfully');
         } catch (\Exception $exception) {
 
             return \response()->json(
@@ -277,7 +293,7 @@ class GameController extends Controller
         ]);
     }
 
-    public function updateGame(Request $request, $id)
+    public function updateGame($categoryID, Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -306,7 +322,7 @@ class GameController extends Controller
         $game->dayID = $request->dayID;
         $game->save();
 
-        return redirect('/games')
+        return redirect("/games/$categoryID")
             ->with('message', 'updated successfully');
     }
 
@@ -328,7 +344,7 @@ class GameController extends Controller
                 TeamStatistic::where('gameID', $game->id)->delete();
                 Game::where('id', $game->id)->delete();
             });
-            return redirect('/games')
+            return redirect("/games/1")
                 ->with('message', 'deleted successfully');
         } catch (\Exception $exception) {
             return \response()->json(

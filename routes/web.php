@@ -154,12 +154,12 @@ Route::delete('/delete-season/{id}', [SeasonController::class, 'deleteSeason'])-
 // Route::put('/update-season/{id}', [SeasonController::class, 'updateSeason'])->name('update.season');
 // Route::get('/edit-season/{id}', [SeasonController::class, 'editSeason'])->name('season.page.edit');
 
-Route::get('/top-score', [TopScoreController::class, 'listTopScore'])->name('top-score');
-Route::get('/add-top-score', [TopScoreController::class, 'addTopScore'])->name('add.top-score');
-Route::post('/create-top-score', [TopScoreController::class, 'createTopScore'])->name('create.top-score');
-Route::delete('/delete-top-score/{id}', [TopScoreController::class, 'deleteTopScore'])->name('delete.top-score');
-Route::put('/update-top-score/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
-Route::get('/edit-top-score/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
+Route::get('/top-score/{categoryID}', [TopScoreController::class, 'listTopScore'])->name('top-score');
+Route::get('/add-top-score/{categoryID}', [TopScoreController::class, 'addTopScore'])->name('add.top-score');
+Route::post('/create-top-score/{categoryID}', [TopScoreController::class, 'createTopScore'])->name('create.top-score');
+Route::delete('/delete-top-score/{categoryID}/{id}', [TopScoreController::class, 'deleteTopScore'])->name('delete.top-score');
+Route::put('/update-top-score/{categoryID}/{id}', [TopScoreController::class, 'updateTopScore'])->name('update.top-score');
+Route::get('/edit-top-score/{categoryID}/{id}', [TopScoreController::class, 'editTopScore'])->name('top-score.page.edit');
 
 Route::get('/team-category', [TeamCategoryController::class, 'listTeamCategory'])->name('team-category');
 Route::get('/add-team-category', [TeamCategoryController::class, 'addTeamCategory'])->name('add.team-category');
@@ -169,12 +169,12 @@ Route::put('/update-team-category/{id}', [TeamCategoryController::class, 'update
 Route::get('/edit-team-category/{id}', [TeamCategoryController::class, 'editTeamCategory'])->name('team-category.page.edit');
 
 
-Route::get('/team', [TeamController::class, 'listTeam'])->name('team');
-Route::get('/add-team', [TeamController::class, 'addTeam'])->name('add.team');
-Route::post('/create-team', [TeamController::class, 'createTeam'])->name('create.team');
+Route::get('/team/{categoryID}', [TeamController::class, 'listTeam'])->name('team');
+Route::get('/add-team/{categoryID}', [TeamController::class, 'addTeam'])->name('add.team');
+Route::post('/create-team/{categoryID}', [TeamController::class, 'createTeam'])->name('create.team');
 Route::delete('/delete-team/{id}', [TeamController::class, 'deleteTeam'])->name('delete.team');
-Route::put('/update-team/{id}', [TeamController::class, 'updateTeam'])->name('update.team');
-Route::get('/edit-team/{id}', [TeamController::class, 'editTeam'])->name('team.page.edit');
+Route::put('/update-team/{categoryID}/{id}', [TeamController::class, 'updateTeam'])->name('update.team');
+Route::get('/edit-team/{categoryID}/{id}', [TeamController::class, 'editTeam'])->name('team.page.edit');
 Route::get('/team-doc/{fileName}', [TeamController::class, 'getTeamImageDoc'])->name('team.doc');
 
 
@@ -185,15 +185,15 @@ Route::post('/create-day', [DayController::class, 'createDay'])->name('create.da
 Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->name('delete.day.season');
 
 
-Route::get('/games', [GameController::class, 'listGames'])->name('fixtures');
-Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
-Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
-Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
+Route::get('/games/{categoryID}', [GameController::class, 'listGames'])->name('fixtures');
+Route::get('/add-game/{categoryID}', [GameController::class, 'addGame'])->name('add.game');
+Route::get('/edit-game/{categoryID}/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
+Route::post('/create-game/{categoryID}', [GameController::class, 'createGame'])->name('create.game');
 Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
-Route::put('/add-result/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
-Route::put('/update-fixture/{id}', [GameController::class, 'updateGame'])->name('update.fixture');
+Route::put('/add-result/{categoryID}/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
+Route::put('/update-fixture/{categoryID}/{id}', [GameController::class, 'updateGame'])->name('update.fixture');
 Route::get('/edit-fixture/{id}', [GameController::class, 'updateFixture'])->name('game.fixture.edit');
 
-Route::get('/men-first-division-table', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
+Route::get('/men-first-division-table/{categoryID}', [CompetitionController::class, 'menFirstDivisionTable'])->name('men.first-division-table');
 
-Route::get('/men-first-division/day/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');
+Route::get('/men-first-division/day/{categoryID}/{id}', [CompetitionController::class, 'show'])->name('fixtures.show');
