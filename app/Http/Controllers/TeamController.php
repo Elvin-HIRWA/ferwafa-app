@@ -21,7 +21,7 @@ class TeamController extends Controller
     }
 
 
-    public function addTeam()
+    public function addTeam($categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -31,7 +31,7 @@ class TeamController extends Controller
         $teamCategory = TeamCategory::all()->toArray();
 
         if (empty($teamCategory)) {
-            return redirect('/team')
+            return redirect("/team/$categoryID")
                 ->with('error', 'Create Team Category first');
         }
 
@@ -40,7 +40,7 @@ class TeamController extends Controller
         ]);
     }
 
-    public function createTeam(Request $request)
+    public function createTeam($categoryID, Request $request)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -61,7 +61,7 @@ class TeamController extends Controller
             "logo" => $path
         ]);
 
-        return redirect('/team')
+        return redirect("/team/$categoryID")
             ->with('message', 'Member is added successfully');
     }
 
@@ -73,7 +73,7 @@ class TeamController extends Controller
         }
     }
 
-    public function listTeam()
+    public function listTeam($categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -83,6 +83,7 @@ class TeamController extends Controller
         $teams = DB::table("Team AS a")
             ->join("TeamCategory AS b", "a.categoryID", "=", "b.id")
             ->select(["a.id", "a.name", "a.logo", "b.name AS category"])
+            ->where('categoryID', $categoryID)
             ->orderBy('name', 'asc')
             ->get();
 
@@ -104,7 +105,7 @@ class TeamController extends Controller
         ]);
     }
 
-    public function editTeam($id)
+    public function editTeam($categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -124,7 +125,7 @@ class TeamController extends Controller
     }
 
 
-    public function updateTeam(Request $request, $id)
+    public function updateTeam($categoryID, Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -152,7 +153,7 @@ class TeamController extends Controller
         $team->categoryID = $request->categoryID;
         $team->save();
 
-        return redirect('/team')
+        return redirect("/team/$categoryID")
             ->with('message', 'updated successfully');
     }
 

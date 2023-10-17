@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\Validator;
 
 class TopScoreController extends Controller
 {
-    public function addTopScore()
+    public function addTopScore($categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
 
-        $teams = Team::all()->toArray();
+        $teams = Team::where('categoryID', $categoryID)->get()->toArray();
 
         if (empty($teams)) {
-            return redirect('/games')->with('error', 'create teams first');
+            return redirect("/games/$categoryID")->with('error', 'create teams first');
         }
 
         return view('admin.create-topScore', [
@@ -31,7 +31,7 @@ class TopScoreController extends Controller
         ]);
     }
 
-    public function createTopScore(Request $request)
+    public function createTopScore($categoryID, Request $request)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -47,7 +47,7 @@ class TopScoreController extends Controller
         $team = Team::where('id', $request->teamID)->first();
 
         if (is_null($team)) {
-            return redirect('/games')->with('error', 'team Not Found');
+            return redirect("/games/$categoryID")->with('error', 'team Not Found');
         }
 
         TopScore::create([
@@ -56,7 +56,7 @@ class TopScoreController extends Controller
             "teamName" => $team->name
         ]);
 
-        return redirect('/top-score')
+        return redirect("/top-score/$categoryID")
             ->with('message', 'Member is added successfully');
     }
 
@@ -68,25 +68,32 @@ class TopScoreController extends Controller
         }
     }
 
-    public function listTopScore()
+    public function listTopScore($categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
 
+        $teams = Team::where('categoryID', $categoryID)->get()->toArray();
+
         $topScores = TopScore::orderBy('goals', 'DESC')->get();
 
         $finalTopScores = [];
 
         foreach ($topScores as $value) {
-            $topScore = [
-                "id" => $value->id,
-                "name" => $value->name,
-                "goals" => $value->goals,
-                "teamName" => $value->teamName
-            ];
-            array_push($finalTopScores, $topScore);
+            foreach($teams as $team){
+                if($team["name"] === $value->teamName){
+                    $topScore = [
+                        "id" => $value->id,
+                        "name" => $value->name,
+                        "goals" => $value->goals,
+                        "teamName" => $value->teamName
+                    ];
+                    array_push($finalTopScores, $topScore);
+                }
+            }
+
         }
 
         return view('admin.topScore', [
@@ -94,7 +101,7 @@ class TopScoreController extends Controller
         ]);
     }
 
-    public function editTopScore($id)
+    public function editTopScore($categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -106,10 +113,10 @@ class TopScoreController extends Controller
             return redirect()->back()->with('failed', 'TopScore not found');
         }
 
-        $teams = Team::all()->toArray();
+        $teams = Team::where('categoryID', $categoryID)->get()->toArray();
 
         if (empty($teams)) {
-            return redirect('/games')->with('error', 'create teams first');
+            return redirect("/games/$categoryID")->with('error', 'create teams first');
         }
 
         return view('admin.update-topScore', [
@@ -119,7 +126,7 @@ class TopScoreController extends Controller
     }
 
 
-    public function updateTopScore(Request $request, $id)
+    public function updateTopScore($categoryID, Request $request, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -142,7 +149,7 @@ class TopScoreController extends Controller
         $team = Team::where('id', $request->teamID)->first();
 
         if (is_null($team)) {
-            return redirect('/games')->with('error', 'team Not Found');
+            return redirect("/games/$categoryID")->with('error', 'team Not Found');
         }
 
         $topScore->name = $request->name;
@@ -150,12 +157,12 @@ class TopScoreController extends Controller
         $topScore->teamName = $team->name;
         $topScore->save();
 
-        return redirect('/top-score')
+        return redirect("/top-score/$categoryID")
             ->with('message', 'updated successfully');
     }
 
 
-    public function deleteTopScore($id)
+    public function deleteTopScore($categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -170,7 +177,7 @@ class TopScoreController extends Controller
 
         $topScore->delete();
 
-        return redirect('/top-score')
+        return redirect("/top-score/$categoryID")
             ->with('message', 'deleted successfully');
     }
 }

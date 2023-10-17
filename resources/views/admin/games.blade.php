@@ -2,13 +2,13 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/app.min.css">
+    <link rel="stylesheet" href="{{asset("assets/css/app.min.css")}}">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/css/components.css")}}">
     <!-- Custom style CSS -->
-    <link rel="stylesheet" href="./assets/css/custom.css">
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
+    <link href="{{asset("static/img/federation/ferwafa.png")}}" rel="shortcut icon" />
     <title>Ferwafa</title>
 </head>
 
@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.game') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.game', request()->route('categoryID')) }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Match
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -69,7 +69,7 @@
                                                 <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
                                                 <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
                                                 <td>
-                                                    <a href="{{ route('game.page.edit', $game['id']) }}"
+                                                    <a href="{{ route('game.page.edit',[request()->route('categoryID'), $game['id']]) }}"
                                                         class="btn btn-outline-primary">Add Scores</a>
 
                                                 </td>
@@ -101,7 +101,7 @@
                     Are you sure you want to delete this Game?
                 </div>
                 <div class="modal-footer">
-                    <form id="deleteGameForm" method="POST" action="{{ route('delete.game', 0) }}">
+                    <form id="deleteGameForm" method="DELETE" action="{{ route('delete.game', 0) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -113,12 +113,12 @@
 
 
 
-    <script type="module" src="/src/main.js"></script>
-    <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/custom.js"></script>
+    <script type="module" src="{{asset("src/main.js")}}"></script>
+    <script src="{{asset("assets/js/app.min.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
     <script>
         $(document).ready(function() {
             $('.delete-game').click(function() {

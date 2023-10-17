@@ -10,17 +10,17 @@
     <title>Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom style CSS -->
-    <link rel="stylesheet" href="./assets/css/custom.css">
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
+    <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
+    <link href="{{asset("static/img/federation/ferwafa.png")}}" rel="shortcut icon" />
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="./assets/css/app.min.css">
-    <link rel="stylesheet" href="./assets/bundles/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="./assets/bundles/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="./assets/bundles/codemirror/theme/duotone-dark.css">
-    <link rel="stylesheet" href="./assets/bundles/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="{{asset("assets/css/app.min.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bundles/summernote/summernote-bs4.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bundles/codemirror/lib/codemirror.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bundles/codemirror/theme/duotone-dark.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bundles/jquery-selectric/selectric.css")}}">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/css/components.css")}}">
 </head>
 
 <body>
@@ -31,14 +31,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Season</h4>
+                            <h4>Create Top Score {{request()->route('categoryID')}}</h4>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form method="POST" action="{{ route('create.top-score') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('create.top-score',[request()->route('categoryID')]) }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">names</label>
@@ -99,17 +99,17 @@
 
 
 
-    <script src="./assets/js/app.min.js"></script>
+    <script src="{{asset("assets/js/app.min.js")}}"></script>
     <!-- JS Libraies -->
-    <script src="./assets/bundles/summernote/summernote-bs4.js"></script>
-    <script src="./assets/bundles/codemirror/lib/codemirror.js"></script>
-    <script src="./assets/bundles/codemirror/mode/javascript/javascript.js"></script>
-    <script src="./assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
-    <script src="./assets/bundles/ckeditor/ckeditor.js"></script>
+    <script src="{{asset("assets/bundles/summernote/summernote-bs4.js")}}"></script>
+    <script src="{{asset("assets/bundles/codemirror/lib/codemirror.js")}}"></script>
+    <script src="{{asset("assets/bundles/codemirror/mode/javascript/javascript.js")}}"></script>
+    <script src="{{asset("assets/bundles/jquery-selectric/jquery.selectric.min.js")}}"></script>
+    <script src="{{asset("assets/bundles/ckeditor/ckeditor.js")}}"></script>
     <!-- Page Specific JS File -->
-    <script src="./assets/js/page/ckeditor.js"></script>
+    <script src="{{asset("assets/js/page/ckeditor.js")}}"></script>
     <!-- Template JS File -->
-    <script src="./assets/js/scripts.js"></script>
+    <script src="{{asset("assets/js/scripts.js")}}"></script>
     <!-- Custom JS File -->
-    <script src="./assets/js/custom.js"></script>
+    <script src="{{asset("assets/js/custom.js")}}"></script>
 </body>

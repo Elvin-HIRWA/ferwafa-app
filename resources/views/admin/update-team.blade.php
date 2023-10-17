@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form method="POST" action="{{ route('update.team',$team->id) }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('update.team',[request()->route('categoryID'), $team->id]) }}" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group row mb-4">
