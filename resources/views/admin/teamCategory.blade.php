@@ -48,7 +48,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th colspan="2">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                     @foreach ($teamCategorys as $key => $teamCategory)
                                     <tr>
@@ -57,9 +57,9 @@
                                         <td>
                                             <a href="{{ route('team-category.page.edit', $teamCategory['id']) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $teamCategory['id'] }}">Delete</button>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </table>

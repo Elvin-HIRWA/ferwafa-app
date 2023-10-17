@@ -33,6 +33,11 @@
 
 <body>
     {{-- <div class="loader"></div> --}}
+    @php
+        $competions = DB::table('TeamCategory')
+            ->select('id', 'name')
+            ->get();
+    @endphp
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
@@ -148,24 +153,24 @@
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="mail"></i><span>Teams</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="{{ route('team', 1) }}">Men</a></li>
-                                    <li><a class="nav-link" href="{{ route('team', 2) }}">Women</a></li>
+                                    <li><a class="nav-link" href="{{ route('team', $competions[0]->id) }}">Men</a></li>
+                                    <li><a class="nav-link" href="{{ route('team', $competions[1]->id) }}">Women</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="mail"></i><span>Fixtures</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="{{ route('fixtures', 1) }}">Men</a></li>
-                                    <li><a class="nav-link" href="{{ route('fixtures', 2) }}">Women</a></li>
+                                    <li><a class="nav-link" href="{{ route('fixtures', $competions[0]->id) }}">Men</a></li>
+                                    <li><a class="nav-link" href="{{ route('fixtures', $competions[1]->id) }}">Women</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="mail"></i><span>Top Scores</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="{{ route('top-score', 1) }}">Men</a></li>
-                                    <li><a class="nav-link" href="{{ route('top-score', 2) }}">Women</a></li>
+                                    <li><a class="nav-link" href="{{ route('top-score', $competions[0]->id) }}">Men</a></li>
+                                    <li><a class="nav-link" href="{{ route('top-score', $competions[1]->id) }}">Women</a></li>
                                 </ul>
                             </li>
                         @else
@@ -216,24 +221,24 @@
                                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                             data-feather="mail"></i><span>Teams</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="nav-link" href="{{ route('team', 1) }}">Men</a></li>
-                                        <li><a class="nav-link" href="{{ route('team', 2) }}">Women</a></li>
+                                        <li><a class="nav-link" href="{{ route('team', $competions[0]->id) }}">Men</a></li>
+                                        <li><a class="nav-link" href="{{ route('team', $competions[1]->id) }}">Women</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                             data-feather="mail"></i><span>Fixtures</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="nav-link" href="{{ route('fixtures', 1) }}">Men</a></li>
-                                        <li><a class="nav-link" href="{{ route('fixtures', 2) }}">Women</a></li>
+                                        <li><a class="nav-link" href="{{ route('fixtures', $competions[0]->id) }}">Men</a></li>
+                                        <li><a class="nav-link" href="{{ route('fixtures', $competions[1]->id) }}">Women</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                             data-feather="mail"></i><span>Top Scores</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="nav-link" href="{{ route('top-score', 1) }}">Men</a></li>
-                                        <li><a class="nav-link" href="{{ route('top-score', 2) }}">Women</a></li>
+                                        <li><a class="nav-link" href="{{ route('top-score', $competions[0]->id) }}">Men</a></li>
+                                        <li><a class="nav-link" href="{{ route('top-score', $competions[1]->id) }}">Women</a></li>
                                     </ul>
                                 </li>
                             @endcan
