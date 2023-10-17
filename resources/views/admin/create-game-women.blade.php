@@ -31,7 +31,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Men game</h4>
+                            <h4>Create Women game</h4>
                         </div>
                         @if (session()->has('error'))
                         <div class="badge badge-danger">

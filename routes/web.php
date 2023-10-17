@@ -191,6 +191,8 @@ Route::get('/games-women', [GameController::class, 'listGamesWomen'])->name('fix
 
 
 Route::get('/add-game', [GameController::class, 'addGame'])->name('add.game');
+Route::get('/add-game-women', [GameController::class, 'addGameWomen'])->name('add.game.women');
+
 Route::get('/edit-game/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
 Route::post('/create-game', [GameController::class, 'createGame'])->name('create.game');
 Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');

@@ -106,7 +106,13 @@ class GameController extends Controller
         if (is_null($seasonID)) {
             return redirect('/games')->with('error', 'create season first');
         }
-        $teams = Team::all()->toArray();
+        $teams = DB::table('Team AS a')
+            ->select('a.*')
+            ->join('TeamCategory AS b', 'a.categoryID', '=', 'b.id')
+            ->where('b.name', 'men')
+            ->get()
+            ->toArray();
+
 
         if (empty($teams)) {
             return redirect('/games')->with('error', 'create teams first');
@@ -119,6 +125,43 @@ class GameController extends Controller
         }
 
         return view('admin.create-game', [
+            'teams' => $teams,
+            'days' => $days,
+            'seasonID' => $seasonID
+        ]);
+    }
+
+    public function addGameWomen()
+    {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect('/');
+        }
+
+        $seasonID = Season::orderBy('created_at', 'DESC')->first();
+
+        if (is_null($seasonID)) {
+            return redirect('/games')->with('error', 'create season first');
+        }
+        $teams = DB::table('Team AS a')
+            ->select('a.*')
+            ->join('TeamCategory AS b', 'a.categoryID', '=', 'b.id')
+            ->where('b.name', 'women')
+            ->get()
+            ->toArray();
+
+
+        if (empty($teams)) {
+            return redirect('/games')->with('error', 'create teams first');
+        }
+
+        $days = Day::where('seasonID', $seasonID->id)->get();
+
+        if (is_null($days)) {
+            return redirect('/games')->with('error', 'create day first');
+        }
+
+        return view('admin.create-game-women', [
             'teams' => $teams,
             'days' => $days,
             'seasonID' => $seasonID
@@ -156,7 +199,7 @@ class GameController extends Controller
             ->where('b.id', $request->awayTeamID)
             ->first();
 
-        if ($category1 != $category2) {
+        if ($category1->name != $category2->name) {
             return redirect('/games')->with('error', 'choose  Teams with the same category');
         }
 
@@ -193,8 +236,13 @@ class GameController extends Controller
                 ]);
             });
 
-            return redirect('/games')
-                ->with('message', 'Game added successfully');
+            if ($category1->name == 'men' && $category2->name == 'men') {
+                return redirect('/games')
+                    ->with('message', 'Game added successfully');
+            } else {
+                return redirect('/games-women')
+                    ->with('message', 'Game added successfully');
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('something wrong');
         }

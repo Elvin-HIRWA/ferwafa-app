@@ -25,7 +25,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ route('add.game') }}" class="btn btn-primary">
+                                        <a href="{{ route('add.game.women') }}" class="btn btn-primary">
                                             <i class="far fa-user"> &nbsp;</i>Add Match
                                         </a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
