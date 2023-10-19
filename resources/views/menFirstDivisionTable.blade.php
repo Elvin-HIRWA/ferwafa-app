@@ -56,9 +56,6 @@
                 </div>
             </div>
         </div>
-        @php
-            $categoryID = 1;
-        @endphp
         <section class="section">
             <div class="container mt-5">
                 <div class="row">

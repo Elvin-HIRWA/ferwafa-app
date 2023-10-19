@@ -17,14 +17,31 @@
 
 <body>
     @php
-        $day = DB::table('Game')
-            ->join('Day', 'Day.id', '=', 'Game.dayID')
-            ->where('Game.isPlayed', 1)
-            ->orderBy('Day.id', 'DESC')
-            ->first(['Game.dayID']);
+        // $day = DB::table('Game')
+        //     ->join('Day', 'Day.id', '=', 'Game.dayID')
+        //     ->where('Game.isPlayed', 1)
+        //     ->orderBy('Day.id', 'DESC')
+        //     ->first(['Game.dayID']);
         $competions = DB::table('TeamCategory')
             ->select('id', 'name')
             ->get();
+
+        $menDay = DB::table('Game')
+            ->join('Day', 'Day.id', '=', 'Game.dayID')
+            ->join('Team','Team.id', '=', 'homeTeamID')
+            ->join('TeamCategory', 'Team.categoryID', '=','TeamCategory.id')
+            ->where('Game.isPlayed', 1)
+            ->where('TeamCategory.id',$competions[0]->id)
+            ->orderBy('Day.id', 'DESC')
+            ->first(['Game.dayID']);
+            $womenDay = DB::table('Game')
+            ->join('Day', 'Day.id', '=', 'Game.dayID')
+            ->join('Team','Team.id', '=', 'homeTeamID')
+            ->join('TeamCategory', 'Team.categoryID', '=','TeamCategory.id')
+            ->where('Game.isPlayed', 1)
+            ->where('TeamCategory.id',$competions[1]->id)
+            ->orderBy('Day.id', 'DESC')
+            ->first(['Game.dayID']);
     @endphp
     <header>
         <div class="headerbox">
@@ -40,12 +57,12 @@
                     <div class="col" style="display: flex;">
                         <div style="margin-top: 20px;">
                             <marquee behavior="" direction="left">
-                                @if ($day)
+                                @if ($menDay)
                                     <h2 style="color:  #133E8D"> <a
-                                            href="{{ route('fixtures.show', [$competions[0]->id, $day->dayID]) }}"
+                                            href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}"
                                             style="color:  #133E8D">About Primus National League Click here</a></h2>
                                 @else
-                                    <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', [$competions[0]->id, $day->dayID]) }}"
+                                    <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}"
                                             style="color:  #133E8D">About Primus National League Click here</a></h2>
                                 @endif
                             </marquee>
@@ -72,8 +89,8 @@
                         <li>
                             <a href="#">{{$competions[0]->name}}</a>
                             <ul class="sub-current">
-                                @if ($day)
-                                    <li><a href="{{ route('fixtures.show', [$competions[0]->id, $day->dayID]) }}">Primus
+                                @if ($menDay)
+                                    <li><a href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}">Primus
                                             National</a></li>
                                 @else
                                     <li><a href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}">Primus National</a></li>
@@ -85,8 +102,8 @@
                         <li>
                             <a href="#">{{$competions[1]->name}}</a>
                             <ul class="sub-current">
-                                @if ($day)
-                                    <li><a href="{{ route('fixtures.show', [$competions[1]->id, $day->dayID]) }}">First Division</a></li>
+                                @if ($womenDay)
+                                    <li><a href="{{ route('fixtures.show', [$competions[1]->id, $womenDay->dayID]) }}">First Division</a></li>
                                 @else
                                     <li><a href="{{ route('fixtures.show', [$competions[1]->id, 1]) }}">First Division</a></li>
                                 @endif
@@ -189,8 +206,8 @@
                     <li>
                         <a href="#">{{$competions[0]->name}}</a>
                         <ul class="#">
-                            @if ($day)
-                                <li><a href="{{ route('fixtures.show', [$competions[0]->id, $day->dayID]) }}">Primus
+                            @if ($menDay)
+                                <li><a href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}">Primus
                                         National</a></li>
                             @else
                                 <li><a href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}">Primus National</a></li>
@@ -202,8 +219,8 @@
                     <li>
                         <a href="#">{{$competions[1]->name}}</a>
                         <ul class="#">
-                            @if ($day)
-                                <li><a href="{{ route('fixtures.show', [$competions[1]->id, $day->dayID]) }}">First Division</a></li>
+                            @if ($womenDay)
+                                <li><a href="{{ route('fixtures.show', [$competions[1]->id, $womenDay->dayID]) }}">First Division</a></li>
                             @else
                                 <li><a href="{{ route('fixtures.show', [$competions[1]->id, 1]) }}">First Division</a></li>
                             @endif

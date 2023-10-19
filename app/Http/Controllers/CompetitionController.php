@@ -68,9 +68,22 @@ class CompetitionController extends Controller
 
         $teams = Team::where('categoryID', $categoryID)->get()->toArray();
 
-        $days = DB::table('Game')
-                ->join('Day', 'Day.id','=','Game.dayID')
-                ->where('Game.isPlayed', 1)->orderBy('Day.id', 'DESC')->first(['Game.dayID']);        
+        $daysPlayed = DB::table('Game')
+                ->join('Day', 'Day.id', '=', 'Game.dayID')
+                ->join('Team','Team.id', '=', 'homeTeamID')
+                ->join('TeamCategory', 'Team.categoryID', '=','TeamCategory.id')
+                ->where('Game.isPlayed', 1)
+                ->where('TeamCategory.id',$categoryID)
+                ->orderBy('Day.id', 'DESC')
+                ->first(['Game.dayID']);
+                
+        if($daysPlayed){
+            $days = $daysPlayed;
+        } else {
+            $days = (object) [
+                "dayID" => 1
+            ];
+        }
 
         $teamStatistics = DB::select("SELECT a.name AS name, 
                                             SUM(b.goalWin) AS goalWin, 
