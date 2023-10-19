@@ -158,7 +158,7 @@ class TeamController extends Controller
     }
 
 
-    public function deleteTeam($id)
+    public function deleteTeam($categoryID,$id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -168,20 +168,20 @@ class TeamController extends Controller
         $team = Team::find($id);
 
         if (!$team) {
-            return redirect('/team')->with('error', 'Team not found');
+            return redirect("/team/$categoryID")->with('error', 'Team not found');
         }
 
         $teamStatistics = TeamStatistic::where('teamID', $id)->first();
 
         if (!is_null($teamStatistics)) {
-            return redirect('/team')
+            return redirect("/team/$categoryID")
                 ->with('error', 'Team cant be deleted, has used in matches');
         }
 
         Storage::delete($team->logo);
         $team->delete();
 
-        return redirect('/team')
+        return redirect("/team/$categoryID")
             ->with('message', 'deleted successfully');
     }
 }
