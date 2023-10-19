@@ -172,7 +172,7 @@ Route::get('/edit-team-category/{id}', [TeamCategoryController::class, 'editTeam
 Route::get('/team/{categoryID}', [TeamController::class, 'listTeam'])->name('team');
 Route::get('/add-team/{categoryID}', [TeamController::class, 'addTeam'])->name('add.team');
 Route::post('/create-team/{categoryID}', [TeamController::class, 'createTeam'])->name('create.team');
-Route::delete('/delete-team/{id}', [TeamController::class, 'deleteTeam'])->name('delete.team');
+Route::delete('/delete-team/{categoryID}/{id}', [TeamController::class, 'deleteTeam'])->name('delete.team');
 Route::put('/update-team/{categoryID}/{id}', [TeamController::class, 'updateTeam'])->name('update.team');
 Route::get('/edit-team/{categoryID}/{id}', [TeamController::class, 'editTeam'])->name('team.page.edit');
 Route::get('/team-doc/{fileName}', [TeamController::class, 'getTeamImageDoc'])->name('team.doc');
@@ -189,7 +189,7 @@ Route::get('/games/{categoryID}', [GameController::class, 'listGames'])->name('f
 Route::get('/add-game/{categoryID}', [GameController::class, 'addGame'])->name('add.game');
 Route::get('/edit-game/{categoryID}/{id}', [GameController::class, 'addMatchResult'])->name('game.page.edit');
 Route::post('/create-game/{categoryID}', [GameController::class, 'createGame'])->name('create.game');
-Route::delete('/delete-game/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
+Route::delete('/delete-game/{categoryID}/{id}', [GameController::class, 'deleteGame'])->name('delete.game');
 Route::put('/add-result/{categoryID}/{id}', [GameController::class, 'createMatchResult'])->name('create.game.result');
 Route::put('/update-fixture/{categoryID}/{id}', [GameController::class, 'updateGame'])->name('update.fixture');
 Route::get('/edit-fixture/{id}', [GameController::class, 'updateFixture'])->name('game.fixture.edit');

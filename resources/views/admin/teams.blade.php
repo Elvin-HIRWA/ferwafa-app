@@ -75,7 +75,7 @@
                                             <a href="{{ route('team.page.edit',[request()->route('categoryID'), $team['id']]) }}" class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $team['id'] }}">Delete</button>
+                                            <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $team['id'] }}" data-category-id="{{ request()->route('categoryID')}}">Delete</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -98,7 +98,7 @@
                     Are you sure you want to delete this Team ?
                 </div>
                 <div class="modal-footer">
-                    <form id="deleteGameForm" method="POST" action="{{ route('delete.team', 0) }}">
+                    <form id="deleteGameForm" method="POST" action="{{ route('delete.team',[0,0])}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -119,10 +119,10 @@
         $(document).ready(function() {
             $('.delete-game').click(function() {
                 var gameId = $(this).data('game-id');
+                var categoryId = $(this).data('category-id');
                 var form = $('#deleteGameForm');
                 var action = form.attr('action');
-                // Update the form action with the correct game ID
-                form.attr('action', action.replace('0', gameId));
+                form.attr('action', action.replace(0, categoryId).replace(0, gameId));
             });
         });
     </script>

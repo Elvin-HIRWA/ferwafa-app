@@ -326,7 +326,7 @@ class GameController extends Controller
             ->with('message', 'updated successfully');
     }
 
-    public function deleteGame($id)
+    public function deleteGame($categoryID,$id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
