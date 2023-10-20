@@ -172,7 +172,8 @@ class TopScoreController extends Controller
         $topScore = TopScore::find($id);
 
         if (!$topScore) {
-            return response()->json(["errors" => "TopScore not found"], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect("/top-score/$categoryID")
+                ->with('error', 'Top Score not found');
         }
 
         $topScore->delete();

@@ -326,7 +326,7 @@ class GameController extends Controller
             ->with('message', 'updated successfully');
     }
 
-    public function deleteGame($id)
+    public function deleteGame($categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -344,7 +344,7 @@ class GameController extends Controller
                 TeamStatistic::where('gameID', $game->id)->delete();
                 Game::where('id', $game->id)->delete();
             });
-            return redirect("/games/1")
+            return redirect("/games/$categoryID")
                 ->with('message', 'deleted successfully');
         } catch (\Exception $exception) {
             return \response()->json(

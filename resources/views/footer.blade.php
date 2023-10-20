@@ -89,8 +89,7 @@
                         <div class="info-links">
                             <h5>Subscribe</h5>
                             <p style="color: #f3f3f3">
-                                you can enter you email in other to subscribe in our website
-                                and you will receive latest new whenever it is uploaded
+                                You can enter your E mail to subscribe to our website, so as to receive the latest news.
                             </p>
                             <div class="subscribe">
                                 <input placeholder="Enter mail" type="email" /><button>

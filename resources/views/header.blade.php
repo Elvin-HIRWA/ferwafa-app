@@ -58,7 +58,8 @@
                                 @if ($menDay)
                                 <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}" style="color:  #133E8D">About Primus National League Click here</a></h2>
                                 @else
-                                <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}" style="color:  #133E8D">About Primus National League Click here</a></h2>
+                                    <h2 style="color:  #133E8D"> <a href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}"
+                                            style="color:  #133E8D">About Primus National League Click here</a></h2>
                                 @endif
                             </marquee>
                         </div>

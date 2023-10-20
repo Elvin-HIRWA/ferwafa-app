@@ -38,49 +38,47 @@
                             </div>
                         </div>
                         @if (session()->has('error'))
-                            <div class="badge badge-danger">
-                                {{ session()->get('error') }}
-                            </div>
+                        <div class="badge badge-danger">
+                            {{ session()->get('error') }}
+                        </div>
                         @endif
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 @foreach ($games as $data)
-                                    <table class="table table-striped">
-                                        <tr><th style="text-align: center; background-color:#133E8D; color:white" colspan="9">{{ $data[0]['dayName'] }}</th></tr>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Home Team</th>
-                                            <th>Away Team</th>
-                                            <th>Stade</th>
-                                            <th>Date</th>
-                                            <th>Home Team Goals</th>
-                                            <th>Away Team Goals</th>
-                                            <th colspan="2">Action</th>
-                                        </tr>
-                                        @foreach ($data as $key => $game)
-                                            <tr @if ($game['isPlayed'])
-                                                style='font-weight: bold'
-                                            @endif>
-                                                <td class="text-truncate">{{ $key + 1 }}</td>
-                                                <td> {{ $game['homeTeam'] }}</td>
-                                                <td>{{ $game['awayTeam'] }} </td>
-                                                <td> {{ $game['stadium'] }}</td>
-                                                <td> {{ $game['date'] }}</td>
-                                                <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
-                                                <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
-                                                <td>
-                                                    <a href="{{ route('game.page.edit',[request()->route('categoryID'), $game['id']]) }}"
-                                                        class="btn btn-outline-primary">Add Scores</a>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th style="text-align: center; background-color:#133E8D; color:white" colspan="9">{{ $data[0]['dayName'] }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Home Team</th>
+                                        <th>Away Team</th>
+                                        <th>Stade</th>
+                                        <th>Date</th>
+                                        <th>Home Team Goals</th>
+                                        <th>Away Team Goals</th>
+                                        <th colspan="2">Action</th>
+                                    </tr>
+                                    @foreach ($data as $key => $game)
+                                    <tr @if ($game['isPlayed']) style='font-weight: bold' @endif>
+                                        <td class="text-truncate">{{ $key + 1 }}</td>
+                                        <td> {{ $game['homeTeam'] }}</td>
+                                        <td>{{ $game['awayTeam'] }} </td>
+                                        <td> {{ $game['stadium'] }}</td>
+                                        <td> {{ $game['date'] }}</td>
+                                        <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
+                                        <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
+                                        <td>
+                                            <a href="{{ route('game.page.edit',[request()->route('categoryID'), $game['id']]) }}" class="btn btn-outline-primary">Add Scores</a>
 
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-outline-danger delete-game"
-                                                        data-toggle="modal" data-target="#confirmDeleteModal"
-                                                        data-game-id="{{ $game['id'] }}">Delete</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
+                                        </td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-outline-danger delete-game" data-toggle="modal" data-target="#confirmDeleteModal" data-game-id="{{ $game['id'] }}" data-category-id="{{ request()->route('categoryID')}}">Delete</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
                                 @endforeach
                             </div>
                         </div>
@@ -90,18 +88,17 @@
         </section>
     </div>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
-        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this Game?
+                    Are you sure you want to delete this Game ?
                 </div>
                 <div class="modal-footer">
-                    <form id="deleteGameForm" method="DELETE" action="{{ route('delete.game', 0) }}">
+                    <form id="deleteGameForm" method="POST" action="{{ route('delete.game',[0,0]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -123,10 +120,10 @@
         $(document).ready(function() {
             $('.delete-game').click(function() {
                 var gameId = $(this).data('game-id');
+                var categoryId = $(this).data('category-id');
                 var form = $('#deleteGameForm');
                 var action = form.attr('action');
-                // Update the form action with the correct game ID
-                form.attr('action', action.replace('0', gameId));
+                form.attr('action', action.replace(0, categoryId).replace(0, gameId));
             });
         });
     </script>
