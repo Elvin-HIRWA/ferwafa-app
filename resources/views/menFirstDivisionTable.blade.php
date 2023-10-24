@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
-    <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
@@ -65,10 +64,13 @@
                                 <div class="col-12 col-md-12 col-lg-12 p-0">
                                     <div class="col-12 col-md-12 card-header text-center">
                                         <ul class="menus">
-                                            <li><a href="{{ route('fixtures.show',[$categoryID, $days->dayID]) }}">Results &
+                                            <li><a href="{{ route('fixtures.show', [$categoryID, $days->dayID]) }}">Results
+                                                    &
                                                     Fixtures</a>
                                             </li> /
-                                            <li><a href="{{ route('men.first-division-table', $categoryID) }}">Standing</a></li>
+                                            <li><a
+                                                    href="{{ route('men.first-division-table', $categoryID) }}">Standing</a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="row m-0">
@@ -117,7 +119,7 @@
                                 <div class="col-12 col-md-12 col-lg-12 p-0">
                                     <div class="col-12 col-md-12 card-header text-center">
                                         <ul class="menus">
-                                            <li><a>{{$categoryName}} Top Scores</a></li>
+                                            <li><a>{{ $categoryName }} Top Scores</a></li>
                                         </ul>
                                     </div>
                                     <div class="row m-0">

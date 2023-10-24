@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
-    <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
@@ -28,22 +27,26 @@
             <ul class="social">
                 <li>
                     <div class="new-social-icon">
-                        <a class="facebook" href="https://www.facebook.com/RwandaFA/" target="_blank"><i style="color: #133e8d" class="fa fa-facebook"></i></a>
+                        <a class="facebook" href="https://www.facebook.com/RwandaFA/" target="_blank"><i
+                                style="color: #133e8d" class="fa fa-facebook"></i></a>
                     </div>
                 </li>
                 <li>
                     <div class="new-social-icon">
-                        <a class="twitter-icon" href="https://twitter.com/FERWAFA" target="_blank"><i style="color: #133e8d" class="fa fa-twitter"></i></a>
+                        <a class="twitter-icon" href="https://twitter.com/FERWAFA" target="_blank"><i
+                                style="color: #133e8d" class="fa fa-twitter"></i></a>
                     </div>
                 </li>
                 <li>
                     <div class="new-social-icon">
-                        <a class="instagram-icon" href="https://www.instagram.com/ferwafa/" target="_blank"><i style="color: #133e8d" class="fa fa-instagram"></i></a>
+                        <a class="instagram-icon" href="https://www.instagram.com/ferwafa/" target="_blank"><i
+                                style="color: #133e8d" class="fa fa-instagram"></i></a>
                     </div>
                 </li>
                 <li>
                     <div class="new-social-icon">
-                        <a class="youtube" href="https://www.youtube.com/@ferwafatv761" target="_blank"><i style="color: #133e8d" class="fa fa-youtube"></i></a>
+                        <a class="youtube" href="https://www.youtube.com/@ferwafatv761" target="_blank"><i
+                                style="color: #133e8d" class="fa fa-youtube"></i></a>
                     </div>
                 </li>
             </ul>
@@ -54,7 +57,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-5">
                         <div class="info-links">
                             <h5>Ferwafa</h5>
-                            <img src="{{asset('static/img/federation/ferwafa.png')}}" />
+                            <img src="{{ asset('static/img/federation/ferwafa.png') }}" />
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-7">
@@ -66,10 +69,12 @@
                                     &nbsp;<a href="#!">+250 788 608 988</a>
                                 </li>
                                 <li>
-                                    <i style="color: #fff" class="fa fa-location-arrow"></i>&nbsp;<a href="#!">23 KG 234 ST</a>
+                                    <i style="color: #fff" class="fa fa-location-arrow"></i>&nbsp;<a href="#!">23
+                                        KG 234 ST</a>
                                 </li>
                                 <li>
-                                    <i style="color: #fff" class="fa fa-envelope"></i>&nbsp;<a style="text-transform: lowercase" href="#!">ferwafa@yahoo.fr</a>
+                                    <i style="color: #fff" class="fa fa-envelope"></i>&nbsp;<a
+                                        style="text-transform: lowercase" href="#!">ferwafa@yahoo.fr</a>
                                 </li>
                             </ul>
                         </div>

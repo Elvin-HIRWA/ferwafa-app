@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
-    <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />

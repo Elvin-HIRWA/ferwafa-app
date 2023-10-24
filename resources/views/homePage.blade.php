@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
-    <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
@@ -21,25 +20,27 @@
         @include('header')
         <div class="hero-header">
             <div class="hero-slider" id="hero-slider">
-                @foreach($result as $news)
-                @if($news['is_top'] == 1)
-                <!-- Item Slide-->
-                <div class="item-slider" style="background:url({{ route('news.images.show', $news['image_url'])}})">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7 single-slider">
-                                <div class="info-slider">
-                                    <h1>{{ $news['title']}}</h1>
-                                    <p>
-                                        {{ $news['caption']}}
-                                    </p>
-                                    <a class="btn-iw outline" href="{{ route('single.news',$news['id'])}}">Read More <i class="fa fa-long-arrow-right"></i></a>
+                @foreach ($result as $news)
+                    @if ($news['is_top'] == 1)
+                        <!-- Item Slide-->
+                        <div class="item-slider"
+                            style="background:url({{ route('news.images.show', $news['image_url']) }})">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-7 single-slider">
+                                        <div class="info-slider">
+                                            <h1>{{ $news['title'] }}</h1>
+                                            <p>
+                                                {{ $news['caption'] }}
+                                            </p>
+                                            <a class="btn-iw outline" href="{{ route('single.news', $news['id']) }}">Read
+                                                More <i class="fa fa-long-arrow-right"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                @endif
+                    @endif
                 @endforeach
             </div>
 
@@ -55,26 +56,26 @@
                         </div>
                     </div>
                     @foreach ($result as $news)
-                    <div class="col-lg-6 col-xl-6">
-                        <div class="single-home-news">
-                            <div class="news-img">
-                                <img src="{{ route('news.images.show', $news['image_url'])}}">
-                            </div>
-                            <div class="news-information">
-                                <h5>
-                                    <a href="{{ route('single.news',$news['id'])}}">{{ $news['title']}}</a>
-                                </h5>
-                                <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
-                                <p>
-                                    {{$news['caption']}}
-                                </p>
-                                <a href="{{ route('single.news',$news['id'])}}">Read More [+]</a>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="single-home-news">
+                                <div class="news-img">
+                                    <img src="{{ route('news.images.show', $news['image_url']) }}">
+                                </div>
+                                <div class="news-information">
+                                    <h5>
+                                        <a href="{{ route('single.news', $news['id']) }}">{{ $news['title'] }}</a>
+                                    </h5>
+                                    <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
+                                    <p>
+                                        {{ $news['caption'] }}
+                                    </p>
+                                    <a href="{{ route('single.news', $news['id']) }}">Read More [+]</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
-                <a href={{ route('all.news')}} class="load-more">Load More</a>
+                <a href={{ route('all.news') }} class="load-more">Load More</a>
             </div>
             <section class="content-info">
                 <div class="single-team-tabs">
@@ -96,10 +97,12 @@
                                             </div>
                                         </div>
                                         <ul class="sponsors-carousel" style="margin-bottom:100px; margin-top: 150px;">
-                                            @foreach($partners as $partner)
-                                            <li>
-                                                <a target="_blank" href="{{$partner['link']}}"><img alt="" class="commercial-partner" src="{{ route('partner.doc', $partner['url']) }}" /></a>
-                                            </li>
+                                            @foreach ($partners as $partner)
+                                                <li>
+                                                    <a target="_blank" href="{{ $partner['link'] }}"><img
+                                                            alt="" class="commercial-partner"
+                                                            src="{{ route('partner.doc', $partner['url']) }}" /></a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>

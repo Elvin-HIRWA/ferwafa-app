@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <title>Ferwafa</title>
     <meta content="Ferwafa" name="description" />
-    <meta content="koracode" name="author" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
@@ -49,23 +48,23 @@
                     </div>
                     <!-- content Column Left -->
                     @foreach ($result as $news)
-                    <div class="col-lg-6 col-xl-6">
-                        <div class="single-home-news">
-                            <div class="news-img">
-                                <img src="{{ route('news.images.show', $news['image_url']) }}">
-                            </div>
-                            <div class="news-information">
-                                <h5>
-                                    <a href="{{ route('single.news', $news['id']) }}">{{ $news['title'] }}</a>
-                                </h5>
-                                <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
-                                <p>
-                                    {{ $news['caption'] }}
-                                </p>
-                                <a href="{{ route('single.news', $news['id']) }}">Read More [+]</a>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="single-home-news">
+                                <div class="news-img">
+                                    <img src="{{ route('news.images.show', $news['image_url']) }}">
+                                </div>
+                                <div class="news-information">
+                                    <h5>
+                                        <a href="{{ route('single.news', $news['id']) }}">{{ $news['title'] }}</a>
+                                    </h5>
+                                    <span class="data-info">{{ date('jS M Y', strtotime($news['created_at'])) }}</span>
+                                    <p>
+                                        {{ $news['caption'] }}
+                                    </p>
+                                    <a href="{{ route('single.news', $news['id']) }}">Read More [+]</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
