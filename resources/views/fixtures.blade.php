@@ -1,50 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('mainMenuBar', ['name' => 'News'])
 
-<head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <title>Ferwafa</title>
-    <meta content="Ferwafa" name="description" />
-    <!-- Mobile Metas -->
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="'static/CACHE/css/output.718a7af03b3d.css'" media="screen" rel="stylesheet" type="text/css" />
-    <link href="'static/img/federation/ferwafa.png'" rel="shortcut icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-    <script src="http://127.0.0.1:35729/livereload.js"></script>
-</head>
-
-<body>
-    <div id="layout">
-        @include('header')
-        <div class="section-title big-title"
-            style="background: url({{ asset('static/img/background/footballnew.jpg') }})">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h1 class="banner-title-main">First Division</h1>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="breadcrumbs">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li>First Division</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-                        <div class="card card-primary">
+<div
+      class="container-fluid eventlist blog blogpost upcoming-event latest-blog no-padding"
+    >
+      <div class="section-padding"></div>
+      <div class="container-fluid eventlist blog blogpost upcoming-event latest-blog no-padding">
+        <div class="container">
+            <div class="row " style="display: flex; justify-content: center">
                             <div class="row m-0">
-                                <div class="col-12 col-md-12 col-lg-12 p-0">
+                                <div class="col-10 col-md-10 col-lg-10 p-0">
                                     @include('competition-menus')
-                                    <div class="row m-0">
+                                    <div class="row">
                                         @if (!is_null($day))
                                             <table class="table table-bordered" height="40%">
                                                 <thead>
@@ -89,8 +55,7 @@
                     </div>
                 </div>
             </div>
-        </section>
-        @include('footer')
+      <div class="section-padding"></div>
     </div>
-    <script src="/static/CACHE/js/output.037fb98d23ee.js"></script>
-</body>
+
+@include('footer')

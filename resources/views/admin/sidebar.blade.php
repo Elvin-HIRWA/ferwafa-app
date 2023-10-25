@@ -92,7 +92,7 @@
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
                         <a href="{{ url('/') }}">
-                            <img alt="image" src="{{ asset('static/img/federation/ferwafa.png') }}"
+                            <img alt="image" src="{{ asset('asset/images/logo.png') }}"
                                 class="header-logo" />
                             <span class="logo-name">Ferwafa</span>
                         </a>
