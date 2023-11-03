@@ -110,39 +110,12 @@
 
         <!-- Container -->
         <div class="container">
-            <div class="footer-menu">
+            <div class="footer-menu" style="display:flex; justify-content:center; align-atimes: center">
                 <!-- Copyrights -->
                 <div class="copyrights ow-pull-left">
                     <p>Copyright &copy; <span id="currentYear"></span> FERWAFA. All rights Reserved</p>
                 </div>
                 <!-- Copyrights /- -->
-                <!-- Navigation -->
-                <nav class="navbar ow-navigation ow-pull-right">
-                    <div class="navbar-header">
-                        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar2"
-                            data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse" id="navbar2">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About Us</a></li>
-                            <li>
-                                <a href="#">Career</a>
-                            </li>
-                            @if (!Auth::check())
-                                <li>
-                                    <a title="Event List" href="{{ route('login') }}">Login</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </div>
-                </nav>
-                <!-- Navigation /- -->
             </div>
             <!-- Footer Menu /- -->
         </div>

@@ -24,19 +24,19 @@
     <!-- Header -->
     <header class="header-main container-fluid no-padding">
         <!-- Top Header -->
-        <div class="top-header container-fluid no-padding headerBackground">
+        <div class="top-header container-fluid no-padding headerBackground" style="margin-bottom: 24px">
             <!-- Container -->
             <div class="container-fluid">
                 <div class="row">
                     <!-- Social -->
-                    <div style="display: flex; justify-content: center; align-items: center"
-                        class="col-md-1 col-sm-1 col-xs-1 social">
-                        <a href="/" title="Return Home"><img style="width: 70%; height: 70%"
-                                src="{{ asset('asset/images/logo.png') }}" /></a>
-                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 logo-block">
+                        <a href="/" title="Logo">
+                          <img src="images/logo.png" alt="logo" width="66" height="61" />
+                        </a>
+                      </div>
                     <!-- Social /- -->
                     <!-- Logo Block -->
-                    <div class="col-md-10 col-sm-10 col-xs-10 logo-block">
+                    <div class="col-md-8 col-sm-8 col-xs-8 logo-block">
                         <marquee behavior="" direction="left">
                             @if ($menDay)
                                 <h2 style="color:  #133E8D"> <a
@@ -52,13 +52,11 @@
                     </div>
                     <!-- Logo Block /- -->
                     <!-- Register -->
-                    <div
-                        style="display: flex; justify-content: center; align-items: center"class="col-md-1 col-sm-1 col-xs-1">
-                        <a href="/" title="Return Home"><img width="70" height="70" alt="Logo"
-                                class="logo_img" src="{{ asset('images/primus.png') }}" /></a>
-                    </div>
-
-
+                    <div class="col-md-2 col-sm-2 col-xs-2 logo-block">
+                        <a href="/" title="Logo">
+                          <img src="images/primus.png" alt="logo" width="66" height="61" />
+                        </a>
+                      </div>
                 </div>
             </div>
             <!-- Container /- -->
@@ -68,7 +66,7 @@
         <!-- Menu Block -->
         <div class="menu-block container-fluid no-padding">
             <!-- Container -->
-            <div style="background-color: #133E8D;" class="container-fluid">
+            <div style="background-color: #133E8D;" class="container-fluid no-padding">
                 <!-- User /- -->
                 <div class="col-md-12 col-sm-12">
                     <!-- Navigation -->
@@ -153,7 +151,7 @@
                                     <i class="ddl-switch fa fa-angle-down"></i>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown">
-                                            <a title="Event Grid" href="eventgrid-page.html"
+                                            <a title="Event Grid" href="#"
                                                 style="display: flex; justify-content:space-between"><span>{{ $competions[0]->name }}</span>
                                                 <i class="fa fa-angle-right"></i></a>
                                             <i class="ddl-switch fa fa-angle-down"></i>

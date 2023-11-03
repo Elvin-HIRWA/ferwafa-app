@@ -1,60 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('mainMenuBar', ['name' => 'Stanfing'])
 
-<head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <title>Ferwafa</title>
-    <meta content="Ferwafa" name="description" />
-    <!-- Mobile Metas -->
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="./static/CACHE/css/output.718a7af03b3d.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="./static/img/federation/ferwafa.png" rel="shortcut icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-    <script src="http://127.0.0.1:35729/livereload.js"></script>
-
-    <style>
-        .menus {
-            list-style: none;
-        }
-
-        .menus li {
-            display: inline-block;
-            margin-right: 10px;
-            /* add spacing between items */
-        }
-
-        .main {
-            background: rgb(127, 206, 127);
-        }
-
-        .main-table {
-            background: rgb(234, 158, 158);
-        }
-    </style>
-</head>
-
-<body>
-    <div id="layout">
-        @include('header')
-        <div class="section-title big-title" style="background: url(../static/img/background/footballnew.jpg)">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h1 class="banner-title-main">First Division</h1>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="breadcrumbs">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li>First Division</li>
-                            </ul>
+<div class="container-fluid eventlist blog blogpost upcoming-event latest-blog no-padding">
+    <div class="container">
+        <div class="row " style="display: flex; justify-content: center">
+            <div class="col-md-10 col-sm-10 col-xs-6 blog-box">
+                <article class="type-post">
+                    <div class="entry-block">
+                        <div class="entry-meta">
+                            <div style="display: flex; justify-content: center; gap:12px">
+                                    <div >
+                                        <a href="{{ route('fixtures.show', [$categoryID, $days->dayID]) }}">Results
+                                            &
+                                            Fixtures</a>
+                                    </div>
+                                    <div >
+                                        <a
+                                                    href="{{ route('men.first-division-table', $categoryID) }}">Standing</a>
+                                    </div>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
+            </article>
         </div>
+
+    </div>
+</div>
+
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
@@ -153,6 +125,5 @@
                 </div>
             </div>
         </section>
-        @include('footer')
-    </div>
-</body>
+        
+@include('footer')

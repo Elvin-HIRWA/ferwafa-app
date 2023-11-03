@@ -13,7 +13,7 @@ class="container-fluid eventlist blog upcoming-event latest-blog no-padding"
         <div class="col-md-12 col-sm-12 col-xs-12 blog-box">
           <article class="type-post">
             <div class="entry-cover">
-              <a href="blogpost-page.html"
+              <a href="{{ route('single.news', $news['id']) }}"
                 ><img
                   src="{{ route('news.images.show', $news['image_url']) }}"
                   alt="blog"
@@ -33,7 +33,7 @@ class="container-fluid eventlist blog upcoming-event latest-blog no-padding"
               </div>
               <div class="entry-title">
                 <a
-                  href="blogpost-page.html"
+                  href="{{ route('single.news', $news['id']) }}"
                   title="We know Flipper lives in a world full of wonder flying there under under the sea"
                 >
                   <h3>

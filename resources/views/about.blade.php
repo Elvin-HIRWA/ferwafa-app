@@ -176,8 +176,8 @@
         <div class="container-fluid no-padding team-section">
             <div class="section-padding"></div>
             <div class="section-header">
-                <h3>meet our great Executive Committee Members</h3>
-                <span>Our Great Committee</span>
+                <h3>Meet our great Executive Committee Members</h3>
+                <span>Executive Committee</span>
             </div>
             <ul id="team-carousel">
                 @foreach ($committe as $value)
