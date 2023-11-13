@@ -1,15 +1,15 @@
 @include('mainMenuBar', ['name' => 'Documents'])
 
 <div class="container-fulid no-padding contactus">
-    <div class="section-padding"></div>
+    <div class="section-padding"><center><h2>Documents</h2></center></div>
     <div class="container">
         <div class="row">
-            <div class="report-container">
+            <div class="report-container" style="display: flex; gap: 24px">
                 @foreach ($documents as $document)
                     <div class="report">
                         <div class="report-image">
-                            <a><img alt="" src="/static/img/icons/document.png" /></a>
-                            <a><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
+                            <a href="{{ route('report.doc', $document['url']) }}" target="_blank"><img alt="" src="/static/img/icons/document.png" /></a>
+                            <a href="{{ route('report.doc', $document['url']) }}" target="_blank"><img alt="" class="click-report" src="/static/img/icons/click.png" /></a>
                         </div>
                         <div class="report-title">
                             <a href="{{ route('report.doc', $document['url']) }}" target="_blank">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-
+    <div class="section-padding"></div>
 </div>
 
 @include('footer')

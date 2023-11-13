@@ -36,6 +36,82 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcode.css') }}" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .report {
+            height: 170px;
+            width: 10%;
+            border: 1px solid #133E8D;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .report:hover {
+            box-shadow: -5px 8px 30px 0px #133E8D, 0px 10px 15px -3px rgba(0, 0, 0, 0.1)
+        }
+
+        .report-image {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative
+        }
+
+        .click-report {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+            animation: bounce-infinite 2s linear infinite;
+            display: none
+        }
+
+        .report:hover .click-report {
+            display: block
+        }
+
+        .report-title {
+            text-align: center;
+            height: 40%;
+            padding: 0 6px
+        }
+
+        .report-title p {
+            font-weight: 500;
+            color: black;
+            font-size: 13px;
+            transition: 0.4s
+        }
+
+        .report-title p:hover {
+            color: #133E8D
+        }
+
+        @media all and (max-width:768px) {
+            .report {
+                width: 100%;
+            }
+
+            .report-container {
+                padding-left: 130px;
+                padding-right: 130px
+            }
+        }
+
+        @media all and (max-width:475px) {
+            .report {
+                width: 100%;
+            }
+
+            .report-container {
+                padding-left: 130px;
+                padding-right: 130px
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -49,7 +125,7 @@
                     <h3>Keep in Touch</h3>
                     <ol class="breadcrumb">
                         <li><a href="/">Home</a></li>
-                        <li class="active" style="color: yellow"> {{$name}}</li>
+                        <li class="active" style="color: yellow"> {{ $name }}</li>
                     </ol>
                 </div>
             </div>
