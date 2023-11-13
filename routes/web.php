@@ -185,10 +185,10 @@ Route::post('/create-day', [DayController::class, 'createDay'])->name('create.da
 Route::delete('/delete-day/{id}', [DayController::class, 'deleteDay'])->whereNumber('id')->name('delete.day.season');
 
 
-Route::get('/games/{categoryID}', [GameController::class, 'listGames'])->whereNumber('categoryID')->name('fixtures');
-Route::get('/add-game/{categoryID}', [GameController::class, 'addGame'])->whereNumber('categoryID')->name('add.game');
+Route::get('/games/{divisionID}/{categoryID}', [GameController::class, 'listGames'])->whereNumber(['divisionID', 'categoryID'])->name('fixtures');
+Route::get('/add-game/{divisionID}/{categoryID}', [GameController::class, 'addGame'])->whereNumber(['divisionID', 'categoryID'])->name('add.game');
 Route::get('/edit-game/{categoryID}/{id}', [GameController::class, 'addMatchResult'])->whereNumber(['categoryID', 'id'])->name('game.page.edit');
-Route::post('/create-game/{categoryID}', [GameController::class, 'createGame'])->whereNumber(['categoryID', 'id'])->name('create.game');
+Route::post('/create-game/{divisionID}/{categoryID}', [GameController::class, 'createGame'])->whereNumber(['divisionID', 'categoryID', 'id'])->name('create.game');
 Route::delete('/delete-game/{categoryID}/{id}', [GameController::class, 'deleteGame'])->whereNumber(['categoryID', 'id'])->name('delete.game');
 Route::put('/add-result/{categoryID}/{id}', [GameController::class, 'createMatchResult'])->whereNumber(['categoryID', 'id'])->name('create.game.result');
 Route::put('/update-fixture/{categoryID}/{id}', [GameController::class, 'updateGame'])->whereNumber(['categoryID', 'id'])->name('update.fixture');

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Division', function (Blueprint $table) {
+        Schema::create('Group', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();  //division1, division2
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Division');
+        Schema::dropIfExists('Group');
     }
 };
