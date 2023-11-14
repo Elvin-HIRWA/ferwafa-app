@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="testimonial-box testimonial-left" style="height: 136px">
                                     <a href="https://olympicrwanda.org/" target="_blank">
-                                        <img src="{{ asset('images/images.png') }}" alt="testimonial1"
+                                        <img src="{{ asset('images/Logo Institu CNOSR sans fond.png') }}" alt="testimonial1"
                                             style="width: 144px; height: 136px" />
                                     </a>
                                 </div>
