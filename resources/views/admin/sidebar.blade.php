@@ -244,8 +244,24 @@
                                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                             data-feather="mail"></i><span>Fixtures</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="nav-link" href="{{ route('fixtures', $category[0]->id) }}">Men</a></li>
-                                        <li><a class="nav-link" href="{{ route('fixtures', $category[1]->id) }}">Women</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                                    data-feather="mail"></i><span>Men</span></a>
+                                            <ul class="dropdown-menu">
+                                                <li class="dropdown">
+                                                    <a class="nav-link" href="{{ route('fixtures', [$divisions[0]->id, $category[0]->id]) }}">First Division</a></li>
+                                                <li class="dropdown">
+                                                    <a class="nav-link" href="{{ route('fixtures', [$divisions[1]->id, $category[0]->id]) }}">Second Division</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                                    data-feather="mail"></i><span>Women</span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="nav-link" href="{{ route('fixtures', [$divisions[0]->id, $category[1]->id]) }}">First Division</a></li>
+                                                <li><a class="nav-link" href="{{ route('fixtures', [$divisions[1]->id, $category[1]->id]) }}">Second Division</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
