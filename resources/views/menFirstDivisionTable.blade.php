@@ -1,4 +1,4 @@
-@include('mainMenuBar', ['name' => 'Stanfing'])
+@include('mainMenuBar', ['name' => 'Standing'])
 
 <div class="container-fluid eventlist blog blogpost upcoming-event latest-blog no-padding">
     <div class="container">
