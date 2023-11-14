@@ -36,13 +36,13 @@
                                                     <tbody>
                                                         @foreach ($teamStatistics as $key => $teamStatistic)
                                                             @if ($key + 1 === count($teamStatistics) || $key + 1 === count($teamStatistics) - 1)
-                                                                <tr class="main-table main">
+                                                                <tr class="last-teams main">
                                                                 @else
                                                                 <tr>
                                                             @endif
         
                                                             @if ($key + 1 == 1)
-                                                                <tr class="main">
+                                                                <tr class="first-team">
                                                             @endif
                                                             <th scope="row">{{ $key + 1 }} </th>
                                                             <td>{{ $teamStatistic->name }}</td>

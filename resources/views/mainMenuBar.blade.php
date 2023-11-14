@@ -122,11 +122,11 @@
             /* add spacing between items */
         }
 
-        .main {
+        .first-team {
             background: rgb(127, 206, 127);
         }
 
-        .main-table {
+        .last-teams {
             background: rgb(234, 158, 158);
         }
 
