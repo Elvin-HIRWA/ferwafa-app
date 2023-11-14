@@ -17,8 +17,8 @@
                    </div>
                    <div style="display: flex; justify-content: center">
                        @foreach ($days as $day)
-                           <div class="post-date">
-                               <a href="{{ route('fixtures.show', [request()->route('divisionID'), $categoryID, $day->id]) }}">{{ $day->abbreviation }}
+                           <div class="post-date" style="dis">
+                               <a style="margin-left: 8px; font-size: 14px" href="{{ route('fixtures.show', [request()->route('divisionID'), $categoryID, $day->id]) }}">{{ $day->abbreviation }} /
                                </a>
                            </div>
                        @endforeach
