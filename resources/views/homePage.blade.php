@@ -8,7 +8,7 @@
     <meta content="Ferwafa" name="description" />
     <!-- Mobile Metas -->
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        name="viewport />
+        name="viewport" />
     <!-- Standard Favicon -->
     <link rel="icon" type="image/x-icon"
         href="{{ asset('images/favicon.ico') }}" />

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Division;
 use App\Models\Game;
 use App\Models\Team;
 use App\Models\TeamCategory;
@@ -35,8 +36,16 @@ class TeamController extends Controller
                 ->with('error', 'Create Team Category first');
         }
 
+        $divisions = Division::all()->toArray();
+
+        if (empty($divisions)) {
+            return redirect("/team/$categoryID")
+                ->with('error', 'Contact Support');
+        }
+
         return view('admin.create-team', [
-            "categories" => $teamCategory
+            "categories" => $teamCategory,
+            "divisions" => $divisions
         ]);
     }
 
@@ -46,20 +55,39 @@ class TeamController extends Controller
             Auth::logout();
             return redirect('/');
         }
+
         $request->validate([
             "name" => "required|string",
             "logo" => "required|file|max:5000|mimes:png,jpg,jpeg,svg",
-            "categoryID" => "required|integer"
+            "categoryID" => "required|integer",
+            "divisionID" => "required|integer"
 
         ]);
+
+        $division = Division::where('id', $request->divisionID)->first();
+        
+        if (is_null($division)) {
+            return redirect('/')
+                ->with('error', 'Division not found');
+        }
+
+        $teamCategory = TeamCategory::where('id', $request->categoryID)->first();
+        
+        if (is_null($teamCategory)) {
+            return redirect('/')
+                ->with('error', 'Team category not found');
+        }
 
         $path = $request->logo->store('team');
-
-        Team::create([
-            "name" => $request->name,
-            "categoryID" => $request->categoryID,
-            "logo" => $path
-        ]);
+        
+        DB::transaction(function() use($request, $path, $teamCategory, $division){
+            Team::create([
+                "name" => $request->name,
+                "categoryID" => $teamCategory->id,
+                "logo" => $path,
+                "divisionID" => $division->id
+            ]);
+        });
 
         return redirect("/team/$categoryID")
             ->with('message', 'Member is added successfully');
@@ -118,9 +146,17 @@ class TeamController extends Controller
             return redirect()->back()->with('errors', 'Team not found');
         }
 
+        $divisions = Division::all()->toArray();
+
+        if (empty($divisions)) {
+            return redirect("/team/$categoryID")
+                ->with('error', 'Contact Support');
+        }
+
         return view('admin.update-team', [
             'team' => $team,
-            'categories' => $teamCategory
+            'categories' => $teamCategory,
+            'divisions' => $divisions
         ]);
     }
 
@@ -135,9 +171,23 @@ class TeamController extends Controller
         $request->validate([
             "name" => "required|string",
             "logo" => "required|file|max:5000|mimes:png,jpg,jpeg,svg",
-            "categoryID" => "required|integer"
-
+            "categoryID" => "required|integer",
+            "divisionID" => "required|integer"
         ]);
+        
+        $division = Division::where('id', $request->divisionID)->first();
+        
+        if (is_null($division)) {
+            return redirect('/')
+                ->with('error', 'Division not found');
+        }
+
+        $teamCategory = TeamCategory::where('id', $request->categoryID)->first();
+        
+        if (is_null($teamCategory)) {
+            return redirect('/')
+                ->with('error', 'Team category not found');
+        }
 
         $team = Team::find($id);
 
@@ -151,6 +201,7 @@ class TeamController extends Controller
         $team->name = $request->name;
         $team->logo = $path;
         $team->categoryID = $request->categoryID;
+        $team->divisionID = $request->divisionID;
         $team->save();
 
         return redirect("/team/$categoryID")

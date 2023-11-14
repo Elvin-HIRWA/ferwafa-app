@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Division;
 use App\Models\DocumentType;
+use App\Models\Group;
 use App\Models\NewsType;
 use App\Models\Permission;
 use App\Models\Status;
+use App\Models\TeamCategory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -64,8 +67,23 @@ class CreateDefaultData extends Command
             'other'
         ];
 
+        $divisions = [
+            "First Division",
+            "Second Division"
+        ];
+
+        $groups = [
+            "Group A",
+            "Group B"
+        ];
+
+        $teamCategory = [
+            "Men",
+            "Women"
+        ];
+
         try {
-            DB::transaction(function () use ($documentTypes, $status, $permissions, $newsTypes) {
+            DB::transaction(function () use ($documentTypes, $status, $permissions, $newsTypes, $divisions, $groups, $teamCategory) {
 
                 foreach ($documentTypes as $documentType) {
                     $type = DocumentType::where('name', $documentType)->first();
@@ -108,6 +126,39 @@ class CreateDefaultData extends Command
                         continue;
                     } else {
                         NewsType::create([
+                            'name' => $value
+                        ]);
+                    }
+                }
+
+                foreach ($divisions as $value) {
+                    $division = Division::where('name', $value)->first();
+                    if (!is_null($division)) {
+                        continue;
+                    } else {
+                        Division::create([
+                            'name' => $value
+                        ]);
+                    }
+                }
+
+                foreach ($groups as $value) {
+                    $group = Group::where('name', $value)->first();
+                    if (!is_null($group)) {
+                        continue;
+                    } else {
+                        Group::create([
+                            'name' => $value
+                        ]);
+                    }
+                }
+
+                foreach ($teamCategory as $value) {
+                    $category = TeamCategory::where('name', $value)->first();
+                    if (!is_null($category)) {
+                        continue;
+                    } else {
+                        TeamCategory::create([
                             'name' => $value
                         ]);
                     }

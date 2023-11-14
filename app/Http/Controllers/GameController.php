@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
+use App\Models\Division;
 use App\Models\Game;
+use App\Models\Group;
 use App\Models\Season;
 use App\Models\Team;
 use App\Models\TeamCategory;
@@ -13,20 +15,29 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class GameController extends Controller
 {
-    public function listGames($categoryID)
+    public function listGames(int $divisionID, int $categoryID)
     {
+        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
+            Auth::logout();
+            return redirect("/games/$divisionID/$categoryID");
+        }
+
+        $division = Division::where('id', $divisionID)->first();
+        
+        if (is_null($division)) {
+            return redirect('/')
+                ->with('error', 'Division not found');
+        }
+
         $teamCategory = TeamCategory::where('id', $categoryID)->first();
         
         if (is_null($teamCategory)) {
             return redirect('/')
                 ->with('error', 'Team category not found');
-        }
-        if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
-            Auth::logout();
-            return redirect("/games/$categoryID");
         }
 
         $games = DB::table('Game')
@@ -36,6 +47,7 @@ class GameController extends Controller
                 'awayTeam.name AS awayTeam',
                 'Game.stadeName AS stadium',
                 'Game.date',
+                'Game.groupID',
                 'Game.homeTeamGoals',
                 'Game.awayTeamGoals',
                 'Game.isPlayed',
@@ -47,6 +59,8 @@ class GameController extends Controller
             ->join('Day', 'Game.dayID', '=', 'Day.id')
             ->where('homeTeam.categoryID', $categoryID)
             ->where('awayTeam.categoryID', $categoryID)
+            ->where('homeTeam.divisionID', $divisionID)
+            ->where('awayTeam.divisionID', $divisionID)
             ->orderBy('Day.id', 'DESC')
             ->orderBy('Game.id', 'DESC')
             ->get();
@@ -61,11 +75,18 @@ class GameController extends Controller
         ]);
     }
 
-    public function addGame($categoryID)
+    public function addGame(int $divisionID, int $categoryID)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
+        }
+
+        $division = Division::where('id', $divisionID)->first();
+        
+        if (is_null($division)) {
+            return redirect('/')
+                ->with('error', 'Division not found');
         }
 
         $teamCategory = TeamCategory::where('id', $categoryID)->first();
@@ -78,28 +99,36 @@ class GameController extends Controller
         $seasonID = Season::orderBy('created_at', 'DESC')->first();
 
         if (is_null($seasonID)) {
-            return redirect("/games/$categoryID")->with('error', 'create season first');
+            return redirect("/games/$divisionID/$categoryID")->with('error', 'create season first');
         }
-        $teams = Team::where('categoryID', $categoryID)->get()->toArray();
+
+        $teams = Team::where([['divisionID', $divisionID], ['categoryID', $categoryID]])->get()->toArray();
 
         if (empty($teams)) {
-            return redirect("/games/$categoryID")->with('error', 'create teams first');
+            return redirect("/games/$divisionID/$categoryID")->with('error', 'create teams first');
         }
 
         $days = Day::where('seasonID', $seasonID->id)->get();
 
         if (is_null($days)) {
-            return redirect("/games/$categoryID")->with('error', 'create day first');
+            return redirect("/games/$divisionID/$categoryID")->with('error', 'create day first');
+        }
+
+        $groups = Group::all();
+
+        if (is_null($groups)) {
+            return redirect("/games/$divisionID/$categoryID")->with('error', 'No Group Found');
         }
 
         return view('admin.create-game', [
+            'groups' => $groups,
             'teams' => $teams,
             'days' => $days,
             'seasonID' => $seasonID
         ]);
     }
 
-    public function createGame($categoryID, Request $request)
+    public function createGame($divisionID, $categoryID, Request $request)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
@@ -112,10 +141,11 @@ class GameController extends Controller
             "stade" => "required|string",
             "date" => "required|date",
             "dayID" => "required|integer",
+            "groupID" => [Rule::requiredIf($divisionID == 2), "nullable", "integer"],
         ]);
 
         if ($request->homeTeamID == $request->awayTeamID) {
-            return redirect("/games/$categoryID")->with('error', 'choose different Teams');
+            return redirect("/games/$divisionID/$categoryID")->with('error', 'choose different Teams');
         }
 
         // if (now() > $request->date) {
@@ -131,7 +161,8 @@ class GameController extends Controller
                     "homeTeamGoals" => 0,
                     "awayTeamGoals" => 0,
                     "date" => $request->date,
-                    "dayID" => $request->dayID
+                    "dayID" => $request->dayID,
+                    "groupID" => $request->groupID,
                 ]);
 
                 TeamStatistic::create([
@@ -151,7 +182,7 @@ class GameController extends Controller
                 ]);
             });
 
-            return redirect("/games/$categoryID")
+            return redirect("/games/$divisionID/$categoryID")
                 ->with('message', 'Game added successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('something wrong');
@@ -188,7 +219,7 @@ class GameController extends Controller
         ]);
     }
 
-    public function createMatchResult($categoryID, Request $request, $gameID)
+    public function createMatchResult($divisionID, $categoryID, Request $request, $gameID)
     {
         $request->validate([
             "homeTeamID" => "required|integer",
@@ -196,6 +227,20 @@ class GameController extends Controller
             "awayTeamID" => "required|integer",
             "awayTeamGoals" => "required|integer"
         ]);
+
+        $division = Division::where('id', $divisionID)->first();
+        
+        if (is_null($division)) {
+            return redirect('/')
+                ->with('error', 'Division not found');
+        }
+
+        $teamCategory = TeamCategory::where('id', $categoryID)->first();
+        
+        if (is_null($teamCategory)) {
+            return redirect('/')
+                ->with('error', 'Team category not found');
+        }
 
         $game = Game::find($gameID);
 
@@ -245,7 +290,7 @@ class GameController extends Controller
                 $awayTeam->save();
                 $game->save();
             });
-            return redirect("/games/$categoryID")->with('message', 'Result Added successfully');
+            return redirect("/games/$divisionID/$categoryID")->with('message', 'Result Added successfully');
         } catch (\Exception $exception) {
 
             return \response()->json(

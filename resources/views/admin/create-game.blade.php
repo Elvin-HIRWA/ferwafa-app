@@ -43,8 +43,21 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form method="POST" action="{{ route('create.game', request()->route('categoryID')) }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('create.game', [request()->route('divisionID'), request()->route('categoryID')]) }}" enctype="multipart/form-data">
                                                 @csrf
+
+                                                @if (request()->route('divisionID') == 2)
+                                                    <div class="form-group row mb-4">
+                                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Select Group</label>
+                                                        <div class="col-sm-12 col-md-7">
+                                                            <select name="groupID" class="form-control selectric">
+                                                                @foreach($groups as $group)
+                                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div class="form-group row mb-4">
                                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Day</label>
                                                     <div class="col-sm-12 col-md-7">

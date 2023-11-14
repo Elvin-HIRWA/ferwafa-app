@@ -4,6 +4,10 @@
             ->select('id', 'name')
             ->get();
 
+        $divisions = DB::table('Division')
+        ->select('id', 'name')
+        ->get();
+
         $menDay = DB::table('Game')
             ->join('Day', 'Day.id', '=', 'Game.dayID')
             ->join('Team', 'Team.id', '=', 'homeTeamID')
@@ -31,7 +35,7 @@
                     <!-- Social -->
                     <div class="col-md-2 col-sm-2 col-xs-2 logo-block">
                         <a href="/" title="Logo">
-                          <img src="images/logo.png" alt="logo" width="66" height="61" />
+                          <img src="{{asset('images/logo.png')}}" alt="logo" width="66" height="61" />
                         </a>
                       </div>
                     <!-- Social /- -->
@@ -40,11 +44,11 @@
                         <marquee behavior="" direction="left">
                             @if ($menDay)
                                 <h2 style="color:  #133E8D"> <a
-                                        href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}"
+                                        href="{{ route('fixtures.show', [$divisions[0]->id, $competions[0]->id, $menDay->dayID]) }}"
                                         style="color:  #133E8D">About Primus National League Click here</a></h2>
                             @else
                                 <h2 style="color:  #133E8D"> <a
-                                        href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}"
+                                        href="{{ route('fixtures.show', [$divisions[0]->id, $competions[0]->id, 1]) }}"
                                         style="color:  #133E8D">About Primus National League Click here</a></h2>
                             @endif
                         </marquee>
@@ -54,7 +58,7 @@
                     <!-- Register -->
                     <div class="col-md-2 col-sm-2 col-xs-2 logo-block">
                         <a href="/" title="Logo">
-                          <img src="images/primus.png" alt="logo" width="66" height="61" />
+                          <img src="{{asset('images/primus.png')}}" alt="logo" width="66" height="61" />
                         </a>
                       </div>
                 </div>
@@ -104,16 +108,16 @@
                                                 <li>
                                                     @if ($menDay)
                                                         <a title="Event List"
-                                                            href="{{ route('fixtures.show', [$competions[0]->id, $menDay->dayID]) }}">Primus
+                                                            href="{{ route('fixtures.show', [$divisions[0]->id, $competions[0]->id, $menDay->dayID]) }}">Primus
                                                             National</a>
                                                     @else
                                                         <a title="Event List"
-                                                            href="{{ route('fixtures.show', [$competions[0]->id, 1]) }}">Primus
+                                                            href="{{ route('fixtures.show', [$divisions[0]->id, $competions[0]->id, 1]) }}">Primus
                                                             National</a>
                                                     @endif
                                                 </li>
                                                 <li>
-                                                    <a title="Event List" href="#">Second Division</a>
+                                                    <a title="Event List" href="{{ route('fixtures.show', [$divisions[1]->id, $competions[0]->id, 1]) }}">Second Division</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -126,11 +130,11 @@
                                                 <li>
                                                     @if ($womenDay)
                                                         <a title="Event List"
-                                                            href="{{ route('fixtures.show', [$competions[1]->id, $womenDay->dayID]) }}">First
+                                                            href="{{ route('fixtures.show', [$divisions[0]->id, $competions[1]->id, $womenDay->dayID]) }}">First
                                                             Division</a>
                                                     @else
                                                         <a title="Event List"
-                                                            href="{{ route('fixtures.show', [$competions[1]->id, 1]) }}">First
+                                                            href="{{ route('fixtures.show', [$divisions[0]->id, $competions[1]->id, 1]) }}">First
                                                             Division</a>
                                                     @endif
                                                 </li>
