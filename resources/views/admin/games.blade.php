@@ -77,7 +77,7 @@
                                             <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
                                             <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
                                             <td>
-                                                <a href="{{ route('game.page.edit',[request()->route('categoryID'), $game['id']]) }}" class="btn btn-outline-primary">Add Scores</a>
+                                                <a href="{{ route('game.page.edit',[request()->route('divisionID'), request()->route('categoryID'), $game['id']]) }}" class="btn btn-outline-primary">Add Scores</a>
 
                                             </td>
 
@@ -120,7 +120,7 @@
                                                 <td> @if(!$game['isPlayed']) - @else {{ $game['homeTeamGoals'] }} @endif</td>
                                                 <td> @if(!$game['isPlayed']) - @else {{ $game['awayTeamGoals'] }} @endif</td>
                                                 <td>
-                                                    <a href="{{ route('game.page.edit',[request()->route('categoryID'), $game['id']]) }}" class="btn btn-outline-primary">Add Scores</a>
+                                                    <a href="{{ route('game.page.edit',[request()->route('divisionID'), request()->route('categoryID'), $game['id']]) }}" class="btn btn-outline-primary">Add Scores</a>
 
                                                 </td>
 

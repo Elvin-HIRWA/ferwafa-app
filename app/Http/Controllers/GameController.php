@@ -189,14 +189,14 @@ class GameController extends Controller
         }
     }
 
-    public function addMatchResult($categoryID, $id)
+    public function addMatchResult($divisionID, $categoryID, $id)
     {
         if (!Gate::allows('is-admin') && !Gate::allows('is-competition-manager')) {
             Auth::logout();
             return redirect('/');
         }
 
-        $game = Game::find($id);
+        $game = Game::where($id);
 
         if (!$game) {
             return redirect()->back()->with('error', 'Game not found');
@@ -211,6 +211,8 @@ class GameController extends Controller
             ->join('Team as b', 'a.homeTeamID', '=', 'b.id')
             ->join('Team as c', 'a.awayTeamID', '=', 'c.id')
             ->where('a.id', $id)
+            ->where('b.divisionID', $divisionID)
+            ->where('c.divisionID', $divisionID)
             ->first();
 
         return view('admin.add-result', [
@@ -229,7 +231,7 @@ class GameController extends Controller
         ]);
 
         $division = Division::where('id', $divisionID)->first();
-        
+
         if (is_null($division)) {
             return redirect('/')
                 ->with('error', 'Division not found');

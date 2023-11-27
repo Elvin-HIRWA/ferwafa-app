@@ -139,7 +139,16 @@
                                                     @endif
                                                 </li>
                                                 <li>
-                                                    <a title="Event List" href="#">Second Division</a>
+                                                    @if ($womenDay)
+                                                        <a title="Event List"
+                                                            href="{{ route('fixtures.show', [$divisions[1]->id, $competions[1]->id, $womenDay->dayID]) }}">Second
+                                                            Division</a>
+                                                    @else
+                                                        <a title="Event List"
+                                                            href="{{ route('fixtures.show', [$divisions[1]->id, $competions[1]->id, 1]) }}">Second
+                                                            Division</a>
+                                                    @endif
+                                                    {{-- <a title="Event List" href="#">Second Division</a> --}}
                                                 </li>
                                             </ul>
                                         </li>
