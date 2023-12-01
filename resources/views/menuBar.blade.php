@@ -218,7 +218,7 @@
                                             <a title="Event List" href="#">Report</a>
                                         </li>
                                         <li>
-                                            <a title="Event List" href="#">Documents</a>
+                                            <a title="Event List" href="{{route('document.page.show')}} ">Documents</a>
                                         </li>
                                         <li class="dropdown">
                                             <a title="Event Grid" href="#"
@@ -236,7 +236,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a title="Event List" href="#">Circular</a>
+                                            <a title="Event List" href="{{route('circular.page.show')}}">Circular</a>
                                         </li>
                                         <li>
                                             <a title="Event List" href="#">Gallery</a>

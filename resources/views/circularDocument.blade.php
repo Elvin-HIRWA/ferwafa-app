@@ -1,7 +1,7 @@
 @include('mainMenuBar', ['name' => 'Circular Documents'])
 
 <div class="container-fulid no-padding contactus">
-    <div class="section-padding"></div>
+    <div class="section-padding"><center><h2>Circular</h2></div>
     <div class="container">
         <div class="row">
             <div class="report-container">
