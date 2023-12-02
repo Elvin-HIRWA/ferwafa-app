@@ -231,7 +231,7 @@
                                                         of The Games</a>
                                                 </li>
                                                 <li>
-                                                    <a title="Event List" href="#">Others</a>
+                                                    <a title="Event List" href="{{route('rules.page.show')}}">Others</a>
                                                 </li>
                                             </ul>
                                         </li>

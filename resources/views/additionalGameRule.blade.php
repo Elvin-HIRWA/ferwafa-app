@@ -1,7 +1,7 @@
 @include('mainMenuBar', ['name' => 'Additional Game Rules'])
 
 <div class="container-fulid no-padding contactus">
-    <div class="section-padding"></div>
+    <div class="section-padding"><center><h2>Additional Rules</h2></center></div>
     <div class="container">
         <div class="row">
             <div class="report-container">
