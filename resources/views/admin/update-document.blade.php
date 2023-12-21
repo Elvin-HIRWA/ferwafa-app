@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    @include('admin.sidebar')
+    {{-- @include('admin.sidebar') --}}
     <div class="main-content">
         <section class="section">
             <div class="row">
